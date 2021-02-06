@@ -1,0 +1,5 @@
+1. Edit the icons of the committees
+2. Edit the font size responsive issues
+3. Edit the events to redirect to event's details
+4. Add the backend
+5. Document the code
