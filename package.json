@@ -9,15 +9,13 @@
     ]
   },
   "scripts": {
-    "dev-start": "concurrently \"nodemon\" \"cd front/ && npm start\"",
-    "start": "node index.js",
-    "front-install": "cd front/ && npm i && cd .."
+    "dev-start": "nodemon",
+    "start": "node index.js"
   },
   "author": "Energia IT Team",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
-    "concurrently": "^5.3.0",
     "config": "^3.3.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
