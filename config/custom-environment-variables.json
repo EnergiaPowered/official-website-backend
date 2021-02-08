@@ -1,3 +1,5 @@
 {
-    "jwtPrivateKey": "Energia_jwtPrivateKey"
+    "jwtPrivateKey": "Energia_jwtPrivateKey",
+    "Email":"Energia_Email",
+    "Password": "Energia_Password"
 }
