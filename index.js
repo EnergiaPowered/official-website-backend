@@ -3,6 +3,9 @@ const cors = require("cors");
 const app = express();
 const config = require('./config/custom-environment-variables.json');
 
+//	Removing unverified users
+setInterval(require('./bin/unverified'), 1000*60*60);
+
 require("dotenv").config();
 
 // connect to DB
