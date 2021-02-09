@@ -7,7 +7,11 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
 const mailer = require("../bin/mailer");
+const crypto = require('crypto');
+const config = require("config");
 
+// Key to encrypt and decrypt the token
+const mykey = crypto.createCipher('aes-128-cbc', config.get("Cipher-Password"));
 // get info about the user from his JWT Token
 router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.user._id).select("-password -__v -_id");
@@ -48,8 +52,12 @@ router.post("/users", async (req, res) => {
 
   // Send the message to the user with the token 
   token = user.generateAuthToken();
+  // encrypt the token using aes algorithm and Private-Key 
+  let encrypted_token = mykey.update(token, 'utf8', 'hex');
+  encrypted_token += mykey.final('hex');
+
   host=req.get('host');
-  link="http://"+req.get('host')+"/verify?id="+token;
+  link="http://"+req.get('host')+"/verify?id="+encrypted_token;
   mailer(user.email,link)
 
   res.status(200).send({ message: "You have registered successfully. Please log in! Check your Email for Verification Please" });

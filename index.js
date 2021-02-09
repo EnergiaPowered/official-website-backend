@@ -17,10 +17,11 @@ if (!config['jwtPrivateKey']) {
   console.log('FATAL ERROR: jwtPrivateKey is not defined.');
   process.exit(1);
 }
-if (!config['Email'] || !config['Password']) {
-  console.log('FATAL ERROR: Email or Password is not defined.');
+if (!config['Email'] || !config['Password'] || !config['Cipher-Password'] ) {
+  console.log('FATAL ERROR: Email or Password or Cipher-Password is not defined.');
   process.exit(1);
 }
+
 
 
 // parse the body of the request

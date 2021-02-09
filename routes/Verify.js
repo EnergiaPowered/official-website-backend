@@ -4,8 +4,9 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const mailer = require("../bin/mailer");
 const config = require("config");
-
-
+const crypto = require('crypto');
+// Key to encrypt and decrypt the token
+const mykey = crypto.createDecipher('aes-128-cbc', config.get("Cipher-Password"));
 // Expired Token
 function expire(tokenTime) {
 
@@ -24,12 +25,12 @@ function expire(tokenTime) {
 router.get("/verify", async (req, res) => {
     token = req.query["id"];
     try {
-        const decoded = jwt.verify(token, config.get("jwtPrivateKey"));
-        console.log(decoded["_id"]);
+        let decrypted_token = mykey.update(token, 'hex', 'utf8')
+        decrypted_token += mykey.final('utf8');
+        const decoded = jwt.verify(decrypted_token, config.get("jwtPrivateKey"));
         try{
             // find the user
             let user = await User.findById(decoded["_id"]);
-            console.log(user.verified)
              // check if the user is already verified
             if(user.verified){
                     res.status(200).send(user.firstname +" "+user.lastname +" is already verified");
