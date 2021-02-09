@@ -6,6 +6,7 @@ const passwordComplexity = require('joi-password-complexity');
 const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
+const mailer = require("../bin/mailer");
 
 // get info about the user from his JWT Token
 router.get("/me", auth, async (req, res) => {
@@ -45,7 +46,13 @@ router.post("/users", async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
 
-  res.status(200).send({ message: "You have registered successfully. Please log in!" });
+  // Send the message to the user with the token 
+  token = user.generateAuthToken();
+  host=req.get('host');
+  link="http://"+req.get('host')+"/verify?id="+token;
+  mailer(user.email,link)
+
+  res.status(200).send({ message: "You have registered successfully. Please log in! Check your Email for Verification Please" });
 });
 
 function validate_update(user) {

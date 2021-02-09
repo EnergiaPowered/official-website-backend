@@ -5,7 +5,7 @@ module.exports =  function(){
 		if (err) throw err;
 
 		let currentDate = new Date().getTime();
-		if(parseInt(currentDate - user.addTimeStamp) >= (24*60*60*1000)){
+		if(parseInt(currentDate - user.createdAt) >= (24*60*60*1000)){
 			User.deleteOne({ _id: user._id }, function(err, obj) {
 				if (err) throw err;
 			});

@@ -71,11 +71,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  addTimeStamp: {
-    type: Date,
-    default: new Date().getTime(),
-  }
-});
+},{ timestamps: true});
 
 // function to generate the token with PAYLOAD
 userSchema.methods.generateAuthToken = function () {
