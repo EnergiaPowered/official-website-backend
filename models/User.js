@@ -66,8 +66,12 @@ const userSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     default: false
-  }
-});
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+},{ timestamps: true});
 
 // function to generate the token with PAYLOAD
 userSchema.methods.generateAuthToken = function () {
