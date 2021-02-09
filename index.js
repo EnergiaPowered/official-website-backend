@@ -4,8 +4,8 @@ const app = express();
 const config = require('./config/custom-environment-variables.json');
 
 // hours that the check the unverified users
-let hours = 1 ;
-setInterval(require('./bin/unverified'), 1000 * 60 *60 * hours);
+let hours = 6 ;
+setInterval(require('./bin/unverified'), 1000 * 60 * 60 * hours);
 
 require("dotenv").config();
 
