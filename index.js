@@ -3,6 +3,10 @@ const cors = require("cors");
 const app = express();
 const config = require('./config/custom-environment-variables.json');
 
+// hours that the check the unverified users
+let hours = 6 ;
+setInterval(require('./bin/unverified'), 1000 * 60 * 60 * hours);
+
 require("dotenv").config();
 
 // connect to DB
@@ -13,6 +17,12 @@ if (!config['jwtPrivateKey']) {
   console.log('FATAL ERROR: jwtPrivateKey is not defined.');
   process.exit(1);
 }
+if (!config['Email'] || !config['Password'] || !config['Cipher-Password'] ) {
+  console.log('FATAL ERROR: Email or Password or Cipher-Password is not defined.');
+  process.exit(1);
+}
+
+
 
 // parse the body of the request
 app.use(express.json());
@@ -32,6 +42,7 @@ app.use(require("./routes/crew"));
 app.use(require("./routes/committees"));
 app.use(require("./routes/users"));
 app.use(require("./routes/login"));
+app.use(require("./routes/Verify"));
 
 // listen to specific port
 const port = process.env.PORT || 4000;
