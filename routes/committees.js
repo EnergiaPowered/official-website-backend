@@ -48,6 +48,14 @@ const committeeCheckSchema = checkSchema({
         },
         rtrim: true,
         escape: true
+    },
+    jobDescription: {
+        isArray: true,
+        exists: {
+            options: {
+                checkFalsy: true
+            }
+        }
     }
 });
 

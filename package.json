@@ -9,7 +9,7 @@
     ]
   },
   "scripts": {
-    "dev-start": "nodemon",
+    "dev-start": "npx nodemon index.js",
     "start": "node index.js"
   },
   "author": "Energia IT Team",

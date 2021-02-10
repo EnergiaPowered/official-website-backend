@@ -17,6 +17,10 @@ const committeeSchema = new mongoose.Schema({
     vision: {
         type: String,
         required: true
+    },
+    jobDescription: {
+        type: Array,
+        required: true
     }
 });
 
