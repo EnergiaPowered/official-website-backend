@@ -1,7 +1,6 @@
 const Joi = require('joi');
 const _ = require('lodash');
 const crypto = require('crypto');
-const config = require("config");
 const bcrypt = require('bcrypt');
 const mailer = require("../bin/mailer");
 const auth = require("../middleware/auth");
@@ -10,7 +9,7 @@ const { User, validate } = require('../models/User');
 const passwordComplexity = require('joi-password-complexity');
 
 // Key to encrypt and decrypt the token
-const mykey = crypto.createCipher('aes-128-cbc', config.get("Cipher-Password"));
+const mykey = crypto.createCipher('aes-128-cbc', process.env.CIPHER_PASSWORD);
 // get info about the user from his JWT Token
 router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.user._id).select("-password -__v -_id");

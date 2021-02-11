@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const config = require('./config/custom-environment-variables.json');
 
 // hours that the check the unverified users
 let hours = 6;
@@ -12,16 +11,6 @@ require("dotenv").config();
 // connect to DB
 const db = require("./mongo");
 db();
-
-if (!config['jwtPrivateKey']) {
-  console.log('FATAL ERROR: jwtPrivateKey is not defined.');
-  process.exit(1);
-}
-
-if (!config['Email'] || !config['Password'] || !config['Cipher-Password']) {
-  console.log('FATAL ERROR: Email or Password or Cipher-Password is not defined.');
-  process.exit(1);
-}
 
 // parse the body of the request
 app.use(express.json());

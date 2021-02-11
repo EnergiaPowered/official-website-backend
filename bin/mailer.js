@@ -1,7 +1,5 @@
 // use nodemailer to sent the email
 let nodemailer = require("nodemailer");
-// config where the email and password storing 
-let config = require("config");
 // handlebars simple template to put the link in the html 
 let handlebars = require('handlebars');
 let fs = require("fs");
@@ -10,8 +8,8 @@ let fs = require("fs");
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: config.get('Email'),
-    pass: config.get('Password')
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD
   }
 });
 
@@ -35,7 +33,7 @@ function sendMailer(to, link) {
 
       // create the message content 
       let message = {
-        from: config.get('Email'),
+        from: process.env.EMAIL,
         to,
         subject: 'Email Verfication from Energia Powered',
         html: htmlToSend

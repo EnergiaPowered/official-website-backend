@@ -3,10 +3,9 @@ const express = require("express")
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const mailer = require("../bin/mailer");
-const config = require("config");
 const crypto = require('crypto');
 // Key to encrypt and decrypt the token
-const mykey = crypto.createDecipher('aes-128-cbc', config.get("Cipher-Password"));
+const mykey = crypto.createDecipher('aes-128-cbc', process.env.CIPHER_PASSWORD);
 
 // Expired Token
 function expire(tokenTime) {
@@ -25,7 +24,7 @@ router.get("/verify", async (req, res) => {
     try {
         let decrypted_token = mykey.update(token, 'hex', 'utf8')
         decrypted_token += mykey.final('utf8');
-        const decoded = jwt.verify(decrypted_token, config.get("jwtPrivateKey"));
+        const decoded = jwt.verify(decrypted_token, process.env.PRIVATE_KEY);
         try {
             // find the user
             let user = await User.findById(decoded["_id"]);

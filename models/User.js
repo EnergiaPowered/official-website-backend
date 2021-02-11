@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const config = require('config');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const passwordComplexity = require('joi-password-complexity');
@@ -77,7 +76,7 @@ const userSchema = new mongoose.Schema({
 // function to generate the token with PAYLOAD
 userSchema.methods.generateAuthToken = function () {
   payload = { _id: this._id, isAdmin: this.isAdmin };
-  const token = jwt.sign(payload, config.get('jwtPrivateKey'));
+  const token = jwt.sign(payload, process.env.PRIVATE_KEY);
   return token;
 };
 
