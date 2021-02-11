@@ -9,8 +9,8 @@
     ]
   },
   "scripts": {
-    "dev-start": "npx nodemon index.js",
-    "start": "node index.js"
+    "dev-start": "set NODE_ENV=development&& npx nodemon index.js",
+    "start": "set NODE_ENV=production&& node index.js"
   },
   "author": "Energia IT Team",
   "license": "ISC",
