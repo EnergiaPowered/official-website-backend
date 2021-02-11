@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 7,
     maxlength: 15,
+    unique: true
   },
   email: {
     type: String,
@@ -71,7 +72,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-},{ timestamps: true});
+}, { timestamps: true });
 
 // function to generate the token with PAYLOAD
 userSchema.methods.generateAuthToken = function () {
