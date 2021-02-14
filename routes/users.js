@@ -2,7 +2,7 @@ const Joi = require('joi');
 const _ = require('lodash');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-const mailer = require("../bin/mailer");
+const mailer = require("../methods/mailer");
 const auth = require("../middleware/auth");
 const router = require('express').Router();
 const { User, validate } = require('../models/User');
@@ -59,7 +59,7 @@ router.post("/users", async (req, res) => {
 
   host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
   link = host + "/verify?id=" + encrypted_token;
-  mailer(user.email, link);
+  mailer(user.email, link,'Email Verfication from Energia Powered','./assets/verify.html');
 
   res.status(200).send({ message: "You have registered successfully. Please check your email for verification." });
 });
