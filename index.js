@@ -4,7 +4,7 @@ const app = express();
 
 // hours that the check the unverified users
 let hours = 6;
-setInterval(require('./bin/unverified'), 1000 * 60 * 60 * hours);
+setInterval(require('./methods/unverified'), 1000 * 60 * 60 * hours);
 
 require("dotenv").config();
 
