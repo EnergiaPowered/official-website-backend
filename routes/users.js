@@ -7,8 +7,7 @@ const auth = require("../middleware/auth");
 const router = require('express').Router();
 const { User, validate } = require('../models/User');
 const passwordComplexity = require('joi-password-complexity');
-// Key to encrypt and decrypt the token
-const mykey = crypto.createCipheriv('aes-128-cbc',process.env.CIPHER_PASSWORD ,process.env.INIT_VECTOR);
+
 // get info about the user from his JWT Token
 router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.user._id).select("-password -__v -_id");
@@ -52,6 +51,8 @@ router.post("/users", async (req, res) => {
 
   // Send the message to the user with the token 
   token = user.generateAuthToken();
+  // Key to encrypt and decrypt the token
+  let mykey = crypto.createCipheriv('aes-128-cbc',process.env.CIPHER_PASSWORD ,process.env.INIT_VECTOR);
   // encrypt the token using aes algorithm and Private-Key 
   let encrypted_token = mykey.update(token, 'utf8', 'hex');
   encrypted_token += mykey.final('hex');
