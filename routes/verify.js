@@ -4,8 +4,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const mailer = require("../methods/mailer");
 const crypto = require('crypto');
-// Key to encrypt and decrypt the token
-const mykey = crypto.createDecipher('aes-128-cbc', process.env.CIPHER_PASSWORD);
+
 
 // Expired Token
 function expire(tokenTime) {
@@ -21,9 +20,12 @@ function expire(tokenTime) {
 
 router.get("/verify", async (req, res) => {
     token = req.query["id"];
+    // Key to encrypt and decrypt the token
+    let mykey = crypto.createDecipheriv('aes-128-cbc', process.env.CIPHER_PASSWORD, process.env.INIT_VECTOR);
     try {
         let decrypted_token = mykey.update(token, 'hex', 'utf8')
         decrypted_token += mykey.final('utf8');
+
         const decoded = jwt.verify(decrypted_token, process.env.PRIVATE_KEY);
         try {
             // find the user
@@ -39,7 +41,8 @@ router.get("/verify", async (req, res) => {
                     res.status(400).send("The link is expired. We are sending you a new email.");
 
                     // Send the message to the user with the token 
-
+                    // Key to encrypt and decrypt the token
+                    let mykey = crypto.createDecipheriv('aes-128-cbc', process.env.CIPHER_PASSWORD, process.env.INIT_VECTOR);
                     let encrypted_token = mykey.update(token, 'utf8', 'hex');
                     encrypted_token += mykey.final('hex');
                   
