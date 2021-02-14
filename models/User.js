@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const config = require('config');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const passwordComplexity = require('joi-password-complexity');
@@ -22,6 +21,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 7,
     maxlength: 15,
+    unique: true
   },
   email: {
     type: String,
@@ -71,12 +71,12 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-},{ timestamps: true});
+}, { timestamps: true });
 
 // function to generate the token with PAYLOAD
 userSchema.methods.generateAuthToken = function () {
   payload = { _id: this._id, isAdmin: this.isAdmin };
-  const token = jwt.sign(payload, config.get('jwtPrivateKey'));
+  const token = jwt.sign(payload, process.env.PRIVATE_KEY);
   return token;
 };
 

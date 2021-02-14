@@ -1,17 +1,15 @@
-const { User, validate } = require('../models/User');
-const _ = require('lodash');
-const auth = require("../middleware/auth");
 const Joi = require('joi');
-const passwordComplexity = require('joi-password-complexity');
-const bcrypt = require('bcrypt');
-const express = require('express');
-const router = express.Router();
-const mailer = require("../bin/mailer");
+const _ = require('lodash');
 const crypto = require('crypto');
-const config = require("config");
+const bcrypt = require('bcrypt');
+const mailer = require("../bin/mailer");
+const auth = require("../middleware/auth");
+const router = require('express').Router();
+const { User, validate } = require('../models/User');
+const passwordComplexity = require('joi-password-complexity');
 
 // Key to encrypt and decrypt the token
-const mykey = crypto.createCipher('aes-128-cbc', config.get("Cipher-Password"));
+const mykey = crypto.createCipher('aes-128-cbc', process.env.CIPHER_PASSWORD);
 // get info about the user from his JWT Token
 router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.user._id).select("-password -__v -_id");
@@ -24,7 +22,10 @@ router.post("/users", async (req, res) => {
   if (error) return res.status(400).send({ message: error.details[0].message });
 
   let user = await User.findOne({ email: req.body.email });
-  if (user) return res.status(400).send({ message: 'User already registered.' });
+  if (user) return res.status(400).send({ message: 'Email is already taken.' });
+
+  user = await User.findOne({ phone: req.body.phone });
+  if (user) return res.status(400).send({ message: 'Phone number is already taken.' });
 
   if (req.body.password !== req.body.confirm_password)
     return res.status(400).send({ message: 'Passwords don\'t match.' });
@@ -42,7 +43,7 @@ router.post("/users", async (req, res) => {
       'department',
       'graduationYear'
     ]),
-    isAdmin: true
+    isAdmin: false
   });
 
   // hashing password
@@ -56,11 +57,11 @@ router.post("/users", async (req, res) => {
   let encrypted_token = mykey.update(token, 'utf8', 'hex');
   encrypted_token += mykey.final('hex');
 
-  host=req.get('host');
-  link="http://"+req.get('host')+"/verify?id="+encrypted_token;
-  mailer(user.email,link)
+  host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
+  link = host + "/verify?id=" + encrypted_token;
+  mailer(user.email, link);
 
-  res.status(200).send({ message: "You have registered successfully. Please log in! Check your Email for Verification Please" });
+  res.status(200).send({ message: "You have registered successfully. Please check your email for verification." });
 });
 
 function validate_update(user) {

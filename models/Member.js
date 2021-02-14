@@ -21,6 +21,10 @@ const memberSchema = new mongoose.Schema({
     imageID: {
         type: String,
         required: true
+    },
+    isBest: {
+        type: Boolean,
+        default: false
     }
 });
 

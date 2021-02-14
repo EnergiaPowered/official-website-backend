@@ -50,6 +50,7 @@ router.get("/message", (req, res) => {
     res.status(200).json(messages);
   });
 });
+
 router.post("/message", messageCheckSchema, (req, res) => {
   try {
     if (req.body && req.body !== {}) {

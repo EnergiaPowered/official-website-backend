@@ -9,14 +9,13 @@
     ]
   },
   "scripts": {
-    "dev-start": "nodemon",
-    "start": "node index.js"
+    "dev-start": "set NODE_ENV=development&& npx nodemon index.js",
+    "start": "set NODE_ENV=production&& node index.js"
   },
   "author": "Energia IT Team",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
-    "config": "^3.3.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
