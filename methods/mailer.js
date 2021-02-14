@@ -13,10 +13,10 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-function sendMailer(to, link) {
+function sendMailer(to , link , subject ,body) {
   // read the Html file where it will sent to the email
   let emailtemplate = new Promise(function (resolve, reject) {
-    fs.readFile(__dirname + '/EmailTemplate.html', { encoding: 'utf-8' }, function (err, html) {
+    fs.readFile(body, { encoding: 'utf-8' }, function (err, html) {
       resolve(html);
       reject(err);
     });
@@ -35,7 +35,7 @@ function sendMailer(to, link) {
       let message = {
         from: process.env.EMAIL,
         to:to,
-        subject: 'Email Verfication from Energia Powered',
+        subject: subject,
         html: htmlToSend
       };
       // await the transporter to send the email containig the message 
