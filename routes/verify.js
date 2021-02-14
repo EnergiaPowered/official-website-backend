@@ -1,8 +1,8 @@
-const { User } = require('../models/User');
+const { User, validate }  = require('../models/User');
 const express = require("express")
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const mailer = require("../bin/mailer");
+const mailer = require("../methods/mailer");
 const crypto = require('crypto');
 // Key to encrypt and decrypt the token
 const mykey = crypto.createDecipher('aes-128-cbc', process.env.CIPHER_PASSWORD);
@@ -39,9 +39,12 @@ router.get("/verify", async (req, res) => {
                     res.status(400).send("The link is expired. We are sending you a new email.");
 
                     // Send the message to the user with the token 
-                    token = user.generateAuthToken();
+
+                    let encrypted_token = mykey.update(token, 'utf8', 'hex');
+                    encrypted_token += mykey.final('hex');
+                  
                     host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
-                    link = host + "/verify?id=" + token;
+                    link = host + "/verify?id=" + encrypted_token;
                     mailer(user.email, link);
                 }
                 else {
