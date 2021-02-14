@@ -28,13 +28,13 @@ function sendMailer(to, link) {
 
       // use handlbars to compile html and put the dynamic data (token) into the html 
       let template = handlebars.compile(html);
-      let replacements = { link }
+      let replacements = { link : link}
       let htmlToSend = template(replacements);
 
       // create the message content 
       let message = {
         from: process.env.EMAIL,
-        to,
+        to:to,
         subject: 'Email Verfication from Energia Powered',
         html: htmlToSend
       };
@@ -49,5 +49,4 @@ function sendMailer(to, link) {
     })
     .catch(err => console.log("Error While Sending the Email\n" + err));
 }
-
 module.exports = sendMailer;
