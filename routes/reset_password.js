@@ -6,11 +6,13 @@ const jwt = require("jsonwebtoken");
 const expire = require('../methods/expire');
 const Joi = require('joi');
 const passwordComplexity = require('joi-password-complexity');
+const bcrypt = require('bcrypt');
 
 
 router.post('/forget_password', async (req,res) => {
-    email = req.body.email;
-    user_agent = req.header['User-Agent'];
+    let email = req.body.email;
+    let user_agent = req.headers['user-agent'];
+    console.log(user_agent);
     // check if the email exist in the database 
     user = await User.findOne({email:email});
     if (!user) res.status(404).send('invalid Email');
@@ -21,9 +23,9 @@ try{
     let encrypted_token = mykey.update(token, 'utf8', 'hex');
     encrypted_token += mykey.final('hex');
     host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
-    link = host + "/verify?id=" + encrypted_token;
+    link = host + "/reset?id=" + encrypted_token;
     // send the email
-    mailer(user.email,link,'Reset Password Request For EnergiaPowered','./assets/reset.html',user_agent);
+    mailer(user.email,link,user.firstname,'Reset Password Request For EnergiaPowered','./assets/reset.html',user_agent);
     res.status(200).send("Reset Password email is sent successfully");
 }
 catch(err){ 
@@ -69,8 +71,12 @@ router.post('/reset', async (req,res) => {
         // find the user
         let user = await User.findById(decoded["_id"]);
         user.password = password; 
+        // hashing password
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
         await user.save();
 
     }
     catch(err){res.status(500).send('Error while reset password'+ err)}
 });
+module.exports = router;
