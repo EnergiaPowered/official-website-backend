@@ -31,6 +31,7 @@ app.use(require("./routes/committees"));
 app.use(require("./routes/users"));
 app.use(require("./routes/login"));
 app.use(require("./routes/verify"));
+app.use(require("./routes/reset_password"));
 
 // listen to specific port
 const port = process.env.PORT || 4000;
