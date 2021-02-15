@@ -59,7 +59,7 @@ router.post("/users", async (req, res) => {
 
   host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
   link = host + "/verify?id=" + encrypted_token;
-  mailer(user.email, link,user.firstname,'Email Verfication from Energia Powered','./assets/verify.html');
+  mailer(user.email, link,'Email Verfication from Energia Powered','./assets/verify.html');
 
   res.status(200).send({ message: "You have registered successfully. Please check your email for verification." });
 });
