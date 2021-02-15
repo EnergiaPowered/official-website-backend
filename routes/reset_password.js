@@ -53,13 +53,13 @@ function validate_password(password) {
 
 router.post('/reset', async (req,res) => {
     // validate password
-    const { error } = validate_update(req.body);
+    const { error } = validate_password(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     let token = req.query.id;
     let password = req.body.password;
-    let mykey = crypto.createDecipheriv('aes-128-cbc', process.env.CIPHER_PASSWORD, process.env.INIT_VECTOR);
     try {
+        let mykey = crypto.createDecipheriv('aes-128-cbc', process.env.CIPHER_PASSWORD, process.env.INIT_VECTOR);
         let decrypted_token = mykey.update(token, 'hex', 'utf8')
         decrypted_token += mykey.final('utf8');
         const decoded = jwt.verify(decrypted_token, process.env.PRIVATE_KEY);
@@ -75,7 +75,7 @@ router.post('/reset', async (req,res) => {
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt);
         await user.save();
-
+        res.status(200).send('Reset Password Success');
     }
     catch(err){res.status(500).send('Error while reset password'+ err)}
 });
