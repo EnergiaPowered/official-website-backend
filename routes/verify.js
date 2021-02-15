@@ -48,7 +48,7 @@ router.get("/verify", async (req, res) => {
                   
                     host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
                     link = host + "/verify?id=" + encrypted_token;
-                    mailer(user.email, link);
+                    mailer(user.email, link,user.firstname,'Email Verfication from Energia Powered','./assets/verify.html');
                 }
                 else {
                     user.verified = true;
