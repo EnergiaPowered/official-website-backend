@@ -1,4 +1,5 @@
 const { User, validate }  = require('../models/User');
+const expire = require('../methods/expire');
 const express = require("express")
 const router = express.Router();
 const jwt = require("jsonwebtoken");
@@ -6,17 +7,6 @@ const mailer = require("../methods/mailer");
 const crypto = require('crypto');
 
 
-// Expired Token
-function expire(tokenTime) {
-    let dateNow = new Date();
-    // Expire Time 
-    let hours = 2;
-    let tokenLife = hours * 60 * 60 * 1000;
-    if (tokenTime + tokenLife < dateNow.getTime()) {
-        return true;
-    }
-    return false;
-}
 
 router.get("/verify", async (req, res) => {
     token = req.query["id"];
@@ -37,7 +27,7 @@ router.get("/verify", async (req, res) => {
             else {
                 // check the token is expired 
                 let tokenTime = decoded.iat * 1000;
-                if (expire(tokenTime)) {
+                if (expire(tokenTime,2)) {
                     res.status(400).send("The link is expired. We are sending you a new email.");
 
                     // Send the message to the user with the token 
