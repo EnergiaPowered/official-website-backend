@@ -13,7 +13,7 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-function sendMailer(to , link , subject ,body) {
+function sendMailer(to , link , username ,subject ,body) {
   // read the Html file where it will sent to the email
   let emailtemplate = new Promise(function (resolve, reject) {
     fs.readFile(body, { encoding: 'utf-8' }, function (err, html) {
@@ -28,7 +28,10 @@ function sendMailer(to , link , subject ,body) {
 
       // use handlbars to compile html and put the dynamic data (token) into the html 
       let template = handlebars.compile(html);
-      let replacements = { link : link}
+      let replacements = { 
+        link : link,
+        name : username
+      }
       let htmlToSend = template(replacements);
 
       // create the message content 
