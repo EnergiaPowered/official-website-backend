@@ -59,7 +59,7 @@ const memberCheckSchema = checkSchema({
     }
 });
 
-// Retrieve all crew
+// Retrieve crew
 router.get("/crew", (req, res) => {
     Member.find(req.query, (err, crew) => {
         if (err) {

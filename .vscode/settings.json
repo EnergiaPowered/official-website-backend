@@ -3,5 +3,6 @@
         "energia",
         "fortawesome"
     ],
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "python.pythonPath": "C:\\Users\\Abdulla\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe"
 }
