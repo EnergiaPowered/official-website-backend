@@ -4,7 +4,7 @@ const app = express();
 
 // hours that the check the unverified users
 let hours = 6;
-setInterval(require('./bin/unverified'), 1000 * 60 * 60 * hours);
+setInterval(require('./methods/unverified'), 1000 * 60 * 60 * hours);
 
 require("dotenv").config();
 
@@ -31,6 +31,7 @@ app.use(require("./routes/committees"));
 app.use(require("./routes/users"));
 app.use(require("./routes/login"));
 app.use(require("./routes/verify"));
+app.use(require("./routes/reset_password"));
 
 // listen to specific port
 const port = process.env.PORT || 4000;
