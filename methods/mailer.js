@@ -13,10 +13,10 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-function sendMailer(to, link) {
+function sendMailer(to , link , username ,subject ,body,User_agent='') {
   // read the Html file where it will sent to the email
   let emailtemplate = new Promise(function (resolve, reject) {
-    fs.readFile(__dirname + '/EmailTemplate.html', { encoding: 'utf-8' }, function (err, html) {
+    fs.readFile(body, { encoding: 'utf-8' }, function (err, html) {
       resolve(html);
       reject(err);
     });
@@ -28,14 +28,18 @@ function sendMailer(to, link) {
 
       // use handlbars to compile html and put the dynamic data (token) into the html 
       let template = handlebars.compile(html);
-      let replacements = { link }
+      let replacements = { 
+        link : link,
+        username:username,
+        User_agent : User_agent
+      }
       let htmlToSend = template(replacements);
 
       // create the message content 
       let message = {
         from: process.env.EMAIL,
-        to,
-        subject: 'Email Verfication from Energia Powered',
+        to:to,
+        subject: subject,
         html: htmlToSend
       };
       // await the transporter to send the email containig the message 
@@ -49,5 +53,4 @@ function sendMailer(to, link) {
     })
     .catch(err => console.log("Error While Sending the Email\n" + err));
 }
-
 module.exports = sendMailer;

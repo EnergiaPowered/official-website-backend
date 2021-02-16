@@ -1,4 +1,4 @@
-const { User } = require('../models/User');
+const { User, validate }  = require('../models/User');
 
 module.exports = function () {
 	//	Get The Date Before 24 Hours
