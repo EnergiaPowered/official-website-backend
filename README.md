@@ -1,6 +1,6 @@
 # Energia Powered Official Website
 
-The source code of `Energia Powered` student activity website's backend. The website built to provide some of organization's services and represent information about it with simplicity in mind. Also it provides an opportunity for students to collaborate and contribute to enhance their programming and train to contribute to open source community.
+The source code of the backend of `Energia Powered` student activity website. The website built to provide some of organization's services and represent information about it with simplicity in mind. Also it provides an opportunity for students to collaborate and contribute to enhance their programming and train to contribute to open source community.
 
 ![EP Logo](logo.png)
 
@@ -31,7 +31,7 @@ Make sure to have [Node.js](https://nodejs.org/en/download/) installed on your m
    1. Set the values of `PRIVATE_KEY` and `CIPHER_PASSWORD` to any random strings you want.
    1. Set the vaues of `EMAIL` and `PASSWORD` to your email and password.
 
-1. Run `$ npm run dev-start` to start serving the app (back), then go to `https://localhost:4000` and start using GET requests on the following endpoints:
+1. Run `$ npm run dev-start` to start serving the app (back), then go to `http://localhost:4000` and start using GET requests on the following endpoints:
 
    1. /blogs
    1. /committees

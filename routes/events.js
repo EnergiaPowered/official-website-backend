@@ -6,12 +6,18 @@ const auth = require("../middleware/auth")
 const admin = require("../middleware/admin")
 
 // Defining a Checking schema for the Event Body
+const minDate = `1-1-${new Date(Date.now()).getFullYear() - 1}`;
+const maxDate = `1-1-${new Date(Date.now()).getFullYear() + 1}`;
+
 const eventsSchema = Joi.object({
   name: Joi.string()
     .required(),
 
-  date: Joi.date()
-    .greater('1-1-2019'),
+  startDate: Joi.date()
+    .greater(maxDate),
+
+  endDate: Joi.date()
+    .less(minDate),
 
   status: Joi.string()
     .required()
