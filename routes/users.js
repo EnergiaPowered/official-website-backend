@@ -2,14 +2,12 @@ const Joi = require('joi');
 const _ = require('lodash');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-const mailer = require("../bin/mailer");
+const mailer = require("../methods/mailer");
 const auth = require("../middleware/auth");
 const router = require('express').Router();
 const { User, validate } = require('../models/User');
 const passwordComplexity = require('joi-password-complexity');
 
-// Key to encrypt and decrypt the token
-const mykey = crypto.createCipher('aes-128-cbc', process.env.CIPHER_PASSWORD);
 // get info about the user from his JWT Token
 router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.user._id).select("-password -__v -_id");
@@ -53,13 +51,15 @@ router.post("/users", async (req, res) => {
 
   // Send the message to the user with the token 
   token = user.generateAuthToken();
+  // Key to encrypt and decrypt the token
+  let mykey = crypto.createCipheriv('aes-128-cbc',process.env.CIPHER_PASSWORD ,process.env.INIT_VECTOR);
   // encrypt the token using aes algorithm and Private-Key 
   let encrypted_token = mykey.update(token, 'utf8', 'hex');
   encrypted_token += mykey.final('hex');
 
   host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
   link = host + "/verify?id=" + encrypted_token;
-  mailer(user.email, link);
+  mailer(user.email, link,user.firstname,'Email Verfication from Energia Powered','./assets/verify.html');
 
   res.status(200).send({ message: "You have registered successfully. Please check your email for verification." });
 });
@@ -79,8 +79,8 @@ function validate_update(user) {
     firstname: Joi.string().min(2).max(50).required(),
     lastname: Joi.string().min(2).max(50).required(),
     phone: Joi.string().min(7).max(15).required(),
-    password: passwordComplexity(passwordValidations).required(),
-    confirm_password: passwordComplexity(passwordValidations).required(),
+    password: passwordComplexity(passwordValidations)/*.required()*/,
+    confirm_password: passwordComplexity(passwordValidations)/*.required()*/,
     university: Joi.string().min(2).max(100).required(),
     faculty: Joi.string().min(2).max(100).required(),
     department: Joi.string().min(2).max(100).allow(""),
@@ -101,7 +101,8 @@ router.put("/users", auth, async (req, res) => {
   let user = await User.findById(req.user._id);
 
   if (!req.body.password) {
-    user.name = req.body.name;
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
     await user.save();
 
     // return response the token and user properties
@@ -110,7 +111,8 @@ router.put("/users", auth, async (req, res) => {
 
   }
   else {
-    user.name = req.body.name;
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
     user.password = req.body.password;
     // hashing password
     const salt = await bcrypt.genSalt(10);
