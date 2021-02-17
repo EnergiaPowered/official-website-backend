@@ -79,8 +79,8 @@ function validate_update(user) {
     firstname: Joi.string().min(2).max(50).required(),
     lastname: Joi.string().min(2).max(50).required(),
     phone: Joi.string().min(7).max(15).required(),
-    password: passwordComplexity(passwordValidations).required(),
-    confirm_password: passwordComplexity(passwordValidations).required(),
+    password: passwordComplexity(passwordValidations)/*.required()*/,
+    confirm_password: passwordComplexity(passwordValidations)/*.required()*/,
     university: Joi.string().min(2).max(100).required(),
     faculty: Joi.string().min(2).max(100).required(),
     department: Joi.string().min(2).max(100).allow(""),
@@ -101,7 +101,8 @@ router.put("/users", auth, async (req, res) => {
   let user = await User.findById(req.user._id);
 
   if (!req.body.password) {
-    user.name = req.body.name;
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
     await user.save();
 
     // return response the token and user properties
@@ -110,7 +111,8 @@ router.put("/users", auth, async (req, res) => {
 
   }
   else {
-    user.name = req.body.name;
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
     user.password = req.body.password;
     // hashing password
     const salt = await bcrypt.genSalt(10);
