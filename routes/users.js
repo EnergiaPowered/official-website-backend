@@ -79,8 +79,8 @@ function validate_update(user) {
     firstname: Joi.string().min(2).max(50).required(),
     lastname: Joi.string().min(2).max(50).required(),
     phone: Joi.string().min(7).max(15).required(),
-    password: passwordComplexity(passwordValidations).required(),
-    confirm_password: passwordComplexity(passwordValidations).required(),
+    password: passwordComplexity(passwordValidations),
+    confirm_password: passwordComplexity(passwordValidations),
     university: Joi.string().min(2).max(100).required(),
     faculty: Joi.string().min(2).max(100).required(),
     department: Joi.string().min(2).max(100).allow(""),
@@ -94,32 +94,30 @@ function validate_update(user) {
 };
 
 router.put("/users", auth, async (req, res) => {
-  const { error } = validate_update(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  try {
+    const { error } = validate_update(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-  // get id of the user from his JWT Token 
-  let user = await User.findById(req.user._id);
+    // get id of the user from his JWT Token 
+    let user = await User.findById(req.user._id);
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
 
-  if (!req.body.password) {
-    user.name = req.body.name;
+    if (req.body.password) {
+      user.password = req.body.password;
+      // hashing password
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(user.password, salt); 
+    }
+    
     await user.save();
-
     // return response the token and user properties
     const token = user.generateAuthToken();
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'firstname', 'lastname', 'email']));
 
-  }
-  else {
-    user.name = req.body.name;
-    user.password = req.body.password;
-    // hashing password
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    await user.save();
-
-    // return response the token and user properties
-    const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'firstname', 'lastname', 'email']));
+  } catch (err) {
+    console.log(err.message);
+    res.sendStatus(500);
   }
 });
 
@@ -127,12 +125,9 @@ router.delete("/users", auth, async (req, res) => {
   try {
     User.findByIdAndRemove(req.user._id, (err, user) => {
       if (err) throw err;
-      if (user == null) {
-        res.sendStatus(404);
-      }
-      else {
-        res.send(user.name + " has been Deleted")
-      }
+      if (user == null) return res.sendStatus(404);
+      
+      return res.send(user.name + " has been Deleted")
     });
   } catch (err) {
     console.log(err.message);
