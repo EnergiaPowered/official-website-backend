@@ -29,7 +29,17 @@ const blogCheckSchema = checkSchema({
         rtrim: true,
         escape: true
     },
-    Category: {
+    author: {
+        isString: true,
+        exists: {
+            options: {
+                checkFalsy: true
+            }
+        },
+        rtrim: true,
+        escape: true
+    },
+    category: {
         isString: true,
         exists: {
             options: {

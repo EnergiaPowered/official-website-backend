@@ -7,11 +7,8 @@ module.exports = function () {
 	yesterday.toISOString();
 
 	// Get & Delete all users whose verified = false && Created Before 24 Hours
-	User.deleteMany({ verified: false, createdAt: { $lt: yesterday } })
-		.then(() => { 
-    								// Success 
-		}).catch((error) => { 
-    		console.log(error);		// Failure 
-		}); 
+	User.deleteMany({ verified: false, createdAt: { $lt: yesterday } }, err => {
+		if (err) return console.error(err);
+	});
 }
 
