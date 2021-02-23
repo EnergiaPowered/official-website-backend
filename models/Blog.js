@@ -6,9 +6,12 @@ const blogSchema = new mongoose.Schema({
     author: String,
     category: {
         type: String,
-        enum: ['Web Development', 'Mobile Development', 'Embeded System']
+        enum: ['Human Resources', 'Web Development', 'Mobile App Development', 'Embedded Systems', 'C++']
     },
-    image_url: String
-});
+    image_url: {
+        type: String,
+        default: ""
+    }
+}, { timestamps: true });
 
 module.exports = mongoose.model("Blog", blogSchema);

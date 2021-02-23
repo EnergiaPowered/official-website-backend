@@ -26,8 +26,7 @@ const blogCheckSchema = checkSchema({
                 checkFalsy: true
             }
         },
-        rtrim: true,
-        escape: true
+        rtrim: true
     },
     author: {
         isString: true,
@@ -51,11 +50,6 @@ const blogCheckSchema = checkSchema({
     },
     image_url: {
         isString: true,
-        exists: {
-            options: {
-                checkFalsy: true
-            }
-        },
         rtrim: true,
         escape: true
     }
@@ -73,9 +67,10 @@ router.get("/blogs", (req, res) => {
 });
 
 // insert new blog w/ validation and sanitization
-router.post("/blogs", [auth, admin, blogCheckSchema], (req, res) => {
+router.post("/blogs", [/*auth, admin, */blogCheckSchema], (req, res) => {
     try {
         if (req.body && req.body !== {}) {
+            console.log(req.body);
             validationResult(req).throw();
             let newBlog = new Blog(req.body);
             newBlog.save((err, blog) => {
@@ -123,6 +118,17 @@ router.delete("/blogs/:id", [auth, admin], (req, res) => {
         if (!blog) {
             console.log("Error 404: Blog not found");
             return res.status(404);
+        }
+        res.sendStatus(200);
+    });
+});
+
+// delete all blogs
+router.delete("/blogs", (req, res) => {
+    Blog.deleteMany({}, (err) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send(err);
         }
         res.sendStatus(200);
     });
