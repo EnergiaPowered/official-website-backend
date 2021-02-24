@@ -22,9 +22,6 @@ router.post("/users", async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).send({ message: 'Email is already taken.' });
 
-  user = await User.findOne({ phone: req.body.phone });
-  if (user) return res.status(400).send({ message: 'Phone number is already taken.' });
-
   if (req.body.password !== req.body.confirm_password)
     return res.status(400).send({ message: 'Passwords don\'t match.' });
 
@@ -50,16 +47,16 @@ router.post("/users", async (req, res) => {
   await user.save();
 
   // Send the message to the user with the token 
-  token = user.generateAuthToken();
+  const token = user.generateAuthToken();
   // Key to encrypt and decrypt the token
-  let mykey = crypto.createCipheriv('aes-128-cbc',process.env.CIPHER_PASSWORD ,process.env.INIT_VECTOR);
+  let mykey = crypto.createCipheriv('aes-128-cbc', process.env.CIPHER_PASSWORD, process.env.INIT_VECTOR);
   // encrypt the token using aes algorithm and Private-Key 
   let encrypted_token = mykey.update(token, 'utf8', 'hex');
   encrypted_token += mykey.final('hex');
 
-  host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
-  link = host + "/verify?id=" + encrypted_token;
-  mailer(user.email, link,user.firstname,'Email Verfication from Energia Powered','./assets/verify.html');
+  const host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
+  const link = host + "/verify?id=" + encrypted_token;
+  mailer(user.email, link, user.firstname, 'Email Verfication from Energia Powered', './assets/verify.html');
 
   res.status(200).send({ message: "You have registered successfully. Please check your email for verification." });
 });
@@ -107,9 +104,9 @@ router.put("/users", auth, async (req, res) => {
       user.password = req.body.password;
       // hashing password
       const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(user.password, salt); 
+      user.password = await bcrypt.hash(user.password, salt);
     }
-    
+
     await user.save();
     // return response the token and user properties
     const token = user.generateAuthToken();
@@ -126,7 +123,7 @@ router.delete("/users", auth, async (req, res) => {
     User.findByIdAndRemove(req.user._id, (err, user) => {
       if (err) throw err;
       if (user == null) return res.sendStatus(404);
-      
+
       return res.send(user.name + " has been Deleted")
     });
   } catch (err) {
