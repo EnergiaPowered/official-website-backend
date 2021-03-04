@@ -27,11 +27,11 @@ const eventSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	eventLocation: {
+	eventDetails: {
 		type: String,
 		required: true,
 	},
-	eventOrganizer: {
+	eventLocation: {
 		type: String,
 		required: true,
 	},

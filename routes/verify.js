@@ -1,4 +1,4 @@
-const { User, validate }  = require('../models/User');
+const { User, validate } = require('../models/User');
 const expire = require('../methods/expire');
 const express = require("express")
 const router = express.Router();
@@ -6,10 +6,8 @@ const jwt = require("jsonwebtoken");
 const mailer = require("../methods/mailer");
 const crypto = require('crypto');
 
-
-
 router.get("/verify", async (req, res) => {
-    token = req.query["id"];
+    const token = req.query["id"];
     // Key to encrypt and decrypt the token
     let mykey = crypto.createDecipheriv('aes-128-cbc', process.env.CIPHER_PASSWORD, process.env.INIT_VECTOR);
     try {
@@ -27,7 +25,7 @@ router.get("/verify", async (req, res) => {
             else {
                 // check the token is expired 
                 let tokenTime = decoded.iat * 1000;
-                if (expire(tokenTime,2)) {
+                if (expire(tokenTime, 2)) {
                     res.status(400).send("The link is expired. We are sending you a new email.");
 
                     // Send the message to the user with the token 
@@ -35,16 +33,16 @@ router.get("/verify", async (req, res) => {
                     let mykey = crypto.createDecipheriv('aes-128-cbc', process.env.CIPHER_PASSWORD, process.env.INIT_VECTOR);
                     let encrypted_token = mykey.update(token, 'utf8', 'hex');
                     encrypted_token += mykey.final('hex');
-                  
-                    host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
-                    link = host + "/verify?id=" + encrypted_token;
-                    mailer(user.email, link,user.firstname,'Email Verfication from Energia Powered','./assets/verify.html');
+
+                    const host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
+                    const link = host + "/verify?id=" + encrypted_token;
+                    mailer(user.email, link, user.firstname, 'Email Verfication from Energia Powered', './assets/verify.html');
                 }
                 else {
                     user.verified = true;
                     await user.save();
                     res.status(200)
-                        .redirect(process.env.NODE_ENV === " production" ? process.env.FRONT_HOST : process.env.DEV_FRONT_HOST + "/login");
+                        .redirect(process.env.NODE_ENV === " production" ? process.env.FRONT_HOST : process.env.DEV_FRONT_HOST + "/verfied");
                     // res.status(200).send("Email verified! Please log in.");
                 };
 

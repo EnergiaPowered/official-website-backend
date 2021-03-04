@@ -14,10 +14,10 @@ const eventsSchema = Joi.object({
     .required(),
 
   startDate: Joi.date()
-    .greater(maxDate),
+    .greater(minDate),
 
   endDate: Joi.date()
-    .less(minDate),
+    .less(maxDate),
 
   status: Joi.string()
     .required()
@@ -30,10 +30,10 @@ const eventsSchema = Joi.object({
   eventDescription: Joi.string()
     .required(),
 
-  eventLocation: Joi.string()
+  eventDetails: Joi.string()
     .required(),
 
-  eventOrganizer: Joi.string()
+  eventLocation: Joi.string()
     .required(),
 
   eventImageID: Joi.string()

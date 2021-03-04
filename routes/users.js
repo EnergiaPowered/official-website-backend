@@ -22,9 +22,6 @@ router.post("/users", async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).send({ message: 'Email is already taken.' });
 
-  user = await User.findOne({ phone: req.body.phone });
-  if (user) return res.status(400).send({ message: 'Phone number is already taken.' });
-
   if (req.body.password !== req.body.confirm_password)
     return res.status(400).send({ message: 'Passwords don\'t match.' });
 
@@ -50,16 +47,16 @@ router.post("/users", async (req, res) => {
   await user.save();
 
   // Send the message to the user with the token 
-  token = user.generateAuthToken();
+  const token = user.generateAuthToken();
   // Key to encrypt and decrypt the token
-  let mykey = crypto.createCipheriv('aes-128-cbc',process.env.CIPHER_PASSWORD ,process.env.INIT_VECTOR);
+  let mykey = crypto.createCipheriv('aes-128-cbc', process.env.CIPHER_PASSWORD, process.env.INIT_VECTOR);
   // encrypt the token using aes algorithm and Private-Key 
   let encrypted_token = mykey.update(token, 'utf8', 'hex');
   encrypted_token += mykey.final('hex');
 
-  host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
-  link = host + "/verify?id=" + encrypted_token;
-  mailer(user.email, link,user.firstname,'Email Verfication from Energia Powered','./assets/verify.html');
+  const host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
+  const link = host + "/verify?id=" + encrypted_token;
+  mailer(user.email, link, user.firstname, 'Email Verfication from Energia Powered', './assets/verify.html');
 
   res.status(200).send({ message: "You have registered successfully. Please check your email for verification." });
 });
@@ -79,8 +76,8 @@ function validate_update(user) {
     firstname: Joi.string().min(2).max(50).required(),
     lastname: Joi.string().min(2).max(50).required(),
     phone: Joi.string().min(7).max(15).required(),
-    password: passwordComplexity(passwordValidations).required(),
-    confirm_password: passwordComplexity(passwordValidations).required(),
+    password: passwordComplexity(passwordValidations),
+    confirm_password: passwordComplexity(passwordValidations),
     university: Joi.string().min(2).max(100).required(),
     faculty: Joi.string().min(2).max(100).required(),
     department: Joi.string().min(2).max(100).allow(""),
@@ -94,32 +91,30 @@ function validate_update(user) {
 };
 
 router.put("/users", auth, async (req, res) => {
-  const { error } = validate_update(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  try {
+    const { error } = validate_update(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
-  // get id of the user from his JWT Token 
-  let user = await User.findById(req.user._id);
+    // get id of the user from his JWT Token 
+    let user = await User.findById(req.user._id);
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
 
-  if (!req.body.password) {
-    user.name = req.body.name;
+    if (req.body.password) {
+      user.password = req.body.password;
+      // hashing password
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(user.password, salt);
+    }
+
     await user.save();
-
     // return response the token and user properties
     const token = user.generateAuthToken();
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'firstname', 'lastname', 'email']));
 
-  }
-  else {
-    user.name = req.body.name;
-    user.password = req.body.password;
-    // hashing password
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    await user.save();
-
-    // return response the token and user properties
-    const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'firstname', 'lastname', 'email']));
+  } catch (err) {
+    console.log(err.message);
+    res.sendStatus(500);
   }
 });
 
@@ -127,12 +122,9 @@ router.delete("/users", auth, async (req, res) => {
   try {
     User.findByIdAndRemove(req.user._id, (err, user) => {
       if (err) throw err;
-      if (user == null) {
-        res.sendStatus(404);
-      }
-      else {
-        res.send(user.name + " has been Deleted")
-      }
+      if (user == null) return res.sendStatus(404);
+
+      return res.send(user.name + " has been Deleted")
     });
   } catch (err) {
     console.log(err.message);

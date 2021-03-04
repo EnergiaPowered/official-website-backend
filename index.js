@@ -13,6 +13,7 @@ const db = require("./mongo");
 db();
 
 // parse the body of the request
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //enable cors
