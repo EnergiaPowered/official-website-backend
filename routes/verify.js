@@ -41,7 +41,7 @@ router.get("/verify", async (req, res) => {
                 else {
                     user.verified = true;
                     await user.save();
-                    res.status(200)
+                    res.status(200).cookie("verfied", "true", { maxAge: 60000 })
                         .redirect(process.env.NODE_ENV === " production" ? process.env.FRONT_HOST : process.env.DEV_FRONT_HOST + "/verfied");
                     // res.status(200).send("Email verified! Please log in.");
                 };
