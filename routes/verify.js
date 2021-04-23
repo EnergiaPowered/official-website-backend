@@ -34,15 +34,14 @@ router.get("/verify", async (req, res) => {
                     let encrypted_token = mykey.update(token, 'utf8', 'hex');
                     encrypted_token += mykey.final('hex');
 
-                    const host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
-                    const link = host + "/verify?id=" + encrypted_token;
+                    const link = process.env.HOST + "/verify?id=" + encrypted_token;
                     mailer(user.email, link, user.firstname, 'Email Verfication from Energia Powered', './assets/verify.html');
                 }
                 else {
                     user.verified = true;
                     await user.save();
                     res.status(200).cookie("verfied", "true", { maxAge: 60000 })
-                        .redirect(process.env.NODE_ENV === " production" ? process.env.FRONT_HOST : process.env.DEV_FRONT_HOST + "/verfied");
+                        .redirect(process.env.FRONT_HOST + "/verfied");
                     // res.status(200).send("Email verified! Please log in.");
                 };
 
