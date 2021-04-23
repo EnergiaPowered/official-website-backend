@@ -54,7 +54,7 @@ router.post("/users", async (req, res) => {
   let encrypted_token = mykey.update(token, 'utf8', 'hex');
   encrypted_token += mykey.final('hex');
 
-  const host = process.env.NODE_ENV === " production" ? process.env.HOST : process.env.DEV_HOST;
+  const host = process.env.NODE_ENV === " production" ? "Energiapowered.IT21@gmail.com" : process.env.DEV_HOST;
   const link = host + "/verify?id=" + encrypted_token;
   mailer(user.email, link, user.firstname, 'Email Verfication from Energia Powered', './assets/verify.html');
 
