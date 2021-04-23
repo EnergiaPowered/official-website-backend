@@ -56,6 +56,7 @@ router.post("/users", async (req, res) => {
 
   const host = process.env.NODE_ENV === " production" ? "https://energia21.herokuapp.com" : process.env.DEV_HOST;
   const link = host + "/verify?id=" + encrypted_token;
+  console.log(host, process.env.NODE_ENV, process.env.HOST);
   mailer(user.email, link, user.firstname, 'Email Verfication from Energia Powered', './assets/verify.html');
 
   res.status(200).send({ message: "You have registered successfully. Please check your email for verification." });
