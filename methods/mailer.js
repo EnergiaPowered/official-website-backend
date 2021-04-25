@@ -6,7 +6,9 @@ let fs = require("fs");
 
 // create transporter for gmail with the email and password
 let transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD
