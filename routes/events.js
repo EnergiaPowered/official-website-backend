@@ -2,8 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Joi = require('joi');
 const Event = require("../models/Event");
+const Chat = require("../models/Chat");
+
 const auth = require("../middleware/auth")
 const admin = require("../middleware/admin")
+const { User, validate } = require('../models/User');
 
 // Defining a Checking schema for the Event Body
 const minDate = `1-1-${new Date(Date.now()).getFullYear() - 1}`;
@@ -107,6 +110,52 @@ router.delete("/events", /*[auth, admin],*/(req, res) => {
     console.log(err.message);
     res.sendStatus(500);
   }
+});
+
+// chat get and add by know the event id 
+const chatSchema = Joi.object({
+  userId: Joi.required(),
+  EventId: Joi.required(),
+  message: Joi.string()
+    .required(),
+
+})
+
+router.get("/chat/:id", async (req, res) => {
+  let event = await Event.findById(req.params.id);
+  if(!event)
+  {    
+    console.log("Not Found");
+    return res.sendStatus(404);
+  }
+  let messages = await Chat.find({EventId : req.params.id}).populate('Event');
+  res.json(messages);
+
+});
+
+// Change when add auth you get the user id from it 
+router.post("/chat", /*[auth, admin],*/async (req, res) => {
+  const result = chatSchema.validate(req.body)
+  if (result.error) {
+    console.log(result.error.message);
+    return res.sendStatus(400);
+  }
+  let event = await Event.findById(req.body.EventId);
+  let user = await User.findById(req.body.userId);
+  if(!event || !User)
+  {    
+    console.log("Not Found");
+    return res.sendStatus(404);
+  }
+  let newChat = new Chat({
+      userId : req.body.userId,
+      username : user.firstname + " "+  user.lastname, 
+      message : req.body.message,
+      EventId : event._id
+  });
+
+  newChat.save();
+  res.json(newChat);
 });
 
 module.exports = router;
