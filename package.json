@@ -28,7 +28,8 @@
     "lodash": "^4.17.20",
     "mongoose": "^5.10.15",
     "nodemailer": "^6.4.17",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "socket.io": "^4.0.1"
   },
   "husky": {
     "hooks": {
