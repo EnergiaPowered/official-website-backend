@@ -51,6 +51,19 @@ router.get("/events", (req, res) => {
   });
 });
 
+router.get("/events/:id", (req, res) => {
+  Event.findById(req.params.id, (err, event) => {
+    if (err) {
+      console.log(err.message);
+      return res.sendStatus(500);
+    }
+    if (!event) {
+      return res.sendStatus(404);
+    }
+    res.status(200).json(event);
+  });
+});
+
 router.post("/events", /*[auth, admin],*/(req, res) => {
   const result = eventsSchema.validate(req.body)
   if (result.error) {
