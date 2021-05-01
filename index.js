@@ -1,8 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
 const socket = require("socket.io");
-
+const app = express();
 
 // hours that the check the unverified users
 let hours = 6;
@@ -24,8 +23,6 @@ app.use(cors());
 // disable the X-Powered-By header instead of using helmet
 app.disable("x-powered-by");
 
-
-
 // Router MiddleWares
 app.use(require("./routes/contactInfo"));
 app.use(require("./routes/message"));
@@ -45,6 +42,14 @@ let Server = app.listen(port, err => {
   if (err) return console.log(err);
   console.log(`Listening to port ${port}`)
 });
-let IO = socket(Server);
-const{io} = require('./routes/chat');
+
+let IO = socket(Server, {
+  cors: {
+    origin: process.env.FRONT_HOST,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["x-auth-token"]
+  }
+});
+
+const { io } = require('./routes/chat');
 io(IO);
