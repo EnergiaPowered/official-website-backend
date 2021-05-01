@@ -469,6 +469,32 @@ _events:_
 
 ---
 
+##### GET/ events/:id
+
+- General: 
+  - Responds with 404 status if there is no event with the given 'id' from the request parameters.
+  - Else, returns the event with the given 'id' from the request parameters.
+- Sample: [http://127.0.0.1:4000/events/91]()
+
+*event response*
+
+```javascript
+{
+    name: "Dummy Text",
+    startDate: "Dummy Date",
+    endDate: "Dummy Date",
+    status: "Dummy Text",
+    category: "Dummy Date",
+    eventDescription: "Dummy Date",
+    eventDetails: "Dummy Date",
+    eventLocation: "Dummy Date",
+    eventImageID: "Dummy Text",
+    _id: "91"
+}
+```
+
+------
+
 ##### POST/ events
 
 - General:
