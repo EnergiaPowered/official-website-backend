@@ -15,11 +15,6 @@ const eventSchema = new Schema({
 		type: Date,
 		required: true,
 	},
-	status: {
-		type: String,
-		required: true,
-		enum: ['Closed', 'Soon', 'Opened'],
-	},
 	category: {
 		type: String,
 		required: true,
@@ -31,7 +26,7 @@ const eventSchema = new Schema({
 	},
 	eventDetails: {
 		type: String,
-		required: true,
+		default: "",
 	},
 	eventLocation: {
 		type: String,
@@ -41,7 +36,7 @@ const eventSchema = new Schema({
 		type: String,
 		default: ""
 	},
-	messages : [{
+	messages: [{
 		type: Schema.Types.ObjectId,
 		ref: "Chat"
 	}]

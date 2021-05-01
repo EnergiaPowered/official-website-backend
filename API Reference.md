@@ -473,6 +473,7 @@ _events:_
 
 - General:
   - Responds with 400 status if the body of the request is empty.
+  - Responds with 500 status if there was an error in saving the event.
   - Else, Creates a new event using the name, startDate, endDate, status, category, eventDescription, eventDetails, eventLocation, and eventImageID from the request body.
 - Sample: http://127.0.0.1:4000/events
 
