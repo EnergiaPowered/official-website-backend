@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const socket = require("socket.io");
 const app = express();
 
 // hours that the check the unverified users
@@ -27,6 +28,7 @@ app.use(require("./routes/contactInfo"));
 app.use(require("./routes/message"));
 app.use(require("./routes/blogs"));
 app.use(require("./routes/events"));
+app.use(require("./routes/chat").router);
 app.use(require("./routes/crew"));
 app.use(require("./routes/committees"));
 app.use(require("./routes/users"));
@@ -36,7 +38,18 @@ app.use(require("./routes/reset_password"));
 
 // listen to specific port
 const port = process.env.PORT || 4000;
-app.listen(port, err => {
+let Server = app.listen(port, err => {
   if (err) return console.log(err);
   console.log(`Listening to port ${port}`)
 });
+
+let IO = socket(Server, {
+  cors: {
+    origin: process.env.FRONT_HOST,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["x-auth-token"]
+  }
+});
+
+const { io } = require('./routes/chat');
+io(IO);

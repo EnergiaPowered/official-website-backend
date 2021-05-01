@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const eventSchema = new mongoose.Schema({
+
+const eventSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
@@ -13,11 +15,6 @@ const eventSchema = new mongoose.Schema({
 		type: Date,
 		required: true,
 	},
-	status: {
-		type: String,
-		required: true,
-		enum: ['Closed', 'Soon', 'Opened'],
-	},
 	category: {
 		type: String,
 		required: true,
@@ -29,7 +26,7 @@ const eventSchema = new mongoose.Schema({
 	},
 	eventDetails: {
 		type: String,
-		required: true,
+		default: "",
 	},
 	eventLocation: {
 		type: String,
@@ -39,6 +36,11 @@ const eventSchema = new mongoose.Schema({
 		type: String,
 		default: ""
 	},
+	messages: [{
+		type: Schema.Types.ObjectId,
+		ref: "Chat"
+	}]
 });
+
 
 module.exports = mongoose.model("Event", eventSchema);
