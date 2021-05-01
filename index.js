@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const socket = require("socket.io");
 const app = express();
+const socket = require("socket.io");
+
 
 // hours that the check the unverified users
 let hours = 6;
@@ -23,25 +24,14 @@ app.use(cors());
 // disable the X-Powered-By header instead of using helmet
 app.disable("x-powered-by");
 
-// listen to specific port
-const port = process.env.PORT || 4000;
-const server = app.listen(port, err => {
-  if (err) return console.log(err);
-  console.log(`Listening to port ${port}`)
-});
 
-//	Socket setup
-const io = socket(server);
-
-let ioInstance = function(){
-  return io;
-}
 
 // Router MiddleWares
 app.use(require("./routes/contactInfo"));
 app.use(require("./routes/message"));
 app.use(require("./routes/blogs"));
-app.use(require("./routes/events")(ioInstance));
+app.use(require("./routes/events"));
+app.use(require("./routes/chat").router);
 app.use(require("./routes/crew"));
 app.use(require("./routes/committees"));
 app.use(require("./routes/users"));
@@ -49,10 +39,12 @@ app.use(require("./routes/login"));
 app.use(require("./routes/verify"));
 app.use(require("./routes/reset_password"));
 
-io.on('connection', (socket) => {
-	console.log('made socket connection', socket.id);
-
-	socket.on('send', (data) => {
-		io.sockets.emit('send', data);
-	});
+// listen to specific port
+const port = process.env.PORT || 4000;
+let Server = app.listen(port, err => {
+  if (err) return console.log(err);
+  console.log(`Listening to port ${port}`)
 });
+let IO = socket(Server);
+const{io} = require('./routes/chat');
+io(IO);
