@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Joi = require('joi');
 const Event = require("../models/Event");
+
 const auth = require("../middleware/auth")
 const admin = require("../middleware/admin")
 
@@ -19,10 +20,6 @@ const eventsSchema = Joi.object({
   endDate: Joi.date()
     .less(maxDate),
 
-  status: Joi.string()
-    .required()
-    .valid('Closed', 'Soon', 'Opened'),
-
   category: Joi.string()
     .required()
     .valid('Session', 'OnDayEvent', 'Marathon', 'Competition'),
@@ -31,7 +28,7 @@ const eventsSchema = Joi.object({
     .required(),
 
   eventDetails: Joi.string()
-    .required(),
+    .allow(""),
 
   eventLocation: Joi.string()
     .required(),
@@ -71,8 +68,12 @@ router.post("/events", /*[auth, admin],*/(req, res) => {
     return res.sendStatus(400);
   }
   let newEvent = new Event(req.body);
-  newEvent.save();
-  res.sendStatus(200);
+  newEvent.save().then(event => {
+    res.send(200).json(event);
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  });
 });
 
 router.put("/events/:id", [auth, admin], (req, res) => {
