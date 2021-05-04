@@ -28,6 +28,15 @@ const blogCheckSchema = checkSchema({
         },
         rtrim: true
     },
+    bodyMobile: {
+        isString: true,
+        exists: {
+            options: {
+                checkFalsy: true
+            }
+        },
+        rtrim: true
+    },
     author: {
         isString: true,
         exists: {
@@ -57,7 +66,7 @@ const blogCheckSchema = checkSchema({
 
 // Retrieve all blogs
 router.get("/blogs", (req, res) => {
-    Blog.find({}, (err, blogs) => {
+    Blog.find({}).sort({ createdAt: -1 }).exec((err, blogs) => {
         if (err) {
             console.log(err);
             return res.sendStatus(500);

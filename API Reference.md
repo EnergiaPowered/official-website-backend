@@ -42,6 +42,7 @@ _blogs:_
   {
     title: "Self Driving Cars",
     body: "Dummy Text",
+    bodyMobile: "Dummy Text",
     author: "Esraa",
     category: "Embedded Systems",
     image_url: "URL",
@@ -50,6 +51,7 @@ _blogs:_
   {
     title: "Programmiing",
     body: "Dummy Text",
+    bodyMobile: "Dummy Text",
     author: "Mostafa Kamal",
     category: "C++",
     image_url: "URL",
@@ -58,6 +60,7 @@ _blogs:_
   {
     title: "Backend",
     body: "Dummy Text",
+    bodyMobile: "Dummy Text",
     author: "Abdullah Adel",
     category: "Web Development",
     image_url: "URL",
@@ -81,6 +84,7 @@ _request body:_
 {
     "title": 'Frontend',
     "body": 'Dummy Text',
+    "bodyMobile": 'Dummy Text',
     "author": 'Waleed Hesham',
     "category": 'Web Development',
     "image_url": 'URL'
@@ -103,6 +107,7 @@ _Request Body:_
 {
   	"title": 'Backend',
     "body": 'Dummy Text',
+    "bodyMobile": 'Dummy Text',
     "author": 'Ali',
     "category": 'Web Development',
     "image_url": 'URL'
@@ -128,6 +133,7 @@ _deleted blog:_
 {
     "title": 'Self Driving Cars',
     "body": 'Dummy Text',
+    "bodyMobile": 'Dummy Text',
     "author": 'Esraa',
     "category": 'Embedded Systems',
     "image_url": 'URL',
@@ -447,6 +453,7 @@ _events:_
     status: "Dummy Text",
     category: "Dummy Date",
     eventDescription: "Dummy Date",
+	eventMobileDescription: "Dummy Date",
     eventDetails: "Dummy Date",
     eventLocation: "Dummy Date",
     eventImageID: "Dummy Text",
@@ -459,6 +466,7 @@ _events:_
     status: "Dummy Text",
     category: "Dummy Date",
     eventDescription: "Dummy Date",
+    eventMobileDescription: "Dummy Date",
     eventDetails: "Dummy Date",
     eventLocation: "Dummy Date",
     eventImageID: "Dummy Text",
@@ -486,6 +494,7 @@ _events:_
     status: "Dummy Text",
     category: "Dummy Date",
     eventDescription: "Dummy Date",
+    eventMobileDescription: "Dummy Date",
     eventDetails: "Dummy Date",
     eventLocation: "Dummy Date",
     eventImageID: "Dummy Text",
@@ -513,6 +522,7 @@ _request body:_
     "status": 'Dummy Text',
     "category": 'Dummy Date',
     "eventDescription": 'Dummy Date',
+    "eventMobileDescription": 'Dummy Date',
     "eventDetails": 'Dummy Date',
     "eventLocation": 'Dummy Date',
     "eventImageID": 'Dummy Text'
@@ -539,6 +549,7 @@ _Request Body:_
     "status": 'Dummy Text',
     "category": 'Dummy Date',
     "eventDescription": 'Dummy Date',
+    "eventMobileDescription": 'Dummy Date',
     "eventDetails": 'Dummy Date',
     "eventLocation": 'Dummy Date',
     "eventImageID": 'Dummy Text'
@@ -569,6 +580,7 @@ _deleted event:_
     "status": 'Dummy Text',
     "category": 'Dummy Date',
     "eventDescription": 'Dummy Date',
+    "eventMobileDescription": 'Dummy Date',
     "eventDetails": 'Dummy Date',
     "eventLocation": 'Dummy Date',
     "eventImageID": 'Dummy Text',

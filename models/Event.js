@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 const eventSchema = new Schema({
 	name: {
 		type: String,
@@ -24,6 +23,10 @@ const eventSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	eventMobileDescription: {
+		type: String,
+		required: true,
+	},
 	eventDetails: {
 		type: String,
 		default: "",
@@ -41,6 +44,5 @@ const eventSchema = new Schema({
 		ref: "Chat"
 	}]
 });
-
 
 module.exports = mongoose.model("Event", eventSchema);

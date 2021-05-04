@@ -3,8 +3,8 @@ const router = express.Router();
 const Joi = require('joi');
 const Event = require("../models/Event");
 
-const auth = require("../middleware/auth")
-const admin = require("../middleware/admin")
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 
 // Defining a Checking schema for the Event Body
 const minDate = `1-1-${new Date(Date.now()).getFullYear() - 1}`;
@@ -27,6 +27,9 @@ const eventsSchema = Joi.object({
   eventDescription: Joi.string()
     .required(),
 
+  eventMobileDescription: Joi.string()
+    .required(),
+
   eventDetails: Joi.string()
     .allow(""),
 
@@ -39,17 +42,23 @@ const eventsSchema = Joi.object({
 
 // CRUD Operations routing of event
 router.get("/events", (req, res) => {
-  Event.find({}, (err, events) => {
+  Event.find({}).lean().exec((err, events) => {
     if (err) {
       console.log(err.message);
       return res.sendStatus(500);
     }
+    const currentDate = new Date();
+    events.forEach(event => {
+      if (currentDate >= event.startDate && currentDate <= event.endDate) event.status = "Opened";
+      else if (currentDate < event.startDate) event.status = "Soon";
+      else if (currentDate > event.endDate) event.status = "Closed";
+    });
     res.status(200).json(events);
   });
 });
 
 router.get("/events/:id", (req, res) => {
-  Event.findById(req.params.id, (err, event) => {
+  Event.findById(req.params.id).sort({ startDate: 1 }).exec((err, event) => {
     if (err) {
       console.log(err.message);
       return res.sendStatus(500);
@@ -57,7 +66,7 @@ router.get("/events/:id", (req, res) => {
     if (!event) {
       return res.sendStatus(404);
     }
-    res.status(200).json(event);
+    res.json(event).sendStatus(200);
   });
 });
 
@@ -69,7 +78,7 @@ router.post("/events", /*[auth, admin],*/(req, res) => {
   }
   let newEvent = new Event(req.body);
   newEvent.save().then(event => {
-    res.send(200).json(event);
+    res.json(event).sendStatus(200);
   }).catch(err => {
     console.log(err);
     res.sendStatus(500);
