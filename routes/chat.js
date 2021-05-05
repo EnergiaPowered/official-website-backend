@@ -56,6 +56,9 @@ function formatMessage(userId, firstname, lastname, comment) {
 }
 
 exports.io = function (io) {
+  //  Object of 'RoomId's
+  const rooms = {};
+
   // Run when client connects
   io.on('connection', async socket => {
 
@@ -93,6 +96,20 @@ exports.io = function (io) {
       socket.join(RoomId);
       // Emit when a user connects
       io.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has joined the chat`));
+
+      if(rooms[RoomId]){
+        //  Adding the current user to the list of users of the current room
+        rooms[RoomId].push(socket.id);
+      }else{
+        rooms[RoomId] = socket.id;
+      }
+      //  Get other users in the room
+      const otherUsers = rooms[RoomId].find(id => id !== socket.id);
+
+      if(otherUsers){
+        socket.emit('other user', otherUsers);
+        socket.to(otherUsers).emit('user joined', socket.id);
+      }
     });
 
     // Listen for chatMessage
@@ -121,6 +138,18 @@ exports.io = function (io) {
         io.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has left the chat`));
       }
     });
+
+    //  Listen for offers and answers of streams
+    socket.on('offer', payload => {
+      io.to(payload.target).emit('offer', payload);
+    });
+    socket.on('answer', payload => {
+      io.to(payload.target).emit('answer', payload);
+    });
+    socket.on('ice-candidate', incoming => {
+      io.to(incoming.target).emit('ice-candidate', incoming.candidate);
+    });
+
   });
 };
 
