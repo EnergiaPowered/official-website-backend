@@ -66,7 +66,7 @@ router.get("/events/:id", (req, res) => {
     if (!event) {
       return res.sendStatus(404);
     }
-    res.json(event).sendStatus(200);
+    res.json(event);
   });
 });
 
@@ -78,7 +78,7 @@ router.post("/events", /*[auth, admin],*/(req, res) => {
   }
   let newEvent = new Event(req.body);
   newEvent.save().then(event => {
-    res.json(event).sendStatus(200);
+    res.json(event);
   }).catch(err => {
     console.log(err);
     res.sendStatus(500);

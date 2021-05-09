@@ -85,7 +85,7 @@ exports.io = function (io) {
     let RoomId;
     socket.on('joinRoom', async (EventId) => {
       // event room id from the url 
-      console.log(EventId)
+      console.log(EventId);
       RoomId = EventId;
       let CurrentEvent = await Event.findById(EventId);
       if (!CurrentEvent) {
@@ -97,18 +97,23 @@ exports.io = function (io) {
       // Emit when a user connects
       io.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has joined the chat`));
 
-      if(rooms[RoomId]){
+      if (rooms[RoomId]) {
         //  Adding the current user to the list of users of the current room
         rooms[RoomId].push(socket.id);
-      }else{
-        rooms[RoomId] = socket.id;
+      } else {
+        rooms[RoomId] = [socket.id];
       }
-      //  Get other users in the room
-      const otherUsers = rooms[RoomId].find(id => id !== socket.id);
+    });
 
-      if(otherUsers){
-        socket.emit('other user', otherUsers);
-        socket.to(otherUsers).emit('user joined', socket.id);
+    socket.on("streamingStarted", () => {
+      //  Get other users in the room
+      const otherUsers = rooms[RoomId].filter(id => id !== socket.id);
+
+      if (otherUsers) {
+        otherUsers.forEach(userID => {
+          socket.to(RoomId).emit('other user', userID);
+          socket.to(RoomId).emit('user joined', socket.id);
+        });
       }
     });
 
@@ -125,7 +130,7 @@ exports.io = function (io) {
           message: msg
         }, options)
         .then(res => {
-          console.log(`statusCode: ${res.statusCode}`)
+          console.log(`comment: ${res.data.comment}`)
         })
         .catch(error => {
           console.error("Error: message not stored correctly");
@@ -135,6 +140,7 @@ exports.io = function (io) {
     // Runs when client disconnects
     socket.on('disconnect', () => {
       if (user) {
+        rooms[RoomId] = rooms[RoomId]?.filter(id => id !== socket.id);
         io.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has left the chat`));
       }
     });

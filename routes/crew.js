@@ -61,7 +61,7 @@ const memberCheckSchema = checkSchema({
 
 // Retrieve crew
 router.get("/crew", (req, res) => {
-    Member.find(req.query, (err, crew) => {
+    Member.find(req.query).sort({ committee: 1 }).exec((err, crew) => {
         if (err) {
             console.log(err);
             return res.sendStatus(500);
