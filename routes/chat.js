@@ -56,8 +56,7 @@ function formatMessage(userId, firstname, lastname, comment) {
 }
 
 exports.io = function (io) {
-  let broadcaster;
-
+  let streamId = {};
   // Run when client connects
   io.on('connection', async socket => {
     // handling authorization
@@ -95,37 +94,21 @@ exports.io = function (io) {
       socket.join(RoomId);
       // Emit when a user connects
       socket.broadcast.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has joined the chat`));
+
+      streamId[RoomId] &&
+        io.to(RoomId).emit('start-streaming', streamId[RoomId]);
     });
 
-    socket.on("broadcaster", () => {
-      console.log("In broadcaster", socket.id);
-      broadcaster = socket.id;
-      socket.broadcast.to(RoomId).emit("broadcaster");
+    socket.on("start-streaming", streamID => {
+      streamId[RoomId] = streamID;
+      console.log(streamId);
+      socket.broadcast.to(RoomId).emit("start-streaming", streamID);
     });
 
-    socket.on("watcher", () => {
-      console.log("In watcher", broadcaster);
-      socket.to(broadcaster).emit("watcher", socket.id);
-    });
 
-    socket.on("offer", (id, message) => {
-      console.log("In offer", id);
-      socket.to(id).emit("offer", socket.id, message);
-    });
-
-    socket.on("answer", (id, message) => {
-      console.log("In answer", id);
-      socket.to(id).emit("answer", socket.id, message);
-    });
-
-    socket.on("candidate", (id, message) => {
-      console.log("In candidate", id);
-      socket.to(id).emit("candidate", socket.id, message);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("In disconnect");
-      socket.to(broadcaster).emit("disconnectPeer", socket.id);
+    socket.on("stop-streaming", () => {
+      delete streamId[RoomId];
+      socket.broadcast.to(RoomId).emit("stop-streaming");
     });
 
     // Listen for chatMessage
