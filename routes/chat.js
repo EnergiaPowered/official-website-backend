@@ -56,16 +56,17 @@ function formatMessage(userId, firstname, lastname, comment) {
 }
 
 exports.io = function (io) {
+  let streamId = {};
   // Run when client connects
   io.on('connection', async socket => {
-
-    const token = socket.handshake.headers["x-auth-token"];
     // handling authorization
+    const token = socket.handshake.headers["x-auth-token"];
     let user;
     if (!token) {
       socket.disconnect();
       return;
     };
+
     try {
       const decoded = jwt.verify(token, process.env.PRIVATE_KEY);
       user = decoded;
@@ -82,7 +83,7 @@ exports.io = function (io) {
     let RoomId;
     socket.on('joinRoom', async (EventId) => {
       // event room id from the url 
-      console.log(EventId)
+      console.log(EventId);
       RoomId = EventId;
       let CurrentEvent = await Event.findById(EventId);
       if (!CurrentEvent) {
@@ -92,7 +93,22 @@ exports.io = function (io) {
       }
       socket.join(RoomId);
       // Emit when a user connects
-      io.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has joined the chat`));
+      socket.broadcast.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has joined the chat`));
+
+      streamId[RoomId] &&
+        io.to(RoomId).emit('start-streaming', streamId[RoomId]);
+    });
+
+    socket.on("start-streaming", streamID => {
+      streamId[RoomId] = streamID;
+      console.log(streamId);
+      socket.broadcast.to(RoomId).emit("start-streaming", streamID);
+    });
+
+
+    socket.on("stop-streaming", () => {
+      delete streamId[RoomId];
+      socket.broadcast.to(RoomId).emit("stop-streaming");
     });
 
     // Listen for chatMessage
@@ -108,7 +124,7 @@ exports.io = function (io) {
           message: msg
         }, options)
         .then(res => {
-          console.log(`statusCode: ${res.statusCode}`)
+          console.log(`comment: ${res.data.comment}`)
         })
         .catch(error => {
           console.error("Error: message not stored correctly");
@@ -118,7 +134,7 @@ exports.io = function (io) {
     // Runs when client disconnects
     socket.on('disconnect', () => {
       if (user) {
-        io.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has left the chat`));
+        socket.broadcast.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has left the chat`));
       }
     });
   });
