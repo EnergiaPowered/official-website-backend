@@ -56,19 +56,18 @@ function formatMessage(userId, firstname, lastname, comment) {
 }
 
 exports.io = function (io) {
-  //  Object of 'RoomId's
-  const rooms = {};
+  let broadcaster;
 
   // Run when client connects
   io.on('connection', async socket => {
-
-    const token = socket.handshake.headers["x-auth-token"];
     // handling authorization
+    const token = socket.handshake.headers["x-auth-token"];
     let user;
     if (!token) {
       socket.disconnect();
       return;
     };
+
     try {
       const decoded = jwt.verify(token, process.env.PRIVATE_KEY);
       user = decoded;
@@ -95,26 +94,38 @@ exports.io = function (io) {
       }
       socket.join(RoomId);
       // Emit when a user connects
-      io.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has joined the chat`));
-
-      if (rooms[RoomId]) {
-        //  Adding the current user to the list of users of the current room
-        rooms[RoomId].push(socket.id);
-      } else {
-        rooms[RoomId] = [socket.id];
-      }
+      socket.broadcast.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has joined the chat`));
     });
 
-    socket.on("streamingStarted", () => {
-      //  Get other users in the room
-      const otherUsers = rooms[RoomId].filter(id => id !== socket.id);
+    socket.on("broadcaster", () => {
+      console.log("In broadcaster", socket.id);
+      broadcaster = socket.id;
+      socket.broadcast.to(RoomId).emit("broadcaster");
+    });
 
-      if (otherUsers) {
-        otherUsers.forEach(userID => {
-          socket.to(RoomId).emit('other user', userID);
-          socket.to(RoomId).emit('user joined', socket.id);
-        });
-      }
+    socket.on("watcher", () => {
+      console.log("In watcher", broadcaster);
+      socket.to(broadcaster).emit("watcher", socket.id);
+    });
+
+    socket.on("offer", (id, message) => {
+      console.log("In offer", id);
+      socket.to(id).emit("offer", socket.id, message);
+    });
+
+    socket.on("answer", (id, message) => {
+      console.log("In answer", id);
+      socket.to(id).emit("answer", socket.id, message);
+    });
+
+    socket.on("candidate", (id, message) => {
+      console.log("In candidate", id);
+      socket.to(id).emit("candidate", socket.id, message);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("In disconnect");
+      socket.to(broadcaster).emit("disconnectPeer", socket.id);
     });
 
     // Listen for chatMessage
@@ -140,22 +151,9 @@ exports.io = function (io) {
     // Runs when client disconnects
     socket.on('disconnect', () => {
       if (user) {
-        rooms[RoomId] = rooms[RoomId]?.filter(id => id !== socket.id);
-        io.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has left the chat`));
+        socket.broadcast.to(RoomId).emit('message', formatMessage("", "Streaming", "Event", `${firstname} has left the chat`));
       }
     });
-
-    //  Listen for offers and answers of streams
-    socket.on('offer', payload => {
-      io.to(payload.target).emit('offer', payload);
-    });
-    socket.on('answer', payload => {
-      io.to(payload.target).emit('answer', payload);
-    });
-    socket.on('ice-candidate', incoming => {
-      io.to(incoming.target).emit('ice-candidate', incoming.candidate);
-    });
-
   });
 };
 
