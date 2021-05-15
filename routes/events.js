@@ -42,7 +42,7 @@ const eventsSchema = Joi.object({
 
 // CRUD Operations routing of event
 router.get("/events", (req, res) => {
-  Event.find({}).lean().exec((err, events) => {
+  Event.find({}).lean().sort({ startDate: -1 }).exec((err, events) => {
     if (err) {
       console.log(err.message);
       return res.sendStatus(500);
@@ -53,12 +53,20 @@ router.get("/events", (req, res) => {
       else if (currentDate < event.startDate) event.status = "Soon";
       else if (currentDate > event.endDate) event.status = "Closed";
     });
-    res.status(200).json(events);
+    let sortedEvents = [];
+    ["Opened", "Soon", "Closed"].forEach(status => {
+      events.forEach(event => {
+        if (event.status === status) {
+          sortedEvents.push(event);
+        }
+      })
+    });
+    res.status(200).json(sortedEvents);
   });
 });
 
 router.get("/events/:id", (req, res) => {
-  Event.findById(req.params.id).sort({ startDate: 1 }).exec((err, event) => {
+  Event.findById(req.params.id).exec((err, event) => {
     if (err) {
       console.log(err.message);
       return res.sendStatus(500);
