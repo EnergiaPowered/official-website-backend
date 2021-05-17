@@ -45,7 +45,7 @@ let Server = app.listen(port, err => {
 
 let IO = socket(Server, {
   cors: {
-    origin: process.env.FRONT_HOST,
+    origin: '*',
     methods: ["GET", "POST"],
     allowedHeaders: ["x-auth-token"]
   }
