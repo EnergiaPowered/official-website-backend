@@ -46,7 +46,7 @@ let Server = app.listen(port, err => {
 
 let IO = socket(Server, {
   cors: {
-    origin: 'https://www.energia-powered.com',
+    origins: [process.env.FRONT_HOST],
     methods: ["GET", "POST"],
     allowedHeaders: ["x-auth-token"]
   }
