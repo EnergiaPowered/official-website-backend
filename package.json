@@ -28,6 +28,7 @@
     "lint-staged": "^10.5.1",
     "lodash": "^4.17.20",
     "mongoose": "^5.10.15",
+    "morgan": "^1.10.0",
     "nodemailer": "^6.4.17",
     "prettier": "^2.1.2",
     "socket.io": "^4.0.1"
