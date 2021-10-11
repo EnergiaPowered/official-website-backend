@@ -1,7 +1,5 @@
 // Importing Model
 const Blog = require("../models/Blog");
-const auth = require("../middleware/auth");
-const admin = require("../middleware/admin");
 
 module.exports = {
   getBlogs: (req, res) => {
