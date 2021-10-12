@@ -2,143 +2,84 @@ const express = require("express");
 const router = express.Router();
 const { checkSchema, validationResult } = require("express-validator");
 
-// Importing Model
-const Committee = require("../models/Committee");
+const committeesController = require("../controllers/committesController");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
+const committesController = require("../controllers/committesController");
 
 // Defining a Checking Schema for the committee
 const committeeCheckSchema = checkSchema({
-    title: {
-        isString: true,
-        exists: {
-            options: {
-                checkFalsy: true
-            }
-        },
-        rtrim: true,
-        escape: true
+  title: {
+    isString: true,
+    exists: {
+      options: {
+        checkFalsy: true,
+      },
     },
-    icon_class: {
-        isString: true,
-        exists: {
-            options: {
-                checkFalsy: true
-            }
-        },
-        rtrim: true,
-        escape: true
+    rtrim: true,
+    escape: true,
+  },
+  icon_class: {
+    isString: true,
+    exists: {
+      options: {
+        checkFalsy: true,
+      },
     },
-    mission: {
-        isString: true,
-        exists: {
-            options: {
-                checkFalsy: true
-            }
-        },
-        rtrim: true,
-        escape: true
+    rtrim: true,
+    escape: true,
+  },
+  mission: {
+    isString: true,
+    exists: {
+      options: {
+        checkFalsy: true,
+      },
     },
-    vision: {
-        isString: true,
-        exists: {
-            options: {
-                checkFalsy: true
-            }
-        },
-        rtrim: true,
-        escape: true
+    rtrim: true,
+    escape: true,
+  },
+  vision: {
+    isString: true,
+    exists: {
+      options: {
+        checkFalsy: true,
+      },
     },
-    jobDescription: {
-        isArray: true,
-        exists: {
-            options: {
-                checkFalsy: true
-            }
-        }
-    }
+    rtrim: true,
+    escape: true,
+  },
+  jobDescription: {
+    isArray: true,
+    exists: {
+      options: {
+        checkFalsy: true,
+      },
+    },
+  },
 });
 
 // Retrieve all committees
-router.get("/committees", (req, res) => {
-    Committee.find(req.query).sort({ title: 1 }).exec((err, crew) => {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
-        res.status(200).json(crew);
-    });
-});
+router.get("/committees", committeesController.getAllCommittes);
 
 // insert new committee w/ validation and sanitization
-router.post("/committees", [committeeCheckSchema], (req, res) => {
-    try {
-        if (req.body && req.body !== {}) {
-            validationResult(req).throw();
-            let newCommittee = new Committee(req.body);
-            newCommittee.save((err) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).send(err);
-                }
-                res.sendStatus(200);
-            });
-        } else res.sendStatus(400);
-    } catch (err) {
-        res.status(400).send(err.mapped());
-    }
-});
+router.post(
+  "/committees",
+  [committeeCheckSchema],
+  committesController.postCommitte
+);
 
 // edit a committee w/ validation and sanitization
-router.put("/committees/:id", [committeeCheckSchema], (req, res) => {
-    try {
-        if (req.body && req.body !== {}) {
-            validationResult(req).throw();
-            Committee.findByIDAndUpdate(req.params.id, { $set: req.body }, ((err, committee) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).send(err);
-                }
-                if (!committee) {
-                    console.log("Error 404: Committee not found");
-                    return res.status(404);
-                }
-                res.sendStatus(200);
-            }));
-        } else res.sendStatus(400);
-    } catch (err) {
-        res.status(400).send(err.mapped());
-    }
-});
+router.put(
+  "/committees/:id",
+  [committeeCheckSchema],
+  committeesController.putCommitte
+);
 
 // delete a committee
-router.delete("/committees/:id", (req, res) => {
-    Committee.findByIdAndRemove(req.params.id, (err, committee) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).send(err);
-        }
-        if (!committee) {
-            console.log("Error 404: Committee not found");
-            return res.status(404);
-        }
-        res.sendStatus(200);
-    });
-});
+router.delete("/committees/:id", committeesController.deleteOneCommitte);
 
 // delete all committees
-router.delete("/committees", (req, res) => {
-    Committee.deleteMany({}, (err, committees) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).send(err);
-        }
-        if (!committees) {
-            console.log("Error 404: Committees not found");
-            return res.status(404);
-        }
-        res.sendStatus(200);
-    });
-});
+router.delete("/committees", committeesController.deleteAllCommittes);
 
 module.exports = router;
