@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const socket = require("socket.io");
+const morgan = require("morgan");
 const app = express();
 
 // hours that the check the unverified users
 let hours = 6;
-setInterval(require('./methods/unverified'), 1000 * 60 * 60 * hours);
+setInterval(require("./methods/unverified"), 1000 * 60 * 60 * hours);
 
 require("dotenv").config();
 
@@ -23,6 +24,9 @@ app.use(cors());
 // disable the X-Powered-By header instead of using helmet
 app.disable("x-powered-by");
 
+// Morgen middleware for logging the requests
+app.use(morgan(":method :url :status "));
+
 // Router MiddleWares
 app.use(require("./routes/contactInfo"));
 app.use(require("./routes/message"));
@@ -38,18 +42,19 @@ app.use(require("./routes/reset_password"));
 
 // listen to specific port
 const port = process.env.PORT || 4000;
-let Server = app.listen(port, err => {
+let Server = app.listen(port, (err) => {
   if (err) return console.log(err);
-  console.log(`Listening to port ${port}`)
+  console.log(`Listening to port ${port}`);
+  console.log(process.env.FRONT_HOST);
 });
 
 let IO = socket(Server, {
   cors: {
-    origin: process.env.FRONT_HOST,
+    origins: [process.env.FRONT_HOST],
     methods: ["GET", "POST"],
-    allowedHeaders: ["x-auth-token"]
-  }
+    allowedHeaders: ["x-auth-token"],
+  },
 });
 
-const { io } = require('./routes/chat');
+const { io } = require("./routes/chat");
 io(IO);
