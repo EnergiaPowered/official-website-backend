@@ -11,6 +11,9 @@ module.exports = {
     const user = await User.findById(req.user._id).select(
       "-password -__v -_id"
     );
+    if (!res.body) {
+      return res.status(404).json({ message: "Can't find user" });
+    }
     res.send(user);
   },
   postOneUser: async (req, res) => {
