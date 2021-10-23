@@ -1,5 +1,13 @@
 const Event = require("../models/Event");
 const Chat = require("../models/Chat");
+const Joi = require("joi");
+const { User, validate } = require("../models/User");
+
+// chat get and add by know the event id
+const chatSchema = Joi.object({
+  EventId: Joi.required(),
+  message: Joi.string().required(),
+});
 
 module.exports = {
   getOneEvent: async (req, res) => {

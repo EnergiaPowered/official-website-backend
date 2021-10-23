@@ -1,17 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { User, validate } = require("../models/User");
-const Joi = require("joi");
 const chatController = require("../controllers/chatController");
 const auth = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-
-// chat get and add by know the event id
-const chatSchema = Joi.object({
-  EventId: Joi.required(),
-  message: Joi.string().required(),
-});
 
 router.get("/events/:id/chat", auth, chatController.getOneEvent);
 
