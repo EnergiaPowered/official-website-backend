@@ -2,16 +2,16 @@
 const Member = require("../models/Member");
 
 module.exports = {
-  getAllCrew: (req, res) => {
-    Member.find(req.query)
-      .sort({ committee: 1 })
-      .exec((err, crew) => {
-        if (err) {
-          console.log(err);
-          return res.sendStatus(500);
-        }
-        res.status(200).json(crew);
-      });
+  getAllCrew: async (req, res) => {
+    try {
+      const crew = await Member.find(req.query).sort({ committee: 1 });
+      if (!crew) {
+        res.status(404).json({ message: "No Crew found" });
+      }
+      res.status(200).json(crew);
+    } catch (err) {
+      res.status(500).send(err);
+    }
   },
   postMember: (req, res) => {
     try {
@@ -54,30 +54,31 @@ module.exports = {
       res.status(400).send(err.mapped());
     }
   },
-  deleteOne: (req, res) => {
-    Member.findOneAndRemove({ ID: req.params.id }, (err, member) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send(err);
+  deleteOne: async (req, res) => {
+    try {
+      const deletedMember = await Member.findOneAndRemove({
+        ID: req.params.id,
+      });
+      if (!deletedMember) {
+        const err = new Error();
+        err.message = "Member not found";
+        return res.status(404).send(err);
       }
-      if (!member) {
-        console.log("Error 404: Member not found");
-        return res.status(404);
-      }
-      res.sendStatus(200);
-    });
+      res.sendStatus(200).json({ message: "Deleted" });
+    } catch (err) {
+      return res.status(500).send(err);
+    }
   },
-  deleteAll: (req, res) => {
-    Member.deleteMany({}, (err, crew) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send(err);
-      }
+  deleteAll: async (req, res) => {
+    try {
+      const crew = await Member.deleteMany({});
       if (!crew) {
         console.log("Error 404: Crew not found");
         return res.status(404);
       }
       res.sendStatus(200);
-    });
+    } catch (err) {
+      return res.status(500).send(err);
+    }
   },
 };
