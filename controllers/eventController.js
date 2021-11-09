@@ -28,45 +28,42 @@ const eventsSchema = Joi.object({
 });
 
 module.exports = {
-  getAllEvents: (req, res) => {
-    Event.find({})
-      .lean()
-      .sort({ startDate: -1 })
-      .exec((err, events) => {
-        if (err) {
-          console.log(err.message);
-          return res.sendStatus(500);
-        }
-        const currentDate = new Date();
-        events.forEach((event) => {
-          if (currentDate >= event.startDate && currentDate <= event.endDate)
-            event.status = "Opened";
-          else if (currentDate < event.startDate) event.status = "Soon";
-          else if (currentDate > event.endDate) event.status = "Closed";
-        });
-        let sortedEvents = [];
-        ["Opened", "Soon", "Closed"].forEach((status) => {
-          events.forEach((event) => {
-            if (event.status === status) {
-              sortedEvents.push(event);
-            }
-          });
-        });
-        res.status(200).json(sortedEvents);
+  getAllEvents: async (req, res) => {
+    try {
+      const events = await Event.find({}).lean().sort({ startDate: -1 });
+      const currentDate = new Date();
+      events.forEach((event) => {
+        if (currentDate >= event.startDate && currentDate <= event.endDate)
+          event.status = "Opened";
+        else if (currentDate < event.startDate) event.status = "Soon";
+        else if (currentDate > event.endDate) event.status = "Closed";
       });
+      let sortedEvents = [];
+      ["Opened", "Soon", "Closed"].forEach((status) => {
+        events.forEach((event) => {
+          if (event.status === status) {
+            sortedEvents.push(event);
+          }
+        });
+      });
+      res.status(200).json(sortedEvents);
+    } catch (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }
   },
 
-  getOneEvent: (req, res) => {
-    Event.findById(req.params.id).exec((err, event) => {
-      if (err) {
-        console.log(err.message);
-        return res.sendStatus(500);
-      }
+  getOneEvent: async (req, res) => {
+    try {
+      const event = await Event.findById(req.params.id);
       if (!event) {
         return res.sendStatus(404);
       }
       res.json(event);
-    });
+    } catch (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }
   },
 
   postEvent: (req, res) => {

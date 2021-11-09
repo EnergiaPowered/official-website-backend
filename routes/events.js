@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const Joi = require("joi");
 const eventController = require("../controllers/eventController");
 
 const auth = require("../middleware/auth");
