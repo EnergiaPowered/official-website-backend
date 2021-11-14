@@ -1,8 +1,8 @@
 {
-    "cSpell.words": [
-        "energia",
-        "fortawesome"
-    ],
-    "python.formatting.provider": "black",
-    "python.pythonPath": "C:\\Users\\Abdulla\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe"
+  "cSpell.words": ["energia", "fortawesome"],
+  "python.formatting.provider": "black",
+  "python.pythonPath": "C:\\Users\\Abdulla\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+  "files.associations": {
+    "stdio.h": "c"
+  }
 }
