@@ -21,6 +21,10 @@ const formSchema = new Schema({
       ref: "Question",
     },
   ],
+  endDate: {
+    type: Date,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Form", formSchema);

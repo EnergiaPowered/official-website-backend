@@ -17,6 +17,17 @@ const questionSchema = new Schema({
     required: true,
     default: false,
   },
+  options: [
+    {
+      label: {
+        type: String,
+        required: true,
+      },
+      value: {
+        required: true,
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model("Question", questionSchema);
