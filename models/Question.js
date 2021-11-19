@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+/* In this model we put the questions in the form */
 const questionSchema = new Schema({
   label: {
     type: String,
@@ -11,11 +11,6 @@ const questionSchema = new Schema({
     required: true,
     enum: ["text", "textArea", "select"],
     default: "text",
-  },
-  isRequired: {
-    type: Boolean,
-    required: true,
-    default: false,
   },
   options: [
     {
@@ -28,6 +23,10 @@ const questionSchema = new Schema({
       },
     },
   ],
+  formId: {
+    type: Schema.Types.ObjectId,
+    ref: "Form",
+  },
 });
 
 module.exports = mongoose.model("Question", questionSchema);
