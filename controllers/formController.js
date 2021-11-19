@@ -4,6 +4,9 @@ module.exports = {
   getForms: async (req, res) => {
     try {
       const forms = await Form.find({}).sort({ createdAt: -1 });
+      if (!forms[0]) {
+        return res.status(404).json({ message: "Not found" });
+      }
       res.status(200).json(forms);
     } catch (err) {
       res.status(500).json({
@@ -14,6 +17,9 @@ module.exports = {
   getOneForm: async (req, res) => {
     try {
       const form = await Form.findById(req.params.id);
+      if (!form) {
+        return res.status(404).json({ message: "Not found" });
+      }
       res.status(200).json(form);
     } catch (err) {
       res.status(500).json({
