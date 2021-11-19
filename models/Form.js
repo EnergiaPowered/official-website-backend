@@ -18,8 +18,25 @@ const formSchema = new Schema(
     },
     questions: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Question",
+        label: { type: String, required: true },
+        type: {
+          type: String,
+          required: true,
+          enum: ["text", "textArea", "select"],
+          default: "text",
+        },
+        options: [
+          {
+            label: {
+              type: String,
+              required: true,
+            },
+            value: {
+              type: String,
+              required: true,
+            },
+          },
+        ],
       },
     ],
     endDate: {

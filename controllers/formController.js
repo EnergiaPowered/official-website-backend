@@ -24,7 +24,7 @@ module.exports = {
   createForm: (req, res) => {
     try {
       if (req.body && req.body !== {}) {
-        let newForm = new Form(req.body);
+        const newForm = new Form(req.body);
         newForm.save((err, form) => {
           if (err) {
             console.log(err);
@@ -75,8 +75,12 @@ module.exports = {
   },
   deleteAllForms: async (req, res) => {
     try {
-      const forms = await Form.deleteMany({});
-      res.status(200).send(forms);
+      let forms = await Form.find({});
+      if (!forms[0]) {
+        return res.status(404).json({ message: "Not found" });
+      }
+      forms = await Form.deleteMany({});
+      res.status(200);
     } catch (err) {
       return res.status(500).send(err);
     }
