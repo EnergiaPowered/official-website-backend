@@ -1,29 +1,45 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const startDate = formSchema.startDate;
 
 const formSchema = new Schema(
   {
-    formSubmitted: {
-      type: String,
-      required: true,
-    },
     title: {
       type: String,
       required: true,
     },
-    /* when the deadline of the form is over */
-    formFinished: {
+    description: {
       type: String,
       required: true,
     },
-    questions: [
+    /* The text shown after the user submits the form */
+    postSubmit: {
+      type: String,
+      default: "Thank you for submitting the form",
+    },
+    /* The text shown before the event starts */
+    preEvent: {
+      type: String,
+      default: `The event will start soon \n Stay tuned!`,
+    },
+    /* when the deadline of the form is over */
+    postEvent: {
+      type: String,
+      default: "Sorry the deadline of this form is over",
+    },
+    fields: [
       {
         label: { type: String, required: true },
         type: {
           type: String,
           required: true,
-          enum: ["text", "textArea", "select"],
-          default: "text",
+          enum: ["Text", "TextArea", "Selection"],
+          default: "Text",
+        },
+        placeholder: { type: String },
+        isReq: {
+          type: Boolean,
+          required: true,
         },
         options: [
           {
@@ -39,6 +55,10 @@ const formSchema = new Schema(
         ],
       },
     ],
+    startDate: {
+      type: Date,
+      required: true,
+    },
     endDate: {
       type: Date,
       required: true,
