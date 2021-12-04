@@ -1,45 +1,69 @@
 const Event = require("../models/Event");
+const express = require("express");
+const Joi = require("joi");
+// Defining a Checking schema for the Event Body
+const minDate = `1-1-${new Date(Date.now()).getFullYear() - 1}`;
+const maxDate = `1-1-${new Date(Date.now()).getFullYear() + 1}`;
+
+const eventsSchema = Joi.object({
+  name: Joi.string().required(),
+
+  startDate: Joi.date().greater(minDate),
+
+  endDate: Joi.date().less(maxDate),
+
+  category: Joi.string()
+    .required()
+    .valid("Session", "OnDayEvent", "Marathon", "Competition"),
+
+  eventDescription: Joi.string().required(),
+
+  eventMobileDescription: Joi.string().required(),
+
+  eventDetails: Joi.string().allow(""),
+
+  eventLocation: Joi.string().required(),
+
+  eventImageID: Joi.string().allow(""),
+});
 
 module.exports = {
-  getAllEvents: (req, res) => {
-    Event.find({})
-      .lean()
-      .sort({ startDate: -1 })
-      .exec((err, events) => {
-        if (err) {
-          console.log(err.message);
-          return res.sendStatus(500);
-        }
-        const currentDate = new Date();
-        events.forEach((event) => {
-          if (currentDate >= event.startDate && currentDate <= event.endDate)
-            event.status = "Opened";
-          else if (currentDate < event.startDate) event.status = "Soon";
-          else if (currentDate > event.endDate) event.status = "Closed";
-        });
-        let sortedEvents = [];
-        ["Opened", "Soon", "Closed"].forEach((status) => {
-          events.forEach((event) => {
-            if (event.status === status) {
-              sortedEvents.push(event);
-            }
-          });
-        });
-        res.status(200).json(sortedEvents);
+  getAllEvents: async (req, res) => {
+    try {
+      const events = await Event.find({}).lean().sort({ startDate: -1 });
+      const currentDate = new Date();
+      events.forEach((event) => {
+        if (currentDate >= event.startDate && currentDate <= event.endDate)
+          event.status = "Opened";
+        else if (currentDate < event.startDate) event.status = "Soon";
+        else if (currentDate > event.endDate) event.status = "Closed";
       });
+      let sortedEvents = [];
+      ["Opened", "Soon", "Closed"].forEach((status) => {
+        events.forEach((event) => {
+          if (event.status === status) {
+            sortedEvents.push(event);
+          }
+        });
+      });
+      res.status(200).json(sortedEvents);
+    } catch (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }
   },
 
-  getOneEvent: (req, res) => {
-    Event.findById(req.params.id).exec((err, event) => {
-      if (err) {
-        console.log(err.message);
-        return res.sendStatus(500);
-      }
+  getOneEvent: async (req, res) => {
+    try {
+      const event = await Event.findById(req.params.id);
       if (!event) {
         return res.sendStatus(404);
       }
       res.json(event);
-    });
+    } catch (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }
   },
 
   postEvent: (req, res) => {
