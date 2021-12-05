@@ -16,7 +16,8 @@ module.exports = {
   },
   getOneForm: async (req, res) => {
     try {
-      const form = await Form.findById(req.params.id);
+      const title = req.params.title.split("-").join(" ");
+      const form = await Form.find({ title: title });
       if (!form) {
         return res.status(404).json({ message: "Not found" });
       }
@@ -27,8 +28,12 @@ module.exports = {
       });
     }
   },
-  createForm: (req, res) => {
+  createForm: async (req, res) => {
     try {
+      const title = await Form.exists({ title: req.body.title });
+      if (title) {
+        return res.status(400).send("Title is taken");
+      }
       if (req.body && req.body !== {}) {
         const newForm = new Form(req.body);
         newForm.save((err, form) => {
@@ -48,8 +53,9 @@ module.exports = {
   updateForm: (req, res) => {
     try {
       if (req.body && req.body !== {}) {
-        Form.findByIdAndUpdate(
-          req.params.id,
+        title = req.params.title.split("-").join(" ");
+        Form.findOneAndUpdate(
+          { title: title },
           { $set: req.body },
           (err, form) => {
             if (err) {
@@ -70,7 +76,8 @@ module.exports = {
   },
   deleteOneForm: async (req, res) => {
     try {
-      const form = await Form.findByIdAndRemove(req.params.id);
+      title = req.params.title.split("-").join(" ");
+      const form = await Form.findOneAndRemove({ title: title });
       if (!form) {
         return res.status(404).json({ message: "Not found" });
       }
