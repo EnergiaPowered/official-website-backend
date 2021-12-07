@@ -46,7 +46,7 @@ const port = process.env.PORT || 4000;
 let Server = app.listen(port, (err) => {
   if (err) return console.log(err);
   console.log(`Listening to port ${port}`);
-  console.log(process.env.FRONT_HOST);
+  console.log(`Frontend Host: ${process.env.FRONT_HOST}`);
 });
 
 let IO = socket(Server, {
