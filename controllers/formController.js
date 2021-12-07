@@ -46,7 +46,7 @@ module.exports = {
       } else res.sendStatus(400);
     } catch (err) {
       res.status(500).json({
-        message: "Error occured while getting the db",
+        message: "Error occurred while getting the db",
       });
     }
   },

@@ -1,6 +1,6 @@
 const Event = require("../models/Event");
-const express = require("express");
 const Joi = require("joi");
+
 // Defining a Checking schema for the Event Body
 const minDate = `1-1-${new Date(Date.now()).getFullYear() - 1}`;
 const maxDate = `1-1-${new Date(Date.now()).getFullYear() + 1}`;
