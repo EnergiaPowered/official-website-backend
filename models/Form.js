@@ -35,7 +35,7 @@ const formSchema = new Schema(
           default: "Text",
         },
         placeholder: { type: String },
-        isReq: {
+        isRequired: {
           type: Boolean,
           required: true,
         },
