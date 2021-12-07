@@ -6,11 +6,43 @@ const crypto = require("crypto");
 const _ = require("lodash");
 const Joi = require("joi");
 
+function validate_update(user) {
+  const passwordValidations = {
+    min: 8,
+    max: 1024,
+    lowerCase: 1,
+    upperCase: 1,
+    numeric: 1,
+    symbol: 0,
+    requirementCount: 4,
+  };
+
+  const schema = Joi.object({
+    firstname: Joi.string().min(2).max(50).required(),
+    lastname: Joi.string().min(2).max(50).required(),
+    phone: Joi.string().min(7).max(15).required(),
+    password: passwordComplexity(passwordValidations),
+    confirm_password: passwordComplexity(passwordValidations),
+    university: Joi.string().min(2).max(100).required(),
+    faculty: Joi.string().min(2).max(100).required(),
+    department: Joi.string().min(2).max(100).allow(""),
+    graduationYear: Joi.number()
+      .min(new Date(Date.now()).getFullYear() - 7)
+      .max(new Date(Date.now()).getFullYear() + 7)
+      .required(),
+    isGraduated: Joi.boolean(),
+  });
+  return schema.validate(user);
+}
+
 module.exports = {
   getTheSignedInUser: async (req, res) => {
     const user = await User.findById(req.user._id).select(
       "-password -__v -_id"
     );
+    if (!res.body) {
+      return res.status(404).json({ message: "Can't find user" });
+    }
     res.send(user);
   },
   postOneUser: async (req, res) => {
@@ -113,5 +145,10 @@ module.exports = {
       console.log(err.message);
       res.sendStatus(500);
     }
+  },
+  getAllUsers: (req, res) => {
+    User.find({})
+      .then((users) => res.json(users))
+      .catch((err) => res.status(500).json({ message: err }));
   },
 };

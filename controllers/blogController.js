@@ -2,16 +2,16 @@
 const Blog = require("../models/Blog");
 
 module.exports = {
-  getBlogs: (req, res) => {
-    Blog.find({})
-      .sort({ createdAt: -1 })
-      .exec((err, blogs) => {
-        if (err) {
-          console.log(err);
-          return res.sendStatus(500);
-        }
-        res.status(200).json(blogs);
+  getBlogs: async (req, res) => {
+    try {
+      const blogs = await Blog.find({}).sort({ createdAt: -1 });
+      res.status(200).json(blogs);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        message: "Error occured while getting the db",
       });
+    }
   },
   postBlog: (req, res) => {
     try {
@@ -55,26 +55,26 @@ module.exports = {
       res.status(400).send(err.mapped());
     }
   },
-  deleteOneBlog: (req, res) => {
-    Blog.findByIdAndRemove(req.params.id, (err, blog) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send(err);
-      }
+  deleteOneBlog: async (req, res) => {
+    try {
+      const blog = await Blog.findByIdAndRemove(req.params.id);
       if (!blog) {
         console.log("Error 404: Blog not found");
         return res.status(404);
       }
       res.sendStatus(200);
-    });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
   },
-  deleteAllBlogs: (req, res) => {
-    Blog.deleteMany({}, (err) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send(err);
-      }
-      res.sendStatus(200);
-    });
+  deleteAllBlogs: async (req, res) => {
+    try {
+      const blogs = await Blog.deleteMany({});
+      res.status(200).send(blogs);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
   },
 };
