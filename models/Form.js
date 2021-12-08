@@ -5,6 +5,7 @@ const formSchema = new Schema(
     title: {
       type: String,
       required: true,
+      unique: true,
     },
     description: {
       type: String,
@@ -35,7 +36,7 @@ const formSchema = new Schema(
           default: "Text",
         },
         placeholder: { type: String },
-        isReq: {
+        isRequired: {
           type: Boolean,
           required: true,
         },
