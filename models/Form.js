@@ -5,6 +5,7 @@ const formSchema = new Schema(
     title: {
       type: String,
       required: true,
+      unique: true,
     },
     description: {
       type: String,
@@ -24,6 +25,10 @@ const formSchema = new Schema(
     postEvent: {
       type: String,
       default: "Sorry the deadline of this form is over",
+    },
+    resultSheet: {
+      type: String,
+      required: true,
     },
     fields: [
       {
