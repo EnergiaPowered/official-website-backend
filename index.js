@@ -17,7 +17,6 @@ db();
 // parse the body of the request
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "client/build")));
 
 //enable cors
 app.use(cors());
@@ -42,18 +41,12 @@ app.use(require("./routes/verify"));
 app.use(require("./routes/reset_password"));
 app.use(require("./routes/form"));
 
-if (process.env.NODE_ENV === "production") {
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"));
-  });
-}
-
 // listen to specific port
 const port = process.env.PORT || 4000;
 let Server = app.listen(port, (err) => {
   if (err) return console.log(err);
   console.log(`Listening to port ${port}`);
-  console.log(process.env.FRONT_HOST);
+  console.log(`Frontend Host: ${process.env.FRONT_HOST}`);
 });
 
 let IO = socket(Server, {
