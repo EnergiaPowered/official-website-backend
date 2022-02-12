@@ -1,0 +1,249 @@
+.streaming-container {
+    margin: 15% auto 0;
+    width: 90%;
+}
+
+.streaming-antennas {
+    position: relative;
+}
+
+.streaming-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 100%;
+}
+
+.streaming-sections {
+    padding: 5%;
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 20px;
+    display: flex;
+}
+
+.streaming-section1 {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin-right: 2%;
+}
+
+.streaming-video {
+    height: 30vw;
+    background-color: #CCCCCC;
+    margin-bottom: 3%;
+}
+
+.streaming-video iframe {
+    height: 100%;
+    width: 100%;
+    border: none;
+}
+
+.streaming-description p,
+.comment-info p {
+    margin-bottom: 0;
+}
+
+.streaming-description .streaming-button,
+.streaming-description .streamingID {
+    border: none;
+    background-color: #CCCCCC;
+    color: #0A1E49;
+    padding: 0.5rem 1rem;
+}
+
+.streaming-description .admin {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3%;
+}
+
+.streaming-section2 {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+}
+
+.streaming-comments::-webkit-scrollbar {
+    width: 0;
+}
+
+.streaming-comments,
+.streaming-send-comment {
+    background-color: rgba(255, 255, 255, 0.63);
+    border-radius: 20px;
+}
+
+.streaming-comments {
+    position: relative;
+    overflow-y: auto;
+    height: 100%;
+    max-height: 90vh;
+    margin-bottom: 5%;
+    padding: 5% 7%;
+}
+
+.streaming-comments .comments {
+    position: absolute;
+    width: 86%;
+}
+
+.streaming-comments>div>div {
+    display: flex;
+    margin-bottom: 8%;
+}
+
+.comment-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin-right: 3%;
+    background-color: #0A1E49;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment-icon.me {
+    background-color: #186fa1;
+}
+
+.comment-info {
+    width: 80%;
+    color: #0A1E49;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.comment-info h6 {
+    color: #0A1E49;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.comment-info.me>* {
+    color: #186fa1 !important;
+}
+
+.comment-info p {
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+}
+
+.streaming-send-comment {
+    padding: 2% 5%;
+}
+
+.streaming-send-comment form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.streaming-send-comment form input {
+    width: 100%;
+}
+
+.streaming-send-comment form input,
+.streaming-send-comment form button {
+    background: none;
+    border: none;
+    outline: none;
+    color: #0A1E49;
+}
+
+.streaming-send-comment form button .icon {
+    transform: rotate(45deg);
+}
+
+@media only screen and (max-width: 991px) {
+    .comment-icon {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .comment-icon,
+    .comment-info *,
+    .streaming-description *,
+    .streaming-send-comment form input {
+        font-size: 85%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .comment-icon,
+    .comment-info *,
+    .streaming-description *,
+    .streaming-send-comment form input {
+        font-size: unset;
+    }
+
+    .streaming-sections {
+        flex-direction: column;
+    }
+
+    .streaming-section1,
+    .streaming-section2 {
+        width: 100%;
+    }
+
+    .streaming-section1 {
+        margin-bottom: 3%;
+        flex-direction: column-reverse;
+    }
+
+    .streaming-description p {
+        margin-bottom: 3%;
+    }
+
+    .streaming-comments {
+        padding: 2% 4%;
+        height: 28vw;
+    }
+
+    .streaming-comments .comments {
+        width: 92%;
+    }
+
+    .streaming-comments>div>div {
+        margin-bottom: 3%;
+    }
+
+    .comment-icon {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .comment-info {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 399px) {
+    .streaming-container {
+        margin: 20% auto 0;
+    }
+
+    .comment-icon,
+    .comment-info *,
+    .streaming-description *,
+    .streaming-send-comment form input {
+        font-size: 85%;
+    }
+
+    .streaming-comments {
+        height: 40vw;
+    }
+
+    .streaming-comments>div>div {
+        margin-bottom: 3%;
+    }
+
+    .comment-icon {
+        width: 2.3rem;
+        height: 2.3rem;
+    }
+}

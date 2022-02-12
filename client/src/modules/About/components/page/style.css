@@ -1,0 +1,15 @@
+.about-vision {
+  margin-bottom: 80px;
+}
+
+/* style the hr */
+hr {
+  width: 70%;
+  text-align: center;
+  border: 1px solid #fff;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

@@ -1,0 +1,73 @@
+.page_container {
+  width: 65% !important;
+  margin: 15% auto 0 auto !important;
+}
+
+.dropbtn {
+  color: white;
+  text-align: center;
+  padding: 5%;
+  font-size: 16px;
+  border: none;
+  background-color: #010e30;
+}
+
+#dropE {
+  text-align: center;
+}
+
+div.scrollmenu {
+  background-color: #002f6d;
+  overflow-x: scroll;
+  white-space: nowrap;
+  margin: 6% 5%;
+  -webkit-box-shadow: 0px 8px 18px 11px #ffffff33;
+  box-shadow: 0px 8px 18px 11px #ffffff33;
+}
+
+div.scrollmenu::-webkit-scrollbar {
+  height: 2px;
+}
+
+div.scrollmenu div {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+div.scrollmenu div:hover {
+  background-color: #1f59c3;
+}
+
+div.scrollmenu div.current {
+  background-color: #3b77e7;
+}
+
+button.arrows {
+  border: none;
+  outline: none;
+  padding: 10px;
+  background: #3b3b3bc7;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button.arrows svg {
+  font-size: 30px;
+}
+
+button.arrows:hover {
+  background: #252525c7;
+  transform: scale(1.2);
+}
+
+@media screen and (max-width: 768px) {
+  .page_container {
+    width: 85% !important;
+  }
+}
