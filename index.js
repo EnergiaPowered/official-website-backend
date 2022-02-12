@@ -17,6 +17,7 @@ db();
 // parse the body of the request
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "client/build")));
 
 //enable cors
 app.use(cors());
@@ -28,21 +29,28 @@ app.disable("x-powered-by");
 app.use(morgan(":method :url :status "));
 
 // Router MiddleWares
-app.use(require("./routes/contactInfo"));
-app.use(require("./routes/message"));
-app.use(require("./routes/blogs"));
-app.use(require("./routes/events"));
-app.use(require("./routes/chat").router);
-app.use(require("./routes/crew"));
-app.use(require("./routes/committees"));
-app.use(require("./routes/users"));
-app.use(require("./routes/login"));
-app.use(require("./routes/verify"));
-app.use(require("./routes/reset_password"));
-app.use(require("./routes/form"));
+app.use("/api", require("./routes/contactInfo"));
+app.use("/api", require("./routes/message"));
+app.use("/api", require("./routes/blogs"));
+app.use("/api", require("./routes/events"));
+app.use("/api", require("./routes/chat").router);
+app.use("/api", require("./routes/crew"));
+app.use("/api", require("./routes/committees"));
+app.use("/api", require("./routes/users"));
+app.use("/api", require("./routes/login"));
+app.use("/api", require("./routes/verify"));
+app.use("/api", require("./routes/reset_password"));
+app.use("/api", require("./routes/form"));
+
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+  });
+}
 
 // listen to specific port
 const port = process.env.PORT || 4000;
+
 let Server = app.listen(port, (err) => {
   if (err) return console.log(err);
   console.log(`Listening to port ${port}`);
