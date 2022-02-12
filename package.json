@@ -9,24 +9,27 @@
     ]
   },
   "scripts": {
-    "dev-start": "set NODE_ENV=development&& npx nodemon index.js",
-    "start": "set NODE_ENV=production&& node index.js"
+    "dev-start": "concurrently \"npx nodemon index.js\" \"cd client && npm start\"",
+    "start": "set NODE_ENV=production && node index.js",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build "
   },
   "author": "Energia IT Team",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "joi": "^17.3.0",
     "joi-password-complexity": "^4.2.1",
     "jsonwebtoken": "^8.5.1",
     "lint-staged": "^10.5.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "mongoose": "^5.10.15",
     "morgan": "^1.10.0",
     "nodemailer": "^6.4.17",
@@ -39,6 +42,7 @@
     }
   },
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "nodemon": "^2.0.7"
   }
 }

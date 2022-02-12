@@ -1,0 +1,14 @@
+#Partners {
+  text-align: center;
+  background-color: #101b40;
+  padding-top: 60px;
+}
+
+.partner-carousel-item .partner-logo {
+  margin-bottom: 30px;
+}
+
+.partner-carousel-item img {
+  max-width: 100%;
+  height: auto;
+}

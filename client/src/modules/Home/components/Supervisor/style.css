@@ -1,0 +1,17 @@
+.sup-name {
+  font-weight: 800;
+}
+
+.sup-univ {
+  margin-bottom: 40px;
+}
+
+.sup-image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* all paragraphs */
+p {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,66 @@
+#Contacts article#contact-form {
+  background-color: #111a3e;
+  padding: 7% 10%;
+  font-weight: bolder;
+}
+
+#Contacts article#contact-form .box label,
+#Contacts article#contact-form .box input,
+#Contacts article#contact-form .box textarea {
+  display: block;
+  width: 100%;
+  color: #ffffff;
+}
+
+#Contacts article#contact-form .box input,
+#Contacts article#contact-form .box textarea {
+  padding-left: 20px;
+  font-size: 4vw;
+}
+
+#Contacts article#contact-form .box input:focus,
+#Contacts article#contact-form .box textarea:focus {
+  outline: none;
+}
+
+#Contacts article#contact-form .box input,
+#Contacts article#contact-form .box textarea {
+  background-color: #50556f;
+  border: 3px solid #c7c8d0;
+  border-radius: 10px;
+}
+
+#Contacts article#contact-form textarea {
+  min-height: 200px;
+  color: #ffffff;
+}
+
+#Contacts article#contact-form .flex-row-2 .box {
+  margin-bottom: 3%;
+}
+
+#Contacts article#contact-form input[type="submit"] {
+  display: block;
+  min-height: 5vh;
+  margin: 0 auto;
+  width: 100%;
+  font-weight: bolder;
+  background: #ffffff;
+  color: #3e3e7c;
+  border: none;
+  border-radius: 10px;
+}
+
+/* Media Queries */
+@media only screen and (min-width: 768px) {
+  #Contacts article#contact-form .box input,
+  #Contacts article#contact-form .box textarea {
+    font-size: 2vw;
+  }
+  #Contacts article#contact-info section#info,
+  #Contacts article#contact-info section#map,
+  .flex-row-2 .box,
+  #Contacts article#contact-form input[type="submit"] {
+    width: 50% !important;
+  }
+}

@@ -1,0 +1,37 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
+#bestMember {
+  text-align: center;
+  padding-top: 60px;
+}
+
+.member-carousel-item .member-logo {
+  margin-bottom: 30px;
+}
+
+.member-carousel-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: top;
+}
+
+#dwPng {
+  width: 40%;
+  margin: auto;
+}
+
+#upPng {
+  width: 30%;
+  margin: auto;
+}
+
+#logoUser {
+  width: 50px;
+  height: 50px;
+}

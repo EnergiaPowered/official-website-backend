@@ -1,0 +1,116 @@
+{
+    "Workshops":[
+        {
+            "name":"C++",
+            "description":"In this workshop, you will learn C++ basics and improve your skills through solving problems. Also, you will learn about OOP and its concepts. Also, you will apply what you learned through delivering a final project.",
+            "content":[
+                "C++ basics & C++ operators & Conditionals",
+                "Loops + functions + arrays + strings",
+                "Pointers + types of memory allocation",
+                "Intro to OOP & Classes",
+                "Classes’ relations",
+                "Inheritance & Polymorphism"
+            ]
+        },
+        {
+            "name":"Arduino",
+            "description":"After this workshop, you will be able to interface with the Arduino and many electronic components to implement hardware projects (by using Arduino C language)",
+            "content":[
+                "Introduction to Arduino & Digital Outputs",
+                "Digital Inputs",
+                "Analog Inputs & Outputs",
+                "Sensors & Displays",
+                "Transistors, Relays & Diodes"
+            ]
+        },
+        {
+            "name":"Embedded",
+            "description":"After this workshop, you will be able to interface with the AVR microcontroller and its peripherals to implement hardware and simulation projects (by using C language). Having a background about C or C++ language is a must.",
+            "content":[
+                "Revision on C + introduction to Embedded systems",
+                "Computer architecture + Embedded C",
+                "Introduction to AVR MCU + GPIO + interfacing with LEDs, switches, 7 segments",
+                "Interrupts",
+                "Timers",
+                "Keypad + LCD",
+                "ADC + servo motor",
+                "UART"
+            ]
+            
+        },
+        {
+            "name":"Data Structure",
+            "description":"In this workshop, you will learn about data structures using C language. Also, you will apply what you learned through delivering mini projects after each topic.",
+            "content":[
+                "Structures, pointers, static VS dynamic allocation",
+                "Linked list",
+                "Queues",
+                "Stacks",
+                "Hashing",
+                "Binary search tree + AVL tree"
+            ]
+        },
+        {
+            "name":"MATLAB",
+            "description":"In this workshop, you will learn about Matlab basics, OOP and GUI. Also, you will apply what you learned through delivering a final project.",
+            "content":[
+                "MATLAB environment + Matrices + Functions",
+                "Programmers Toolbox + selection + Loops",
+                "Data types + Data I/O",
+                "Variable no. of arguments + Function handles and nested functions + Live scripts",
+                "Efficiency in practice + OOP + GUI"
+            ]
+        },
+        {
+            "name":"Frontend Web Development",
+            "description":"In this workshop, you will learn how to build the webpage that users interact with which is called client-side or front-end web development. At the end of the workshop, you are going to build your own website.",
+            "content":[
+                "HTML",
+                "CSS",
+                "Bootstrap",
+                "JavaScript basics"
+            ]
+        },
+        {
+            "name":"Backend Web Development",
+            "description":"In this workshop, you will learn how to build a REST API and deal with databases. This is called server-side or back-end web development. At the end of the workshop, you are going to build your own REST API for your website.",
+            "content":[
+                "Node.js",
+                "Express.js",
+                "REST API",
+                "MongoDB"
+            ]
+        },
+        {
+            "name":"Mobile App Development",
+            "description":"In this workshop, you will learn to build mobile app using flutter which is a cross-platform software development framework that was presented by Google. It's managed you to build app for Android and iOS with same code. In the end of the workshop, you will build your own complete app.",
+            "content":[
+                "Dart basics",
+                "Flutter framework",
+                    [
+                        "Widgets and widgets tree",
+                        "Widget Styling & adding logic",
+                        "Responsive & Adaptive UI",
+                        "Navigation",
+                        "State management",
+                        "Networking with firebase and API",
+                        "Building apk"
+                    ]
+                
+            ]
+        },
+        {
+            "name":"Data Science",
+            "description":"In this workshop, you will gain a new ability to understand what's behind data and build prediction system built in machine learning models as first step to enter AI field, using pandas to manipulate data to make it ready for the next process, and using matplotlib to see the insights and try to make decisions.",
+            "content":[
+                "Python Basics",
+                "Pandas & NumPy",
+                "Descriptive Statistics",
+                "Data wrangling",
+                "Data visualization",
+                "Supervised Machine Learning",
+                "Unsupervised Machine Learning"
+            ]
+        }
+    ]
+}

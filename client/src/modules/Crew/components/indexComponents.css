@@ -1,0 +1,42 @@
+.title_community {
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 15px;
+    text-align: center;
+}
+
+.heads_community {
+    margin: 5% 0% 5% 0%;
+}
+
+.card_head {
+    margin: auto;
+}
+
+img.img_card {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.img_member img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.img-head {
+    width: 20vw;
+    height: 20vw;
+    object-fit: cover;
+    object-position: top;
+    margin: auto;
+}
+
+.text_head {
+    text-align: center;
+}
+
+.img_member,
+.text_member {
+    text-align: center;
+}

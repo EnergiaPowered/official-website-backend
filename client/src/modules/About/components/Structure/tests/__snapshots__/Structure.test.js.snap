@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<section
+  className="bg-section about-structure"
+>
+  <h2
+    className="section-title"
+  >
+    Our Structure
+  </h2>
+  <div
+    className="d-flex justify-content-center"
+  >
+    <div
+      className="EnlargedImage"
+    >
+      <div
+        className="EnlargedImage__container"
+        style={
+          Object {
+            "display": "inline-block",
+            "position": "relative",
+          }
+        }
+      >
+        <img
+          alt="Our team's structure"
+          className="EnlargedImage__Image"
+          data-testid="structure-image"
+          data-teststate={false}
+          onClick={[Function]}
+          src="Structure.jpg"
+          style={
+            Object {
+              "cursor": "zoom-in",
+              "height": "auto",
+              "maxWidth": "100%",
+              "opacity": 1,
+            }
+          }
+          title="Energia Powered'20 board"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+`;

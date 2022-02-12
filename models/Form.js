@@ -35,7 +35,7 @@ const formSchema = new Schema(
           default: "Text",
         },
         placeholder: { type: String },
-        isReq: {
+        isRequired: {
           type: Boolean,
           required: true,
         },
@@ -54,11 +54,11 @@ const formSchema = new Schema(
       },
     ],
     startDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     endDate: {
-      type: Date,
+      type: String,
       required: true,
     },
   },

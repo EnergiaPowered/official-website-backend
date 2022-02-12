@@ -17,6 +17,7 @@ db();
 // parse the body of the request
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "client/build")));
 
 //enable cors
 app.use(cors());
@@ -40,6 +41,12 @@ app.use(require("./routes/login"));
 app.use(require("./routes/verify"));
 app.use(require("./routes/reset_password"));
 app.use(require("./routes/form"));
+
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+  });
+}
 
 // listen to specific port
 const port = process.env.PORT || 4000;

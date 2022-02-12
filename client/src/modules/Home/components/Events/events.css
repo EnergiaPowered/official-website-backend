@@ -1,0 +1,44 @@
+.section-title {
+  margin: 10px;
+}
+@media (max-width: 600px) {
+  #events {
+    margin-top: -100px;
+  }
+}
+.Allevents {
+  margin-top: -60px;
+}
+.Mcard {
+  background: rgba(16, 45, 68, 0.1);
+  border: rgba(16, 45, 98, 1) solid 1px;
+  width: 100%;
+  height: 100%;
+  /* border-radius: 20%; */
+  margin: 0px 0;
+}
+.Mcard img {
+  object-fit: cover;
+  width: 100%;
+  border-radius: 7px;
+  height: 100%;
+}
+.body {
+  margin-top: 5px;
+  font-weight: 200;
+  /* issue here FONT SIZE CANT BE SET */
+  font-size: 22px !important;
+}
+.body :hover {
+  cursor: pointer;
+}
+
+.btn-center {
+  margin-top: 50px;
+  border-radius: 20px;
+  font-size: 20px;
+  padding: 7px 22px;
+}
+.HomeEvent {
+  margin-top: 30px;
+}
