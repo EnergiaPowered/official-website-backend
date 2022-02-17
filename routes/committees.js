@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { checkSchema, validationResult } = require("express-validator");
 
 const committeesController = require("../controllers/committesController");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
-const committesController = require("../controllers/committesController");
+const { checkSchema, validationResult } = require("express-validator");
 
 // Defining a Checking Schema for the committee
 const committeeCheckSchema = checkSchema({
@@ -66,7 +65,7 @@ router.get("/committees", committeesController.getAllCommittees);
 router.post(
   "/committees",
   [committeeCheckSchema],
-  committesController.postCommitte
+  committeesController.postCommitte
 );
 
 // edit a committee w/ validation and sanitization

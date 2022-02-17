@@ -1,5 +1,6 @@
 // Importing Model
 const Committee = require("../models/Committee");
+const { validationResult } = require("express-validator");
 
 module.exports = {
   /**
