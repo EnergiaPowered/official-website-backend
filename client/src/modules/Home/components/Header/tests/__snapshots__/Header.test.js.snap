@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<section
+  className="header-section"
+  id="header"
+>
+  <header
+    className="container"
+  >
+    <h1
+      className="header-title"
+    >
+       Energia Powered 
+    </h1>
+    <p
+      className="header-slogan"
+    >
+      <q>
+        Collaborate to innovate
+      </q>
+    </p>
+  </header>
+</section>
+`;

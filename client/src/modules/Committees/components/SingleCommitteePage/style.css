@@ -1,0 +1,49 @@
+#SingleComm header {
+  padding: 20% 7%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: left;
+}
+
+#SingleComm header h1 {
+  padding-top: 2.5%;
+  width: 60%;
+}
+
+#SingleComm header #comm-icon {
+  margin-left: 18%;
+}
+
+#SingleComm header #comm-icon * {
+  font-size: 10vw;
+}
+
+#SingleComm section {
+  padding: 9%;
+}
+
+hr {
+  width: 70%;
+  text-align: center;
+  border: 1px solid #fff;
+}
+
+#SingleComm section h2 {
+  margin-bottom: 5%;
+  text-transform: uppercase;
+}
+
+#SingleComm section p {
+  text-align: justify;
+}
+
+.comm-jobs ul {
+  padding: 0;
+  margin: 0;
+  list-style-position: inside;
+  list-style-type: circle;
+}
+
+.comm-jobs ul li {
+  padding-bottom: 10px;
+}

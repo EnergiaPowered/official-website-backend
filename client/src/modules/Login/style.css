@@ -1,0 +1,99 @@
+.ant-radio-wrapper {
+    font-size: medium !important;
+}
+
+.ant-input-password {
+    background-color: transparent !important;
+    padding: 0;
+    border: none;
+}
+
+.ant-input-password-icon {
+    color: #fff;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.login-container h1 {
+    color: white !important;
+}
+
+.login-header {
+    margin-top: 15%;
+}
+
+.login-form {
+    margin: 5% 0;
+    padding: 2% 4%;
+    width: 43%;
+    border-radius: 30px;
+    border: 3px solid white;
+    background-color: #1A2450;
+}
+
+.login-form form label {
+    color: #fff !important;
+    font-size: 21px;
+}
+
+.login-form form input {
+    color: #c4c4c4;
+    border: none !important;
+    border-bottom: 2px solid white !important;
+    background-color: #1A2450 !important;
+}
+
+.login-form form input:hover,
+.ant-input-password:hover {
+    border-color: #40a9ff !important;
+}
+
+.login-form form input:focus,
+.ant-input-password:focus {
+    box-shadow: none !important;
+    border: none !important;
+    border-bottom: 3px solid white !important;
+}
+
+.login-form form input::placeholder {
+    color: #8ea2ff !important;
+}
+
+.login-submit-container a {
+    color: #fff !important;
+    transition: all 0.3s;
+}
+
+.login-submit-container a:hover {
+    text-decoration: none;
+    font-size: medium;
+}
+
+.login-submit {
+    width: fit-content;
+    margin: auto;
+}
+
+.login-submit button {
+    color: #1A2450 !important;
+    font-weight: bold;
+    margin: 8% 0;
+    border-radius: 25px;
+    transition: all 0.3s;
+}
+
+.login-submit button:hover {
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .login-form {
+        width: 80%;
+    }
+}

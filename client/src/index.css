@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: aliceblue !important;
+  background-color: #010e30;
+}
+
+/* style all headers */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #fff;
+}
+
+h1 {
+  font-size: 5vw;
+}
+
+h2 {
+  font-size: 3vw;
+}
+
+@media (max-width: 540px) {
+  h1 {
+    font-size: 6vw;
+  }
+
+  h2 {
+    font-size: 4.5vw;
+  }
+}
+
+/* general style for header section and sub section */
+.page-component {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  /* to align items on the middle */
+  justify-content: center;
+  padding-top: 15%;
+  padding-bottom: 20%;
+}
+
+@media (max-width: 400px) {
+  .header-section {
+    padding-top: 25%;
+  }
+}
+
+.bg-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.section-title {
+  font-weight: 800;
+  margin-bottom: 80px;
+  text-transform: uppercase;
+}
+
+.component-font .icon {
+  font-size: 4vw;
+}
+
+@media (min-width: 500px) and (max-width: 950px) {
+  .component-font {
+    font-size: 2vw;
+  }
+
+  .component-font .icon {
+    font-size: 6vw;
+  }
+}
+
+@media (max-width: 499px) {
+  .component-font {
+    font-size: 3.5vw;
+  }
+
+  .component-font .icon {
+    font-size: 8vw;
+  }
+}
+
+/* the dark bg of sections */
+.dark-bg {
+  background-color: #111a3e;
+}
+
+/* add border-top to the section */
+.border-up {
+  border-top: 1px solid white;
+}
