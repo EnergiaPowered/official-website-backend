@@ -1,0 +1,147 @@
+{
+    "name":"event name",
+    "description":"this is a description for the event",
+    "postSubmit":"this is message to show after submission",
+    "preEvent":"this is a message to show before event starts",
+    "postEvent":"this is a message to show after event ends",
+    "startDate":"2021-12-1T03:24:00Z",
+    "endDate":"2021-12-12T03:24:00Z",
+    "Fields":[
+                {
+                    "label":"label_1label_1label_1label_1label_1label_1label_1label_1label_1label_1",
+                    "name":"field_1",
+                    "type":"Selection",
+                    "options":[
+                        {
+                            "label":"option-label-1",
+                            "value":"1"
+                        },
+                        {
+                            "label":"option-label-2",
+                            "value":"2"
+                        },
+                        {
+                            "label":"option-label-3",
+                            "value":"3"
+                        }
+                    ],
+                    "rules":[
+                        {
+                            "required":true,
+                            "message":"this field is required"
+                        }
+                    ]
+                },
+                {
+                    "label":"label_2",
+                    "name":"field_2",
+                    "type":"Selection",
+                    "options":[
+                        {
+                            "label":"option-label-1",
+                            "value":"1"
+                        },
+                        {
+                            "label":"option-label-2",
+                            "value":"2"
+                        },
+                        {
+                            "label":"option-label-3",
+                            "value":"3"
+                        }
+                    ],
+                    "rules":[
+                        {
+                            "required":true,
+                            "message":"this field is required"
+                        }
+                    ]
+                },
+                {
+                    "label":"label_3",
+                    "name":"field_3",
+                    "type":"Selection",
+                    "options":[
+                        {
+                            "label":"option-label-1",
+                            "value":"1"
+                        },
+                        {
+                            "label":"option-label-2",
+                            "value":"2"
+                        },
+                        {
+                            "label":"option-label-3",
+                            "value":"3"
+                        }
+                    ],
+                    "rules":[
+                        {
+                            "required":true,
+                            "message":"this field is required"
+                        }
+                    ]
+                },
+                {
+                    "label":"label_4",
+                    "name":"field_4",
+                    "type":"Selection",
+                    "options":[
+                        {
+                            "label":"option-label-1",
+                            "value":"1"
+                        },
+                        {
+                            "label":"option-label-2",
+                            "value":"2"
+                        },
+                        {
+                            "label":"option-label-3",
+                            "value":"3"
+                        }
+                    ],
+                    "rules":[
+                        {
+                            "required":true,
+                            "message":"this field is required"
+                        }
+                    ]
+                },
+                {
+                    "label":"label_5",
+                    "name":"field_5",
+                    "type":"Text",
+                    "placeholder":"placeholder_5",
+                    "rules":[
+                        {
+                            "required":true,
+                            "message":"this field is required"
+                        }
+                    ]
+                },
+                {
+                    "label":"label_6",
+                    "name":"field_6",
+                    "type":"Text",
+                    "placeholder":"placeholder_6",
+                    "rules":[
+                        {
+                            "required":true,
+                            "message":"this field is required"
+                        }
+                    ]
+                },
+                {
+                    "label":"label_7label_7label_7label_7label_7label_7",
+                    "name":"field_7",
+                    "type":"TextArea",
+                    "placeholder":"placeholder_7",
+                    "rules":[
+                        {
+                            "required":true,
+                            "message":"this field is required"
+                        }
+                    ]
+                }
+    ]
+}

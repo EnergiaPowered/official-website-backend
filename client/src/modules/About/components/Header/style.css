@@ -1,0 +1,13 @@
+/* style the title of the header */
+header .header-title {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* style the slogan */
+header .header-slogan {
+  font-size: 4.5vw;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Satisfy", cursive;
+}
