@@ -1,0 +1,12 @@
+DB_URI= mongodb+srv://energia20:3nergia20@cluster0-xnzj3.mongodb.net/test?retryWrites=true&w=majority
+
+PRIVATE_KEY= ~`#OI9Fbg']iKC(k#J%.
+CIPHER_PASSWORD= T5oFttSsGLA2Agq/
+INIT_VECTOR= 67cfd87015a4f5bb
+
+EMAIL= Energiapowered.IT21@gmail.com
+PASSWORD= pdfajnxibssffocw
+
+HOST= http://localhost:4000
+FRONT_HOST= http://localhost:3000
+

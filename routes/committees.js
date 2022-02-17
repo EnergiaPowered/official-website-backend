@@ -60,7 +60,7 @@ const committeeCheckSchema = checkSchema({
 });
 
 // Retrieve all committees
-router.get("/committees", committeesController.getAllCommittes);
+router.get("/committees", committeesController.getAllCommittees);
 
 // insert new committee w/ validation and sanitization
 router.post(

@@ -28,6 +28,42 @@ const eventsSchema = Joi.object({
 });
 
 module.exports = {
+  /**
+   * @api {get} /events GET/ events
+   * @apiName GetAllEvents
+   * @apiGroup Events Router
+   * @apiSuccess {Object[]} Events A list of all event objects
+   * @apiSuccessExample events:
+   * [
+  {
+    name: "Dummy Text",
+    startDate: "Dummy Date",
+    endDate: "Dummy Date",
+    status: "Dummy Text",
+    category: "Dummy Date",
+    eventDescription: "Dummy Date",
+	eventMobileDescription: "Dummy Date",
+    eventDetails: "Dummy Date",
+    eventLocation: "Dummy Date",
+    eventImageID: "Dummy Text",
+    _id: "90",
+  },
+  {
+    name: "Dummy Text",
+    startDate: "Dummy Date",
+    endDate: "Dummy Date",
+    status: "Dummy Text",
+    category: "Dummy Date",
+    eventDescription: "Dummy Date",
+    eventMobileDescription: "Dummy Date",
+    eventDetails: "Dummy Date",
+    eventLocation: "Dummy Date",
+    eventImageID: "Dummy Text",
+    _id: "91",
+  },
+];
+   *  @apiSampleRequest http://127.0.0.1:4000/events
+   */
   getAllEvents: async (req, res) => {
     try {
       const events = await Event.find({}).lean().sort({ startDate: -1 });
@@ -52,7 +88,28 @@ module.exports = {
       return res.sendStatus(500);
     }
   },
-
+  /**
+   * @api {get} /events/:id GET/ events/:id
+   * @apiName GetEventById
+   * @apiGroup Events Router
+   * @apiParam {Number} id Event id
+   * @apiSuccess {Object} event Returns event with given id
+   * @apiSuccessExample event response:
+   * {
+    name: "Dummy Text",
+    startDate: "Dummy Date",
+    endDate: "Dummy Date",
+    status: "Dummy Text",
+    category: "Dummy Date",
+    eventDescription: "Dummy Date",
+    eventMobileDescription: "Dummy Date",
+    eventDetails: "Dummy Date",
+    eventLocation: "Dummy Date",
+    eventImageID: "Dummy Text",
+    _id: "91"
+}
+   * @apiSampleRequest https://127.0.0.1/events/90
+   */
   getOneEvent: async (req, res) => {
     try {
       const event = await Event.findById(req.params.id);
@@ -65,7 +122,15 @@ module.exports = {
       return res.sendStatus(500);
     }
   },
-
+  /**
+   * @api {post} /events POST/ events
+   * @apiName PostEvent
+   * @apiGroup Events Router
+   * @apiError (400) RequestEmptyError Request body was empty
+   * @apiError (500) err Error in saving event
+   * @apiBody {string} name
+   * @apiBody 
+   */
   postEvent: (req, res) => {
     const result = eventsSchema.validate(req.body);
     if (result.error) {
