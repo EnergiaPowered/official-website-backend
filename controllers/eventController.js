@@ -108,7 +108,7 @@ module.exports = {
     eventImageID: "Dummy Text",
     _id: "91"
 }
-   * @apiSampleRequest https://127.0.0.1/events/90
+   * @apiSampleRequest http://127.0.0.1:4000/events/90
    */
   getOneEvent: async (req, res) => {
     try {
@@ -128,8 +128,16 @@ module.exports = {
    * @apiGroup Events Router
    * @apiError (400) RequestEmptyError Request body was empty
    * @apiError (500) err Error in saving event
-   * @apiBody {string} name
-   * @apiBody 
+   * @apiBody {string} name name of the event
+   * @apiBody {Date} startDate start date of the event
+   * @apiBody {Date} endDate end date of the event
+   * @apiBody {string} status status of the event
+   * @apiBody {string} category category of the event
+   * @apiBody {string} eventDescription description of the event
+   * @apiBody {string} eventDetails details of the event
+   * @apiBody {string} eventLocation location of the event
+   * @apiBody {string} eventImageID image id of the event
+   * @apiSampleRequest http://127.0.0.1:4000/events
    */
   postEvent: (req, res) => {
     const result = eventsSchema.validate(req.body);
@@ -148,6 +156,15 @@ module.exports = {
         res.sendStatus(500);
       });
   },
+  /**
+   * @api {put} /events/:id PUT/ events/:id
+   * @apiName PutEvent
+   * @apiGroup Events Router
+   * @apiError (400) RequestEmptyError Request body was empty
+   * @apiError (404) EventNotFound No event with given id
+   * @apiParam {number} id id of the event
+   * @apiSampleRequest http://127.0.0.1:4000/events/91 
+   */
   putEvent: (req, res) => {
     result = eventsSchema.validate(req.body);
     if (result.error) {
@@ -169,6 +186,16 @@ module.exports = {
       res.sendStatus(500);
     }
   },
+  /**
+   * @api {delete} /events/:id DELETE/ events/:id
+   * @apiName DeleteEventById
+   * @apiGroup Events Router
+   * @apiError (401) AuthenticationError User is not authenticated
+   * @apiError (403) AdministrationError User is not an administrator
+   * @apiError (404) EventNotFound No event with given id
+   * @apiParam {number} id id of the event
+   * @apiSampleRequest http://127.0.0.1:4000/events/90
+   */
   deleteOneEvent: (req, res) => {
     try {
       Event.findByIdAndRemove(req.params.id, (err, event) => {
@@ -181,6 +208,13 @@ module.exports = {
       res.sendStatus(500);
     }
   },
+  /**
+   * @api {delete} /events DELETE/ events
+   * @apiName DeleteAllEvents
+   * @apiGroup Events Router
+   * @apiError (404) EventNotFound no events
+   * @apiSampleRequest http://127.0.0.1:4000/events
+   */
   deleteAllEvent: (req, res) => {
     try {
       Event.deleteMany({}, (err) => {
