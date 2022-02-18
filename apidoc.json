@@ -1,0 +1,8 @@
+{
+  "name": "Energia backend API documentation",
+  "version": "1.0.0",
+  "description": "API for energia website",
+  "template": {
+    "forceLanguage": "en"
+  }
+}
