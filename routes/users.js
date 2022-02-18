@@ -7,6 +7,7 @@ const userController = require("../controllers/userController");
    * @api {get} /me GET/ me
    * @apiName GetTheSignedUser
    * @apiGroup Users Router
+   * @apiHeader (Header) {String} x-auth-token the token when the user signed in
    * @apiVersion 1.0.0
    * @apiSuccess {Object} User Get the signed in user
    * @apiError (Error 404) UserNotFound Error occures if the user was deleted from the database
