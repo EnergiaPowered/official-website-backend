@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { Form, Input, Radio, Button } from "antd";
+import { Form, Button } from "antd";
 import { addUser } from "../services/register.services";
 import "../style.css";
 import authHeader from "globals/auth-header";
+import Page1 from "./page1";
+import Page2 from "./page2";
 
 function Register() {
   const loggedIn = Object.keys(authHeader()).length ? true : false;
@@ -11,7 +13,45 @@ function Register() {
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const [form] = Form.useForm();
+  const [page,setPage]=useState(0);
+  const PageDisp = ()=>{
+    if (page===0) {
+      return <><Page1/><div style={{display:"none"}}><Page2 /></div> </>
+    }
+    else{
+      return <><div style={{display:"none"}}><Page1/></div> <Page2 /></>
+    }
+  }
 
+  const SignupButton = ()=>{
+    if (page===1){
+      return (<Form.Item className="register-submit">
+                  <Button type="secondry" htmlType="submit" size="large">
+                    Sign Up
+                  </Button>
+        </Form.Item>);
+              
+    }
+  }
+
+  const ButtonChange = ()=>{
+    if (page===1){
+      return (<Form.Item className="register-submit">
+                  <Button onClick={()=>{setPage((currPage)=>currPage-1)}} type="secondry" size="large">
+                    Back
+                  </Button>
+        </Form.Item>)
+       ;          
+    }
+    else {
+      return (<Form.Item className="register-submit">
+                <Button onClick={()=>{setPage((currPage)=>currPage+1)}} type="secondry" size="large">
+                  Next
+                </Button>
+      </Form.Item>)
+    ;
+    }
+  }
   const handleRegister = (data) => {
     setMessage("");
     setSuccessful(false);
@@ -48,171 +88,9 @@ function Register() {
         >
           {!successful && (
             <div>
-              <Form.Item
-                name={"firstname"}
-                label="First Name"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your first name",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={"lastname"}
-                label="Last Name"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your last name",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={"phone"}
-                label="Phone Number"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your phone number",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={"email"}
-                label="Email"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    type: "email",
-                    message: "Please enter a valid email",
-                  },
-                  {
-                    required: true,
-                    message: "Please enter your email",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="password"
-                label="Password"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your password",
-                  },
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-              <Form.Item
-                name="confirm_password"
-                label="Confirm Password"
-                style={{ display: "block" }}
-                dependencies={["password"]}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please confirm your password",
-                  },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue("password") === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(
-                        "The two passwords that you entered do not match!"
-                      );
-                    },
-                  }),
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-              <Form.Item
-                name={"isGraduated"}
-                label="Are you graduated?"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please choose whether you are graduated or not",
-                  },
-                ]}
-              >
-                <Radio.Group>
-                  <Radio className="d-block" value={true}>
-                    Yes
-              </Radio>
-                  <Radio className="d-block" value={false}>
-                    No
-              </Radio>
-                </Radio.Group>
-              </Form.Item>
-              <Form.Item
-                name={"university"}
-                label="University"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your university name",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={"faculty"}
-                label="Faculty"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your faculty name",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={"department"}
-                label="Department"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your department",
-                  },
-                ]}
-              >
-                <Input placeholder="Write none if you are not in a specific department" />
-              </Form.Item>
-              <Form.Item
-                name={"graduationYear"}
-                label="Year of graduation"
-                style={{ display: "block" }}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter your graduation year",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
+              <div>
+                {PageDisp()}
+              </div>
               {message && (
                 <div className="form-group">
                   <div
@@ -224,11 +102,8 @@ function Register() {
                 </div>
               )}
               <div className="register-submit-container">
-                <Form.Item className="register-submit">
-                  <Button type="secondry" htmlType="submit" size="large">
-                    Sign Up
-                  </Button>
-                </Form.Item>
+                  {ButtonChange()}
+                  {SignupButton()}
                 <Link to="/login">
                   <small>Already have an account?</small>
                 </Link>
