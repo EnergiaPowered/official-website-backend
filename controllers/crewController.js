@@ -63,9 +63,9 @@ module.exports = {
       if (!deletedMember) {
         const err = new Error();
         err.message = "Member not found";
-        return res.status(404).send(err);
+        res.status(404).send(err);
       }
-      res.sendStatus(200).json({ message: "Deleted" });
+      res.status(200).json({ message: "Deleted" });
     } catch (err) {
       return res.status(500).send(err);
     }
