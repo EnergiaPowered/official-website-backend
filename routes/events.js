@@ -39,7 +39,7 @@ const admin = require("../middleware/admin");
     _id: "91",
   },
 ];
-   *  @apiSampleRequest http://127.0.0.1:4000/events
+   *  @apiSampleRequest http://127.0.0.1:4000/api/events
    */
 // CRUD Operations routing of event
 router.get("/events", eventController.getAllEvents);
@@ -64,7 +64,7 @@ router.get("/events", eventController.getAllEvents);
     eventImageID: "Dummy Text",
     _id: "91"
 }
-   * @apiSampleRequest http://127.0.0.1:4000/events/90
+   * @apiSampleRequest http://127.0.0.1:4000/api/events/90
    */
 
 router.get("/events/:id", eventController.getOneEvent);
@@ -83,7 +83,7 @@ router.get("/events/:id", eventController.getOneEvent);
  * @apiBody {string} eventDetails details of the event
  * @apiBody {string} eventLocation location of the event
  * @apiBody {string} eventImageID image id of the event
- * @apiSampleRequest http://127.0.0.1:4000/events
+ * @apiSampleRequest http://127.0.0.1:4000/api/events
  */
 router.post("/events", [auth, admin], eventController.postEvent);
 
@@ -94,7 +94,7 @@ router.post("/events", [auth, admin], eventController.postEvent);
  * @apiError (400) RequestEmptyError Request body was empty
  * @apiError (404) EventNotFound No event with given id
  * @apiParam {number} id id of the event
- * @apiSampleRequest http://127.0.0.1:4000/events/91
+ * @apiSampleRequest http://127.0.0.1:4000/api/events/91
  */
 router.put("/events/:id", [auth, admin], eventController.putEvent);
 /**
@@ -105,7 +105,7 @@ router.put("/events/:id", [auth, admin], eventController.putEvent);
  * @apiError (403) AdministrationError User is not an administrator
  * @apiError (404) EventNotFound No event with given id
  * @apiParam {number} id id of the event
- * @apiSampleRequest http://127.0.0.1:4000/events/90
+ * @apiSampleRequest http://127.0.0.1:4000/api/events/90
  */
 router.delete("/events/:id", [auth, admin], eventController.deleteOneEvent);
 /**
@@ -113,7 +113,7 @@ router.delete("/events/:id", [auth, admin], eventController.deleteOneEvent);
  * @apiName DeleteAllEvents
  * @apiGroup Events Router
  * @apiError (404) EventNotFound no events
- * @apiSampleRequest http://127.0.0.1:4000/events
+ * @apiSampleRequest http://127.0.0.1:4000/api/events
  */
 router.delete("/events", [auth, admin], eventController.deleteAllEvent);
 

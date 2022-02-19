@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 // Importing Info Model
@@ -10,7 +10,7 @@ const Info = require("../models/Info");
  * @apiName GetContactInfo
  * @apiGroup Contact Info Router
  * @apiSuccess {JSON} Info JSON object of the contact information
- * @apiSampleRequest http://127.0.0.1:4000/contactInfo
+ * @apiSampleRequest http://127.0.0.1:4000/api/contactInfo
  * @apiSuccessExample Response
  * {
     "_id": "60246e11a925563644a79dd6",

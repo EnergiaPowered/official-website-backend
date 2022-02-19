@@ -1,5 +1,6 @@
 // Importing Model
 const Member = require("../models/Member");
+const { validationResult } = require("express-validator");
 
 module.exports = {
   getAllCrew: async (req, res) => {
