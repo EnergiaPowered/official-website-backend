@@ -23,6 +23,7 @@ const admin = require("../middleware/admin");
         "_id": "61ad489f7adeeb2dd472de07",
         "title": "workshop part",
         "description": "description",
+        "resultSheet" : "asdad",
         "startDate": "2021-11-30T23:17:46.068Z",
         "endDate": "2021-12-30T23:17:48.094Z",
         "fields": [
@@ -63,6 +64,7 @@ const admin = require("../middleware/admin");
         "postform": "message to show after the form ends",
         "_id": "61ad45dd7adeeb2dd472de01",
         "title": "form title",
+        "resultSheet" : "asdad",
         "description": "form description",
         "startDate": "2021-11-30T22:53:35.643Z",
         "endDate": "2021-12-30T22:53:38.320Z",
@@ -116,10 +118,11 @@ router.get("/form", formController.getForms);
    * @apiName GetForm
    * @apiGroup Form Router
    * @apiVersion 1.0.0
+   * @apiParam {String} title title of the form
    * @apiSuccess {Object} Form Get the form w/ given title
    * @apiError (Error 404) FormNotFound Error occures if there is no form w/ given title
    * @apiError (Error 500) internalServerError Error occured during the process from the server
-   * @apiSampleRequest http://127.0.0.1:4000/api/form/form title
+   * @apiSampleRequest http://127.0.0.1:4000/api/form
    * @apiSuccessExample form:
    *{
         "postSubmit": "message to show after submission",
@@ -127,6 +130,7 @@ router.get("/form", formController.getForms);
         "postform": "message to show after the form ends",
         "_id": "61ad45dd7adeeb2dd472de01",
         "title": "form title",
+        "resultSheet" : "asdad",
         "description": "form description",
         "startDate": "2021-11-30T22:53:35.643Z",
         "endDate": "2021-12-30T22:53:38.320Z",
@@ -177,7 +181,7 @@ router.get("/form/:title", formController.getOneForm);
  * @api {post} /form POST/ form
  * @apiName PostForm
  * @apiGroup Form Router
- * @apiError (Error 400) valdiationError Something wrong with the body of the request
+ * @apiHeader (Header) {String} x-auth-token the token when the user signed in
  * @apiError (Error 400) valdiationError form title is taken
  * @apiError (Error 500) internalServerError Error occured during the process from the server
  * @apiBody {string} title The title of the form
@@ -187,16 +191,21 @@ router.get("/form/:title", formController.getOneForm);
  * @apiBody {string} postEvent when the deadline of the form is over
  * @apiBody {Date} startDate start date of the form
  * @apiBody {Date} endDate end date of the form
- * @apiBody {Object} fields fields the user should fill
- * @apiSampleRequest http://127.0.0.1:4000/form
+ * @apiBody {string} resultSheet The excel sheet of the users who filled the form
+ * @apiBody {Object[]} fields fields the user should fill
+ * @apiSampleRequest http://127.0.0.1:4000/api/form
+ * @apiSuccessExample sample:
+ *ok
  */
-router.post("/form", /*[auth, admin], */ formController.createForm);
+router.post("/form", [auth, admin], formController.createForm);
 
 /**
- * @api {put} /form Put/ form (The signed user)
+ * @api {put} /form/:title Put/ form/:title
  * @apiName putForm
  * @apiGroup Form Router
  * @apiVersion 1.0.0
+ * @apiHeader (Header) {String} x-auth-token the token when the user signed in
+ * @apiParam {String} title title of the form
  * @apiError (Error 400) valdiationError Something wrong with the body of the request
  * @apiError (Error 404) FormNotFound No form with given title
  * @apiError (Error 500) internalServerError Error occured during the process from the server
@@ -208,18 +217,21 @@ router.post("/form", /*[auth, admin], */ formController.createForm);
  * @apiBody {Date} startDate start date of the form
  * @apiBody {Date} endDate end date of the form
  * @apiBody {Object} fields fields the user should fill
- * @apiSampleRequest http://127.0.0.1:4000/api/form/form title
+ * @apiSampleRequest http://127.0.0.1:4000/api/form
+ * @apiSuccessExample sample:
+ *ok
  */
 router.put("/form/:title", [auth, admin], formController.updateForm);
 
 /**
  * @api {delete} /form/:title DELETE/ form/:title
  * @apiName DeleteFormByTitle
+ * @apiHeader (Header) {String} x-auth-token the token when the user signed in
  * @apiGroup Form Router
  * @apiError (Error 500) internalServerError Error occured during the process from the server
  * @apiError (Error 404) FormNotFound No form with given title
  * @apiParam {String} title title of the form
- * @apiSampleRequest http://127.0.0.1:4000/title/form title
+ * @apiSampleRequest http://127.0.0.1:4000/api/form
  */
 router.delete("/form/:title", [auth, admin], formController.deleteOneForm);
 
@@ -227,9 +239,10 @@ router.delete("/form/:title", [auth, admin], formController.deleteOneForm);
  * @api {delete} /form DELETE/ form
  * @apiName DeleteAllforms
  * @apiGroup Form Router
+ * @apiHeader (Header) {String} x-auth-token the token when the user signed in
  * @apiError (Error 404) FormsNotFound No forms in the databse
  * @apiError (Error 500) internalServerError Error occured during the process from the server
- * @apiSampleRequest http://127.0.0.1:4000/form
+ * @apiSampleRequest http://127.0.0.1:4000/api/form
  */
 router.delete("/form", [auth, admin], formController.deleteAllForms);
 
