@@ -1,5 +1,6 @@
 // Importing Model
 const Member = require("../models/Member");
+const { validationResult } = require("express-validator");
 
 module.exports = {
   getAllCrew: async (req, res) => {
@@ -25,9 +26,11 @@ module.exports = {
           }
           res.sendStatus(200);
         });
-      } else res.sendStatus(400);
+      } else {
+        res.sendStatus(400);
+      }
     } catch (err) {
-      res.status(400).send(err.mapped());
+      res.status(400).send(err.mapped);
     }
   },
   putOneCrew: (req, res) => {
@@ -64,7 +67,7 @@ module.exports = {
         err.message = "Member not found";
         return res.status(404).send(err);
       }
-      res.sendStatus(200).json({ message: "Deleted" });
+      res.status(200).json({ message: "Deleted" });
     } catch (err) {
       return res.status(500).send(err);
     }

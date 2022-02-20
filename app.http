@@ -1,0 +1,35 @@
+POST http://localhost:3000/users/signup HTTP/1.1
+content-type: application/json
+
+{
+    "username": "AB",
+    "email": "ab@gmail.com",
+    "pw1": "ab123",
+    "pw2": "ab123"
+}
+
+###
+
+POST http://localhost:3000/users/signin HTTP/1.1
+content-type: application/json
+
+{
+    "email": "ab@gmail.com",
+    "password": "ab123"
+}
+
+###
+
+PUT http://localhost:3000/users/AR HTTP/1.1
+content-type: application/json
+
+{
+    "username": "ahmed",
+    "email": "ar@gmail.com",
+    "password": "ar123"
+}
+
+###
+
+DELETE  http://localhost:3000/users/AB HTTP/1.1
+content-type: application/json
