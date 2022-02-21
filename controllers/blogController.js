@@ -1,5 +1,6 @@
 // Importing Model
 const Blog = require("../models/Blog");
+const { validationResult } = require("express-validator");
 
 module.exports = {
   getBlogs: async (req, res) => {

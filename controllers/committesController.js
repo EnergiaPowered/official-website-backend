@@ -1,8 +1,9 @@
 // Importing Model
 const Committee = require("../models/Committee");
+const { validationResult } = require("express-validator");
 
 module.exports = {
-  getAllCommittes: async (req, res) => {
+  getAllCommittees: async (req, res) => {
     try {
       const crew = await Committee.find(req.query).sort({ title: 1 });
       res.status(200).json(crew);
@@ -24,7 +25,7 @@ module.exports = {
         });
       } else res.sendStatus(400);
     } catch (err) {
-      res.status(400).send(err.mapped());
+      res.status(400).send(err);
     }
   },
   putCommitte: (req, res) => {
@@ -48,7 +49,7 @@ module.exports = {
         );
       } else res.sendStatus(400);
     } catch (err) {
-      res.status(400).send(err.mapped());
+      res.status(400).send(err);
     }
   },
   deleteOneCommitte: async (req, res) => {
