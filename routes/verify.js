@@ -6,6 +6,18 @@ const jwt = require("jsonwebtoken");
 const mailer = require("../methods/mailer");
 const crypto = require("crypto");
 
+/**
+   * @api {get} /verify GET/ verify
+   * @apiName Getverify
+   * @apiGroup verify Router
+   * @apiVersion 1.0.0
+   * @apiSuccess {string} User Get the message that it's username are verifyed
+   * @apiError (Error 404) UserNotFound Error occures if the user was deleted from the database
+   * @apiError (Error 400) Unauthorized Error occures if there were no user
+   * @apiSampleRequest http://127.0.0.1:4000/api/verify
+   
+*/
+
 router.get("/verify", async (req, res) => {
   const token = req.query["id"];
   // Key to encrypt and decrypt the token
