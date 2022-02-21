@@ -1,5 +1,6 @@
 // Importing Model
 const Message = require("../models/Message");
+const { validationResult } = require("express-validator");
 
 module.exports = {
   getAllMessages: (req, res) => {

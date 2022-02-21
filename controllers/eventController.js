@@ -52,7 +52,6 @@ module.exports = {
       return res.sendStatus(500);
     }
   },
-
   getOneEvent: async (req, res) => {
     try {
       const event = await Event.findById(req.params.id);
@@ -64,24 +63,6 @@ module.exports = {
       console.log(err);
       return res.sendStatus(500);
     }
-  },
-
-  postEvent: (req, res) => {
-    const result = eventsSchema.validate(req.body);
-    if (result.error) {
-      console.log(result.error.message);
-      return res.sendStatus(400);
-    }
-    let newEvent = new Event(req.body);
-    newEvent
-      .save()
-      .then((event) => {
-        res.json(event);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
   },
   putEvent: (req, res) => {
     result = eventsSchema.validate(req.body);
@@ -103,6 +84,23 @@ module.exports = {
       console.log(err.message);
       res.sendStatus(500);
     }
+  },
+  postEvent: (req, res) => {
+    const result = eventsSchema.validate(req.body);
+    if (result.error) {
+      console.log(result.error.message);
+      return res.sendStatus(400);
+    }
+    let newEvent = new Event(req.body);
+    newEvent
+      .save()
+      .then((event) => {
+        res.json(event);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+      });
   },
   deleteOneEvent: (req, res) => {
     try {
