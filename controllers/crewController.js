@@ -26,9 +26,11 @@ module.exports = {
           }
           res.sendStatus(200);
         });
-      } else res.sendStatus(400);
+      } else {
+        res.sendStatus(400);
+      }
     } catch (err) {
-      res.status(400).send(err.mapped());
+      res.status(400).send(err.mapped);
     }
   },
   putOneCrew: (req, res) => {
