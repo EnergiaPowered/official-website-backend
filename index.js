@@ -19,6 +19,7 @@ db();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client/build")));
+app.use("/api", express.static(__dirname + "/doc"));
 
 //enable cors
 app.use(cors());
@@ -65,6 +66,11 @@ let IO = socket(Server, {
     allowedHeaders: ["x-auth-token"],
   },
 });
+
+let uploadFile = require("./firebaseSetup");
+(async () => {
+  const url = await uploadFile("./logo.png", "Energia logo.png");
+})();
 
 const { io } = require("./routes/chat");
 io(IO);
