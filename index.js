@@ -43,6 +43,7 @@ app.use("/api", require("./routes/login"));
 app.use("/api", require("./routes/verify"));
 app.use("/api", require("./routes/reset_password"));
 app.use("/api", require("./routes/form"));
+app.use("/api", require("./routes/form_res"));
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
@@ -66,11 +67,6 @@ let IO = socket(Server, {
     allowedHeaders: ["x-auth-token"],
   },
 });
-
-let uploadFile = require("./firebaseSetup");
-(async () => {
-  const url = await uploadFile("./logo.png", "Energia logo.png");
-})();
 
 const { io } = require("./routes/chat");
 io(IO);
