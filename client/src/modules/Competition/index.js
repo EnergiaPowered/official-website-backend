@@ -22,13 +22,13 @@ export default function Competition() {
   return (
     <>
       <Helmet>
-        <title>Energia Powered | Embedded Systems Competition</title>
+        <title>Energia Powered | Champion Chip</title>
       </Helmet>
       <Navbar />
       <article className="page-component" id="Competition" style={style}>
         <header className="header-section">
-          <h1 data-testid="comm-title">Embedded Systems Competition</h1>
-          <div id="comm-icon">
+          <h1>Champion Chip</h1>
+          <div id="competition-icon">
             <FontAwesomeIcon icon="network-wired" />
           </div>
         </header>

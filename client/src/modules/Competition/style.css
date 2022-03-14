@@ -9,11 +9,11 @@
     width: 60%;
 }
 
-#Competition header #comm-icon {
+#Competition header #competition-icon {
     margin-left: 18%;
 }
 
-#Competition header #comm-icon * {
+#Competition header #competition-icon * {
     font-size: 10vw;
 }
 
@@ -22,7 +22,7 @@
 }
 
 hr {
-    width: 70%;
+    width: 80%;
     text-align: center;
     border: 1px solid #fff;
 }
@@ -31,10 +31,6 @@ hr {
 #Competition section h3 {
     text-transform: uppercase;
     font-weight: 800;
-}
-
-#Competition section h1.section-title {
-    font-size: 30%;
 }
 
 #Competition section h3 {
