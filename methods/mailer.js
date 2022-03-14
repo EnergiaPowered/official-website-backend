@@ -66,9 +66,9 @@ async function sendMultipleMailer(to, subject, text, res) {
   // await the transporter to send the email containig the message
   try {
     let info = await transporter.sendMail(message);
-    return 1;
+    console.log(info.messageId);
   } catch (err) {
-    return -1;
+    console.log("Error While Sending the Email\n" + err);
   }
 }
 module.exports = {
