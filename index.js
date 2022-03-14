@@ -43,7 +43,7 @@ app.use("/api", require("./routes/login"));
 app.use("/api", require("./routes/verify"));
 app.use("/api", require("./routes/reset_password"));
 app.use("/api", require("./routes/form"));
-app.use("/api", require("./routes/form_res"));
+// app.use("/api", require("./routes/form_res"));
 app.use("/api", require("./routes/send_emails"));
 
 if (process.env.NODE_ENV === "production") {
