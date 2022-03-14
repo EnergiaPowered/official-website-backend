@@ -21,13 +21,13 @@ export default () => {
   }, []);
 
   let style = {
-    backgroundImage: `url(${bg})`
+    backgroundImage: `url(${bg})`,
   };
 
   return (
     <div className="page-component" id="HomePage" style={style}>
       <Helmet>
-        <title>Energia Powered | Cairo University</title>
+        <title>Energia Powered | Ain Shams University</title>
       </Helmet>
 
       <Layout>
@@ -38,7 +38,6 @@ export default () => {
         <Partners />
         {/* <BestMember /> */}
       </Layout>
-
     </div>
   );
 };
