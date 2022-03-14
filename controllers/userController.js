@@ -1,6 +1,6 @@
 const { User, validate } = require("../models/User");
 const passwordComplexity = require("joi-password-complexity");
-const mailer = require("../methods/mailer");
+const mailer = require("../methods/mailer").sendOneEmail;
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const _ = require("lodash");
