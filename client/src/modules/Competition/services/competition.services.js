@@ -6,7 +6,7 @@ const competitionInfo = {
   duration:
     "Each team will have a period of 4 weeks for 2 main phases, a software part and a hardware part.",
   target: [
-    "Engineering and Faculty of Computer and Information students whom interested in embedded systems.",
+    "Electrical Engineering students whom interested in embedded systems.",
     "Any undergraduate who has passion for working on real life embedded experience.",
     "Fresh graduates with zero work experience.",
   ],
@@ -24,11 +24,11 @@ const competitionInfo = {
     {
       title: "Filtration Phase",
       desc:
-        "We will filter the applied teams by making a test that measures their background knowledge and selecting the best 20-25 teams to participate in the actual competition.",
+        "We will filter the applied teams by making a test that measures their background knowledge and selecting the best 20 teams to participate in the actual competition.",
     },
     {
       title: "Task Sending",
-      desc: "The top 20-25 teams will receive the competition task.",
+      desc: "The top 20 teams will receive the competition task.",
     },
     {
       title: "Mentors Assignment",
@@ -43,22 +43,12 @@ const competitionInfo = {
     {
       title: "Hardware Phase",
       desc:
-        "Competitors will be asked to implement the embedded system they designed and simulated it using real hardware components.",
+        "Competitors will be asked to implement the embedded system they designed and simulated it using real hardware components (PCB).",
     },
     {
       title: "Presentation Phase",
       desc:
         "Teams projects will be discussed and tested by a professional judges.",
-    },
-    {
-      title: "Summit",
-      brief: "A summit for people who:",
-      list: [
-        "Have an interest in embedded systems track.",
-        "Want to know how to start and how to improve themselves.",
-        "Want to talk to experienced engineers.",
-        "Want to know the future of this track.",
-      ],
     },
   ],
 };
