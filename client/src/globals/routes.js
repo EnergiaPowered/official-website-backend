@@ -14,6 +14,7 @@ import authHeader from "./auth-header";
 import FormGen from "modules/Forms/components/FormGen";
 import FormApp from "modules/Forms/components/FormApp";
 import Workshops from "./../modules/Workshops/index";
+import Competition from "modules/Competition";
 
 export default [
   {
@@ -62,6 +63,14 @@ export default [
     inNavbar: {
       shown: true,
       label: "Events",
+    },
+  },
+  {
+    path: "/events/embedded-systems-competition",
+    component: Competition,
+    inNavbar: {
+      shown: false,
+      label: "",
     },
   },
   {
