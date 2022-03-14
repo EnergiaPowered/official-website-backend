@@ -1,6 +1,6 @@
 const { User } = require("../models/User");
 const crypto = require("crypto");
-const mailer = require("../methods/mailer");
+const mailer = require("../methods/mailer").sendOneEmail;
 const jwt = require("jsonwebtoken");
 const expire = require("../methods/expire");
 const Joi = require("joi");

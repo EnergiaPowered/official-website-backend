@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { checkSchema, validationResult } = require("express-validator");
+const { checkSchema } = require("express-validator");
 
 const crewController = require("../controllers/crewController");
 // Import authorization middleWares

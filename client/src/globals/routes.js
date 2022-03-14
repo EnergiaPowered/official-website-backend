@@ -20,8 +20,8 @@ export default [
     path: "/",
     component: Home,
     inNavbar: {
-      shown: false,
-      label: "",
+      shown: true,
+      label: "Home",
     },
   },
   {
@@ -44,7 +44,7 @@ export default [
     path: "/workshops/details",
     component: Workshops,
     inNavbar: {
-      shown: true,
+      shown: false,
       label: "Workshops",
     },
   },
@@ -69,8 +69,8 @@ export default [
     component: Crew,
     inNavbar: {
       shown: false,
-      label: "Crew"
-    }
+      label: "Crew",
+    },
   },
   {
     path: "/events/:id/:name",

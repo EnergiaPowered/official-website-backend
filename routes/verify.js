@@ -3,7 +3,7 @@ const expire = require("../methods/expire");
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const mailer = require("../methods/mailer");
+const mailer = require("../methods/mailer").sendOneEmail;
 const crypto = require("crypto");
 
 /**
