@@ -53,4 +53,25 @@ function sendMailer(to, link, username, subject, body, User_agent = "") {
     })
     .catch((err) => console.log("Error While Sending the Email\n" + err));
 }
-module.exports = sendMailer;
+
+//Send multiple emails
+async function sendMultipleMailer(to, subject, text, res) {
+  // create the message content
+  let message = {
+    from: process.env.EMAIL,
+    to: to,
+    subject: subject,
+    text: text,
+  };
+  // await the transporter to send the email containig the message
+  try {
+    let info = await transporter.sendMail(message);
+    console.log(info.messageId);
+  } catch (err) {
+    console.log("Error While Sending the Email\n" + err);
+  }
+}
+module.exports = {
+  sendOneEmail: sendMailer,
+  sendMultipleEmails: sendMultipleMailer,
+};

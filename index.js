@@ -19,6 +19,7 @@ db();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client/build")));
+app.use("/api", express.static(__dirname + "/doc"));
 
 //enable cors
 app.use(cors());
@@ -42,6 +43,8 @@ app.use("/api", require("./routes/login"));
 app.use("/api", require("./routes/verify"));
 app.use("/api", require("./routes/reset_password"));
 app.use("/api", require("./routes/form"));
+app.use("/api", require("./routes/form_res"));
+app.use("/api", require("./routes/send_emails"));
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
