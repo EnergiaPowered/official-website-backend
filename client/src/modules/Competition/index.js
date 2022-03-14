@@ -102,13 +102,13 @@ export default function Competition() {
             <section className="bg-section component-font">
               <h1 className="section-title">Event Process</h1>
               {competitionInfo.process.map((process, index) => (
-                <>
+                <div key={process.title}>
                   <div className="row">
                     <div className="side-container process col-12 col-md-1">
                       <p>0{index + 1}</p>
                     </div>
                     <div className="col-12 col-md-11">
-                      <h3 key={process.title}>{process.title}</h3>
+                      <h3>{process.title}</h3>
                       {"desc" in process ? (
                         <p>{process.desc}</p>
                       ) : (
@@ -125,7 +125,7 @@ export default function Competition() {
                   </div>
                   <br />
                   <br />
-                </>
+                </div>
               ))}
             </section>
           </div>
