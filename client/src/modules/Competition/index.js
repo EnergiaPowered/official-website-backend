@@ -22,12 +22,12 @@ export default function Competition() {
   return (
     <>
       <Helmet>
-        <title>Energia Powered | Champion Chip</title>
+        <title>Energia Powered | ChampionChip</title>
       </Helmet>
       <Navbar />
       <article className="page-component" id="Competition" style={style}>
         <header className="header-section">
-          <h1>Champion Chip</h1>
+          <h1>ChampionChip</h1>
           <div id="competition-icon">
             <FontAwesomeIcon icon="network-wired" />
           </div>
@@ -107,7 +107,8 @@ export default function Competition() {
                     <div className="side-container process col-12 col-md-1">
                       <p>0{index + 1}</p>
                     </div>
-                    <div className="col-12 col-md-11">
+                    <div className="px-2"></div>
+                    <div className="col-12 col-md-10">
                       <h3>{process.title}</h3>
                       {"desc" in process ? (
                         <p>{process.desc}</p>
