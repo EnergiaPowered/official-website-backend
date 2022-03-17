@@ -4,5 +4,7 @@ const router = express.Router();
 const formResponceController = require("../controllers/formResponcesController");
 router.post("/formRes", formResponceController.saveFormResponce);
 router.get("/formRes", formResponceController.getAllFormResponce);
-router.get("/formRes/:id", formResponceController.getDocumentById);
+router.get("/formRes/:form", formResponceController.getDocumentByForm);
+router.put("/formRes/:form");
+
 module.exports = router;

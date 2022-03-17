@@ -55,10 +55,10 @@ function sendMailer(to, link, username, subject, body, User_agent = "") {
 }
 
 //Send multiple emails
-async function sendMultipleMailer(to, subject, text, res) {
+async function sendMultipleMailer(to, subject, text, from) {
   // create the message content
   let message = {
-    from: process.env.EMAIL,
+    from: `Energia Powered <${process.env.EMAIL}> `,
     to: to,
     subject: subject,
     text: text,
