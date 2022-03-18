@@ -14,6 +14,17 @@ module.exports = {
       res.status(500).send(err);
     }
   },
+  getMember: async (req, res) => {
+    try {
+      const member = await Member.findOne({ ID: req.params.id });
+      if (!member) {
+        res.status(404).json({ message: "No Member found" });
+      }
+      res.status(200).json(member);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  },
   postMember: (req, res) => {
     try {
       if (req.body && req.body !== {}) {

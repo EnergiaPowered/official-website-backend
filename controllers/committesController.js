@@ -5,8 +5,8 @@ const { validationResult } = require("express-validator");
 module.exports = {
   getAllCommittees: async (req, res) => {
     try {
-      const crew = await Committee.find(req.query).sort({ title: 1 });
-      res.status(200).json(crew);
+      const committees = await Committee.find(req.query).sort({ title: 1 });
+      res.status(200).json(committees);
     } catch (err) {
       return res.sendStatus(500);
     }
@@ -60,7 +60,7 @@ module.exports = {
         err.message = "Member not found";
         return res.status(404).send(err);
       }
-      res.sendStatus(200);
+      res.status(200).json(committee);
     } catch (err) {
       return res.status(500).send(err);
     }
