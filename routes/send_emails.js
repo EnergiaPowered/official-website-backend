@@ -1,5 +1,5 @@
-const { sendMultipleEmails } = require("../methods/mailer");
 const router = require("express").Router();
+const { sendMultipleEmails } = require("../methods/mailer");
 // Import authorization middleWares
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
@@ -26,7 +26,7 @@ router.post("/send-emails", [auth, admin], async (req, res) => {
       throw new Error();
     }
     await sendMultipleEmails(to, subject, text, from);
-    res.status(200).json({ message: "Ok" });
+    res.status(200).json({ message: "Emails are sent successfully!" });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
