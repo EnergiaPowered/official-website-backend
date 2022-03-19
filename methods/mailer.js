@@ -56,9 +56,10 @@ function sendMailer(to, link, username, subject, body, User_agent = "") {
 
 //Send multiple emails
 async function sendMultipleMailer(to, subject, text, from) {
+  if (!from) from = "Energia Powered";
   // create the message content
   let message = {
-    from: `Energia Powered <${process.env.EMAIL}> `,
+    from: `${from}<${process.env.EMAIL}> `,
     to: to,
     subject: subject,
     text: text,
@@ -66,9 +67,8 @@ async function sendMultipleMailer(to, subject, text, from) {
   // await the transporter to send the email containig the message
   try {
     let info = await transporter.sendMail(message);
-    console.log(info.messageId);
   } catch (err) {
-    console.log("Error While Sending the Email\n" + err);
+    throw new Error();
   }
 }
 module.exports = {
