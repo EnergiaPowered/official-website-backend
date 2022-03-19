@@ -22,7 +22,7 @@ router.post("/send-emails", [auth, admin], async (req, res) => {
     for (let i = 0; i < to.length; i++) {
       if (!validateEmail(to[i])) throw new Error();
     }
-    if (emails.indexOf(",") != -1 || !subject || !text || !from) {
+    if (emails.indexOf(",") != -1 || !subject || !text) {
       throw new Error();
     }
     await sendMultipleEmails(to, subject, text, from);
