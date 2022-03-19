@@ -3,7 +3,7 @@ const formResponce = db.collection("formResponces");
 module.exports = {
   saveFormResponce: async (req, res) => {
     try {
-      const responce = await formResponce.doc(`${req.body.name}`).set(req.body);
+      await formResponce.doc(`${req.body.name}`).set(req.body);
       return res.status(200).json({ message: "ok" });
     } catch (err) {
       res.status(500).send(err);
@@ -15,7 +15,7 @@ module.exports = {
       const getresponces = await formResponce.get();
       //We have to loop over the collection to get all documents
       getresponces.forEach((doc) => {
-        docs.push(doc);
+        docs.push(doc.data());
       });
       res.status(200).json(docs);
     } catch (err) {
@@ -24,10 +24,31 @@ module.exports = {
   },
   getDocumentByForm: async (req, res) => {
     try {
-      const documentsOfForm = await formResponce
-        .where("form", "==", req.params.form)
-        .get();
-      res.status(200).send(documentsOfForm);
+      const form = req.params.form.split("-").join(" ");
+      let document = await formResponce.doc(form).get();
+      if (!document.data()) {
+        return res.status(404).json({ message: "Not found" });
+      }
+      document = document.data();
+      res.status(200).json(document);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  },
+  updateForm: async (req, res) => {
+    try {
+      form = req.params.form.split("-").join(" ");
+      let document = await formResponce.doc(form).get();
+      document = document.data();
+      if (!document) {
+        return res.status(404).json({ message: "Not found" });
+      }
+      let content = document.content;
+      content.push(req.body.content);
+      await formResponce.doc(form).update({
+        content: content,
+      });
+      res.status(200).json({ message: "ok" });
     } catch (err) {
       res.status(500).send(err);
     }
