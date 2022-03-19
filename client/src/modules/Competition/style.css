@@ -1,0 +1,81 @@
+#Competition header {
+    padding: 20% 7%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: left;
+}
+
+#Competition header h1 {
+    width: 60%;
+}
+
+#Competition header #competition-icon {
+    margin-left: 18%;
+}
+
+#Competition header #competition-icon * {
+    font-size: 10vw;
+}
+
+#Competition section {
+    padding: 9%;
+}
+
+hr {
+    width: 80%;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+#Competition section h1,
+#Competition section h3 {
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+#Competition section h3 {
+    margin-bottom: 1rem;
+}
+
+#Competition section p {
+    font-size: 1.15rem;
+}
+
+#Competition section .side-container p {
+    font-size: 1.45rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+}
+
+#Competition section .side-container.process {
+    padding: 0;
+}
+
+#Competition section .side-container.process p {
+    font-size: 1.9rem;
+    font-weight: 700;
+    width: 70px;
+    height: 70px;
+    background-color: #ffbb00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Competition section .side-container p.about-event-number {
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 10px solid #ffbb00;
+}
+
+#Competition section p span.number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #41416a9c;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+}

@@ -104,11 +104,15 @@ const FormGen = () => {
     // description
     // QuestionGen
     // Add question button
-    // after submission messege
-    // after form ddl messege
+    // after submission message
+    // after form ddl message
     <div
       className="site-layout page-component"
-      style={{ padding: " 50px", background: `url(${bg_blogs})` }}
+      style={{
+        padding: " 50px",
+        background: `url(${bg_blogs})`,
+        backgroundSize: "cover",
+      }}
     >
       <Helmet>
         <title>Energia Powered | Form Creation</title>
@@ -116,8 +120,6 @@ const FormGen = () => {
       <h1 style={{ textAlign: "center", padding: "4em", marginLeft: "-3em" }}>
         Form Creation
       </h1>
-      <br />
-      <br />
 
       {submitted ? (
         <h2 style={{ textAlign: "center", padding: "5em" }}>
@@ -170,11 +172,16 @@ const FormGen = () => {
               </Button>
               <br />
               <br />
-              <br />
               <Form.Item
                 name={"postSubmit"}
                 label="Post-Submission message :"
                 style={{ display: "block" }}
+                rules={[
+                  {
+                    required: true,
+                    message: "field required",
+                  },
+                ]}
               >
                 <TextArea placeholder="Write a message to be shown after the form is submitted" />
               </Form.Item>

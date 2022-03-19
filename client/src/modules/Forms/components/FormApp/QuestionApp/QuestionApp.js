@@ -9,10 +9,7 @@ function QuestionApp({ submit, loading, Fields }) {
       return (
         <Select placeholder="Select an answer" allowClear>
           {options.map((option, index) => (
-            <Option
-              key={index}
-              value={option.value}
-            >
+            <Option key={index} value={option.value}>
               {option.label}
             </Option>
           ))}
@@ -20,7 +17,8 @@ function QuestionApp({ submit, loading, Fields }) {
       );
     if (type === "TextArea")
       return <TextArea placeholder={placeholder}></TextArea>;
-    if (type === "Text") return <Input placeholder={placeholder}></Input>;
+    if (type === "Text" || type === "Email")
+      return <Input placeholder={placeholder}></Input>;
   };
 
   return (
@@ -33,11 +31,16 @@ function QuestionApp({ submit, loading, Fields }) {
               <Form.Item
                 name={f.label}
                 label={f.label}
-                rules={
-                  f.isRequired && [
-                    { required: true, message: "This Field is required!" },
-                  ]
-                }
+                rules={[
+                  f.isRequired && {
+                    required: true,
+                    message: "This Field is required!",
+                  },
+                  f.type === "Email" && {
+                    type: "email",
+                    message: "Please enter a valid email",
+                  },
+                ]}
                 key={index}
                 style={{ display: "block" }}
               >
