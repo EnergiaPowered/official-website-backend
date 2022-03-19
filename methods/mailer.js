@@ -60,7 +60,7 @@ async function sendMultipleMailer(to, subject, text, from) {
   // create the message content
   let message = {
     from: `${from}<${process.env.EMAIL}> `,
-    to: to,
+    bcc: to,
     subject: subject,
     text: text,
   };
