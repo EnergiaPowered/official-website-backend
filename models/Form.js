@@ -36,7 +36,7 @@ const formSchema = new Schema(
         type: {
           type: String,
           required: true,
-          enum: ["Text", "TextArea", "Selection"],
+          enum: ["Text", "Email", "TextArea", "Selection"],
           default: "Text",
         },
         placeholder: { type: String },

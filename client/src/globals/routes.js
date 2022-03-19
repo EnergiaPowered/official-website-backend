@@ -14,14 +14,15 @@ import authHeader from "./auth-header";
 import FormGen from "modules/Forms/components/FormGen";
 import FormApp from "modules/Forms/components/FormApp";
 import Workshops from "./../modules/Workshops/index";
+import Competition from "modules/Competition";
 
 export default [
   {
     path: "/",
     component: Home,
     inNavbar: {
-      shown: false,
-      label: "",
+      shown: true,
+      label: "Home",
     },
   },
   {
@@ -44,7 +45,7 @@ export default [
     path: "/workshops/details",
     component: Workshops,
     inNavbar: {
-      shown: true,
+      shown: false,
       label: "Workshops",
     },
   },
@@ -65,12 +66,20 @@ export default [
     },
   },
   {
+    path: "/events/embedded-systems-competition",
+    component: Competition,
+    inNavbar: {
+      shown: false,
+      label: "",
+    },
+  },
+  {
     path: "/crew",
     component: Crew,
     inNavbar: {
       shown: false,
-      label: "Crew"
-    }
+      label: "Crew",
+    },
   },
   {
     path: "/events/:id/:name",
