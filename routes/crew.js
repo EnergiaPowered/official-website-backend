@@ -116,6 +116,29 @@ const memberCheckSchema = checkSchema({
 router.get("/crew", crewController.getAllCrew);
 
 /**
+   * @api {get} /crew/:id GET/ crew/:id
+   * @apiName GetMember
+   * @apiGroup Crew Router
+   * @apiVersion 1.0.0
+   * @apiSuccess {Object} Member Member object
+   * @apiError (Error 404) MemberNotFound Error occurs if there is no crew in the database
+   * @apiError (Error 500) internalServerError Error occurred during the process from the server 
+   * @apiSampleRequest http://127.0.0.1:4000/api/crew/22
+   * @apiSuccessExample crew:
+    {
+        "isBest": false,
+        "_id": "60271a41673d3e3e347a0b6b",
+        "ID": 22,
+        "name": "Essam Mostafa",
+        "committee": "Arduino & Embedded Systems",
+        "position": "Head",
+        "imageID": "18lys9P31tVXIMI74ko-t2xEnn4y5aKkN",
+        "__v": 0
+    }
+*/
+router.get("/crew/:id", crewController.getMember);
+
+/**
  * @api {post} /crew Post/ crew
  * @apiName postMember
  * @apiGroup crew Router
