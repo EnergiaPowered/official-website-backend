@@ -47,11 +47,7 @@ function FormApp(props) {
     setLoading(true);
     if (!finished) {
       axios
-        .put(
-          // "http://localhost:4004/api/formRes/" + props.match.params.title,
-          FORM_RESPONSE_END_POINT,
-          vals
-        )
+        .put(FORM_RESPONSE_END_POINT, vals)
         .then((res) => {
           setSubmitted(true);
           setLoading(false);
@@ -62,24 +58,6 @@ function FormApp(props) {
           );
           setLoading(false);
         });
-      // $.ajax({
-      //   url:
-      //     /*FORM_RESPONSE_END_POINT*/ "http://localhost:4004/api/formRes/" +
-      //     props.match.params.title,
-      //   method: "PUT",
-      //   dataType: "json",
-      //   data: vals,
-      //   success: () => {
-      //     setSubmitted(true);
-      //     setLoading(false);
-      //   },
-      //   error: () => {
-      //     alert(
-      //       "Your application didn't get saved successfully. Please try again."
-      //     );
-      //     setLoading(false);
-      //   },
-      // });
     }
   };
 
@@ -91,7 +69,7 @@ function FormApp(props) {
       {myForm && (
         <>
           <Helmet>
-            <title>{myForm.title}</title>
+            <title>Energia Powered | Forms</title>
           </Helmet>
           <Layout>
             <div className="recruitment-page row">
