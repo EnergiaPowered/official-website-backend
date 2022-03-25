@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import Layout from "shared/Layout";
 import QuestionApp from "./QuestionApp/QuestionApp";
-import $ from "jquery";
+// import $ from "jquery";
 import configs from "globals/config";
 //import AdSense from 'react-adsense';
 import "./index.css";
