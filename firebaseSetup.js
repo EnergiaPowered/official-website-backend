@@ -1,6 +1,6 @@
 const firebaseAdmin = require("firebase-admin");
 const { v4: uuidv4 } = require("uuid");
-const serviceAccount = require("./firebaseCredentials.json");
+const serviceAccount = require("./firebaseCredentials.js");
 const admin = firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(serviceAccount),
 });
