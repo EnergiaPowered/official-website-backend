@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import Layout from "shared/Layout";
 import QuestionApp from "./QuestionApp/QuestionApp";
-import $ from "jquery";
+// import $ from "jquery";
 import configs from "globals/config";
 //import AdSense from 'react-adsense';
 import "./index.css";
+import axios from "axios";
 
 function FormApp(props) {
   const FORM_END_POINT = `${configs.HOST}form/${props.match.params.title}`;
+  const FORM_RESPONSE_END_POINT = `${configs.HOST}formRes/${props.match.params.title}`;
   const [myForm, setmyForm] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -37,25 +39,25 @@ function FormApp(props) {
 
   const submit = (values) => {
     const vals = values;
-    vals.timestamp = new Date();
+    for (let key in vals) {
+      if (!vals[key]) vals[key] = " ";
+    }
+    console.log(vals);
+    vals.timestamp = new Date().toISOString();
     setLoading(true);
     if (!finished) {
-      $.ajax({
-        url: myForm.resultSheet,
-        method: "POST",
-        dataType: "json",
-        data: vals,
-        success: () => {
+      axios
+        .put(FORM_RESPONSE_END_POINT, vals)
+        .then((res) => {
           setSubmitted(true);
           setLoading(false);
-        },
-        error: () => {
+        })
+        .catch((e) => {
           alert(
             "Your application didn't get saved successfully. Please try again."
           );
           setLoading(false);
-        },
-      });
+        });
     }
   };
 
@@ -67,7 +69,7 @@ function FormApp(props) {
       {myForm && (
         <>
           <Helmet>
-            <title>{myForm.title}</title>
+            <title>Energia Powered | Forms</title>
           </Helmet>
           <Layout>
             <div className="recruitment-page row">
