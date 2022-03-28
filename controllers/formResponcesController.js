@@ -1,10 +1,9 @@
 const { db } = require("../firebaseSetup");
 const formResponce = db.collection("formResponces");
 module.exports = {
-  saveFormResponce: async (req, res) => {
+  saveFormResponce: async (req) => {
     try {
       await formResponce.doc(`${req.body.name}`).set(req.body);
-      return res.status(200).json({ message: "ok" });
     } catch (err) {
       res.status(500).send(err);
     }

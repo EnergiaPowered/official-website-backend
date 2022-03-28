@@ -1,4 +1,5 @@
 const Form = require("../models/Form");
+const formFireBase = require("./formResponcesController");
 
 module.exports = {
   getForms: async (req, res) => {
@@ -41,7 +42,8 @@ module.exports = {
             console.log(err);
             return res.status(500).send(err);
           }
-          res.sendStatus(200);
+          formFireBase.saveFormResponce(req);
+          return res.status(200).json({ message: "ok" });
         });
       } else res.sendStatus(400);
     } catch (err) {
