@@ -38,7 +38,7 @@ module.exports = {
             if (Object.keys(req.body).length !== 0) {
                 validationResult(req.body).throw();
                 let name = req.params.name;
-                Sponsor.findAndUpdate(
+                Sponsor.findOneAndUpdate(
                     name,
                     {$set: req.body},
                     (err, sponsor) => {
@@ -57,13 +57,14 @@ module.exports = {
                 res.sendStatus(400);
             }
         } catch (err) {
-            res.status(500).send(err);
+            console.log(err);
+            res.status(500).json(err);
         }
     },
     deleteOneSponsor: async (req, res) => {
         try {
             const sponsorName = req.params.sponsorName;
-            const sponsor = await Sponsor.findOneAndRemove({ sponsorName });
+            const sponsor = await Sponsor.findOneAndRemove({ name: sponsorName });
             if (!sponsor) {
                 return res.status(404).json({ message: "Not Found" });
             }

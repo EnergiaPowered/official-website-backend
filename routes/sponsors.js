@@ -31,8 +31,8 @@ const sponsorCheckSchema = checkSchema({
 
 router.get("/sponsors", sponsorController.getSponsors);
 router.post("/sponsors", [/*auth, admin,*/ sponsorCheckSchema], sponsorController.postSponsor);
-router.put("/sponsors", [/*auth, admin,*/ sponsorCheckSchema], sponsorController.putSponsor);
-router.delete("/sponsors/:sponsorName", [/*auth, admin*/], sponsorController.deleteOneSponsor);
-router.delete("/sponsors", [/*auth, admin*/], sponsorController.deleteAllSponsors);
+router.put("/sponsors/:name", [/*auth, admin,*/ sponsorCheckSchema], sponsorController.putSponsor);
+router.delete("/sponsors/:sponsorName", /*[auth, admin],*/ sponsorController.deleteOneSponsor);
+router.delete("/sponsors", /*[auth, admin],*/ sponsorController.deleteAllSponsors);
 
 module.exports = router;
