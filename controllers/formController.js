@@ -91,7 +91,7 @@ module.exports = {
         return res.status(404).json({ message: "Not found" });
       }
       forms = await Form.deleteMany({});
-      res.status(200);
+      res.sendStatus(200);
     } catch (err) {
       return res.status(500).send(err);
     }
