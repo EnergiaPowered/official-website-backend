@@ -115,6 +115,32 @@ const blogCheckSchema = checkSchema({
 router.get("/blogs", blogController.getBlogs);
 
 /**
+   * @api {get} /blogs/:id GET/ blogs/:id
+   * @apiName GetSingleBlog
+   * @apiGroup Blogs Router
+   * @apiVersion 1.0.0
+   * @apiSuccess {Object} Blog The blog object
+   * @apiError (Error 500) internalServerError Error occured during the process from the server 
+   * @apiSampleRequest http://localhost:4000/api/blogs/621257c401e1804c28b388a1
+   * @apiSuccessExample blog:
+   *{
+    "image_url": "image_url",
+    "_id": "621257c401e1804c28b388a1",
+    "title": "title",
+    "author": "author",
+    "category": "Web Development",
+    "body": "body",
+    "bodyMobile": "bodyMobile",
+    "createdAt": "2022-02-20T15:01:24.110Z",
+    "updatedAt": "2022-02-20T15:01:24.110Z",
+    "__v": 0
+}
+*/
+// Retrieve single blog by id
+
+router.get("/blogs/:id", blogController.getSingleBlog);
+
+/**
  * @api {post} /blogs POST/ blogs
  * @apiName PostBlog
  * @apiGroup Blogs Router

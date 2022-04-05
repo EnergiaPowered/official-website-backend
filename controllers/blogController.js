@@ -14,6 +14,21 @@ module.exports = {
       });
     }
   },
+  getSingleBlog: async (req, res) => {
+    try {
+      const { id: blogID } = req.params;
+      const blog = await Blog.findById(blogID);
+      if (!blog) {
+        return res.status(404).json({ message: "Blog Not Found" });
+      }
+      res.status(200).json(blog);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        message: "Error occurred",
+      });
+    }
+  },
   postBlog: (req, res) => {
     try {
       if (req.body && req.body !== {}) {
