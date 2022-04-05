@@ -146,7 +146,7 @@ router.get("/blogs/:id", blogController.getSingleBlog);
  * @apiGroup Blogs Router
  * @apiVersion 1.0.0
  * @apiSuccess {String} ok
- * @apiError (Error 400) valdiationError Something wrong with the body of the request
+ * @apiError (Error 400) BadRequest Something wrong with the body of the request
  * @apiError (Error 500) internalServerError Error occured during the process from the server
  * @apiBody {String} title The title of the blog
  * @apiBody {String} body The body of the blog
@@ -182,7 +182,7 @@ router.post(
  * @apiBody {String} author The author of the blog
  * @apiBody {String} category The category of the blog
  * @apiBody {String} image_url The image of the blog
- * @apiSampleRequest http://127.0.0.1:4000/api/blogs
+ * @apiSampleRequest http://127.0.0.1:4000/api/blogs/621257c401e1804c28b388e6
  * @apiSuccessExample sample:
  * ok
  */
