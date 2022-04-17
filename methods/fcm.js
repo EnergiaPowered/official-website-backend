@@ -10,8 +10,6 @@ async function notify(topic, msgTitle, msgBody) {
         title: msgTitle,
         body: msgBody,
         sound: "default",
-        click_action: "FCM_PLUGIN_ACTIVITY",
-        icon: "fcm_push_icon",
       },
     };
 
