@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const sponsorController = require("../controllers/sponsorsController");
 const { checkSchema } = require("express-validator");
@@ -7,26 +7,26 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
 const sponsorCheckSchema = checkSchema({
-    name: {
-        isString: true,
-        exists: {
-            options: {
-                checkFalsy: true
-            },
-        },
-        rtrim: true,
-        escape: true,
+  name: {
+    isString: true,
+    exists: {
+      options: {
+        checkFalsy: true,
+      },
     },
-    imageID: {
-        isString: true,
-        exists: {
-            options: {
-                checkFalsy: true
-            },
-        },
-        rtrim: true,
-        escape: true,
+    rtrim: true,
+    escape: true,
+  },
+  imageID: {
+    isString: true,
+    exists: {
+      options: {
+        checkFalsy: true,
+      },
     },
+    rtrim: true,
+    escape: true,
+  },
 });
 
 /**
@@ -67,46 +67,54 @@ const sponsorCheckSchema = checkSchema({
 router.get("/sponsors", sponsorController.getSponsors);
 
 /**
-   * @api {post} /sponsors POST/ sponsors
-   * @apiName PostSponsor
-   * @apiGroup Sponsors Router
-   * @apiVersion 1.0.0
-   * @apiSuccess {String} ok
-   * @apiError (Error 500) internalServerError Error occured during the process from the server 
-   * @apiError (Error 400) BadRequest Something wrong with the body of the request
-   * @apiError (Error 422) UnprocessableEntity Request body is invalid
-   * @apiBody {String} name Name of the sponsor
-   * @apiBody {String} imageID Image ID of the sponsor
-   * @apiBody {Boolean} isMain Whether the sponsor is a main sponsor
-   * @apiSampleRequest http://127.0.0.1:4000/api/sponsors
-   * @apiSuccessExample sample:
-   * ok
-*/
+ * @api {post} /sponsors POST/ sponsors
+ * @apiName PostSponsor
+ * @apiGroup Sponsors Router
+ * @apiVersion 1.0.0
+ * @apiSuccess {String} ok
+ * @apiError (Error 500) internalServerError Error occured during the process from the server
+ * @apiError (Error 400) BadRequest Something wrong with the body of the request
+ * @apiError (Error 422) UnprocessableEntity Request body is invalid
+ * @apiBody {String} name Name of the sponsor
+ * @apiBody {String} imageID Image ID of the sponsor
+ * @apiBody {Boolean} isMain Whether the sponsor is a main sponsor
+ * @apiSampleRequest http://127.0.0.1:4000/api/sponsors
+ * @apiSuccessExample sample:
+ * ok
+ */
 
-// Insert a new sponsor with validation 
-router.post("/sponsors", [/*auth, admin,*/ sponsorCheckSchema], sponsorController.postSponsor);
+// Insert a new sponsor with validation
+router.post(
+  "/sponsors",
+  [/*auth, admin,*/ sponsorCheckSchema],
+  sponsorController.postSponsor
+);
 
 /**
-   * @api {put} /sponsors/:name PUT/ sponsors/:name
-   * @apiName PutSponsor
-   * @apiGroup Sponsors Router
-   * @apiVersion 1.0.0
-   * @apiSuccess {String} ok
-   * @apiParam {String} name Name of the sponsor
-   * @apiError (Error 500) internalServerError Error occured during the process from the server 
-   * @apiError (Error 400) BadRequest Something wrong with the body of the request
-   * @apiError (Error 404) ResourceNotFound Sponsor not found
-   * @apiError (Error 422) UnprocessableEntity Request body is invalid
-   * @apiBody {String} name Name of the sponsor
-   * @apiBody {String} imageID Image ID of the sponsor
-   * @apiBody {Boolean} isMain Whether the sponsor is a main sponsor
-   * @apiSampleRequest http://127.0.0.1:4000/api/sponsors/Abdelatty Inc.
-   * @apiSuccessExample sample:
-   * ok
-*/
+ * @api {put} /sponsors/:name PUT/ sponsors/:name
+ * @apiName PutSponsor
+ * @apiGroup Sponsors Router
+ * @apiVersion 1.0.0
+ * @apiSuccess {String} ok
+ * @apiParam {String} name Name of the sponsor
+ * @apiError (Error 500) internalServerError Error occured during the process from the server
+ * @apiError (Error 400) BadRequest Something wrong with the body of the request
+ * @apiError (Error 404) ResourceNotFound Sponsor not found
+ * @apiError (Error 422) UnprocessableEntity Request body is invalid
+ * @apiBody {String} name Name of the sponsor
+ * @apiBody {String} imageID Image ID of the sponsor
+ * @apiBody {Boolean} isMain Whether the sponsor is a main sponsor
+ * @apiSampleRequest http://127.0.0.1:4000/api/sponsors/Abdelatty Inc.
+ * @apiSuccessExample sample:
+ * ok
+ */
 
 // Edit a single sponsor with validation
-router.put("/sponsors/:name", [/*auth, admin,*/ sponsorCheckSchema], sponsorController.putSponsor);
+router.put(
+  "/sponsors/:name",
+  [auth, admin, sponsorCheckSchema],
+  sponsorController.putSponsor
+);
 
 /**
  * @api {delete} /sponsors/:name Delete/ sponsors/:name
@@ -122,7 +130,11 @@ router.put("/sponsors/:name", [/*auth, admin,*/ sponsorCheckSchema], sponsorCont
  */
 
 // delete a single sponsor
-router.delete("/sponsors/:name", /*[auth, admin],*/ sponsorController.deleteSingleSponsor);
+router.delete(
+  "/sponsors/:name",
+  [auth, admin],
+  sponsorController.deleteSingleSponsor
+);
 
 /**
  * @api {delete} /sponsors Delete/ sponsors
@@ -137,6 +149,6 @@ router.delete("/sponsors/:name", /*[auth, admin],*/ sponsorController.deleteSing
  */
 
 // Delete all sponsors
-router.delete("/sponsors", /*[auth, admin],*/ sponsorController.deleteAllSponsors);
+router.delete("/sponsors", [auth, admin], sponsorController.deleteAllSponsors);
 
 module.exports = router;
