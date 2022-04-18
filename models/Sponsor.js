@@ -5,7 +5,7 @@ const sponsorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  imageLink: {
+  image: {
     type: String,
     required: true,
   },

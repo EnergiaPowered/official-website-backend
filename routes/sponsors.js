@@ -17,7 +17,7 @@ const sponsorCheckSchema = checkSchema({
     rtrim: true,
     escape: true,
   },
-  imageID: {
+  image: {
     isString: true,
     exists: {
       options: {
@@ -86,7 +86,7 @@ router.get("/sponsors", sponsorController.getSponsors);
 // Insert a new sponsor with validation
 router.post(
   "/sponsors",
-  [/*auth, admin,*/ sponsorCheckSchema],
+  [auth, admin, sponsorCheckSchema],
   sponsorController.postSponsor
 );
 
