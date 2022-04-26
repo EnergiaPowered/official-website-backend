@@ -6,13 +6,11 @@ module.exports = {
     try {
       const forms = await Form.find({}).sort({ createdAt: -1 });
       if (!forms[0]) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json(errorResponce(404,"form"));
       }
       res.status(200).json(forms);
     } catch (err) {
-      res.status(500).json({
-        message: "Error occured while getting the db",
-      });
+      res.status(500).json(errorResponce(500,"form"));
     }
   },
   getOneForm: async (req, res) => {
@@ -20,13 +18,11 @@ module.exports = {
       const title = req.params.title.split("-").join(" ");
       const form = await Form.find({ title });
       if (!form) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json(errorResponce(404,"form"));
       }
       res.status(200).json(form);
     } catch (err) {
-      res.status(500).json({
-        message: "Error occured while getting the db",
-      });
+      res.status(500).json(errorResponce(500,"form"));
     }
   },
   createForm: async (req, res) => {
@@ -43,13 +39,11 @@ module.exports = {
             return res.status(500).send(err);
           }
           formFireBase.saveFormResponce(req);
-          return res.status(200).json({ message: "ok" });
+          return res.status(200).json(successResponce("form"));
         });
       } else res.sendStatus(400);
     } catch (err) {
-      res.status(500).json({
-        message: "Error occurred while getting the db",
-      });
+      res.status(500).json(errorResponce(500,"form"));
     }
   },
   updateForm: (req, res) => {
@@ -77,7 +71,7 @@ module.exports = {
       title = req.params.title.split("-").join(" ");
       const form = await Form.findOneAndRemove({ title });
       if (!form) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json(errorResponce(404,"form"));
       }
       res.sendStatus(200);
     } catch (err) {
@@ -88,7 +82,7 @@ module.exports = {
     try {
       let forms = await Form.find({});
       if (!forms[0]) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json(errorResponce(404,"form"));
       }
       forms = await Form.deleteMany({});
       res.status(200);

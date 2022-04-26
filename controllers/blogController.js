@@ -9,9 +9,7 @@ module.exports = {
       res.status(200).json(blogs);
     } catch (err) {
       console.log(err);
-      res.status(500).json({
-        message: "Error occured while getting the db",
-      });
+      res.status(500).json(errorResponce(500,"blog"));
     }
   },
   postBlog: (req, res) => {

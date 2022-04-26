@@ -41,7 +41,7 @@ module.exports = {
       "-password -__v -_id"
     );
     if (!res.body) {
-      return res.status(404).json({ message: "Can't find user" });
+      return res.status(404).json(errorResponce(404,"user"));
     }
     res.send(user);
   },

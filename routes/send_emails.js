@@ -26,9 +26,9 @@ router.post("/send-emails", [auth, admin], async (req, res) => {
       throw new Error();
     }
     await sendMultipleEmails(to, subject, text, from);
-    res.status(200).json({ message: "Emails are sent successfully!" });
+    res.status(200).json(successResponce("send_emails"));
   } catch (err) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500)(errorResponce(500,"send_emails"));
   }
 });
 module.exports = router;

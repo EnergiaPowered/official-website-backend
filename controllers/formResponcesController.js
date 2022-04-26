@@ -26,7 +26,7 @@ module.exports = {
       const form = req.params.form.split("-").join(" ");
       let document = await formResponce.doc(form).get();
       if (!document.data()) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json(errorResponce(404,"formResponce"));
       }
       document = document.data();
       res.status(200).json(document);
@@ -40,14 +40,14 @@ module.exports = {
       let document = await formResponce.doc(form).get();
       document = document.data();
       if (!document) {
-        return res.status(404).json({ message: "Not found" });
+        return res.status(404).json(errorResponce(404,"formResponce"));
       }
       let content = document.content;
       content.push(req.body.content);
       await formResponce.doc(form).update({
         content: content,
       });
-      res.status(200).json({ message: "ok" });
+      res.status(200).json(successResponce("formResponce"));
     } catch (err) {
       res.status(500).send(err);
     }

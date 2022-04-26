@@ -7,7 +7,7 @@ module.exports = {
     try {
       const crew = await Member.find(req.query).sort({ committee: 1 });
       if (!crew) {
-        res.status(404).json({ message: "No Crew found" });
+        res.status(404).json(errorResponce(404,"crew"));
       }
       res.status(200).json(crew);
     } catch (err) {
@@ -18,7 +18,7 @@ module.exports = {
     try {
       const member = await Member.findOne({ ID: req.params.id });
       if (!member) {
-        res.status(404).json({ message: "No Member found" });
+        res.status(404).json(errorResponce(404,"crew"));
       }
       res.status(200).json(member);
     } catch (err) {
@@ -78,7 +78,7 @@ module.exports = {
         err.message = "Member not found";
         res.status(404).send(err);
       }
-      res.status(200).json({ message: "Deleted" });
+      res.status(200).json(successResponce("crew"));
     } catch (err) {
       return res.status(500).send(err);
     }
