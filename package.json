@@ -19,6 +19,7 @@
   "author": "Energia IT Team",
   "license": "ISC",
   "dependencies": {
+    "apidoc": "^0.51.1",
     "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
