@@ -90,8 +90,11 @@ function Login({ props }) {
                 Log In
               </Button>
             </Form.Item>
-            <Link to="/signup">
+            <Link to="/signup" style={{ display: "block" }}>
               <small>Don't have an account?</small>
+            </Link>
+            <Link to="/forget-password" style={{ display: "block" }}>
+              <small>Forgot Password</small>
             </Link>
           </div>
         </Form>
