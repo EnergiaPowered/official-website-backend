@@ -14,11 +14,12 @@
     "build": "cd client && npm run build",
     "docs": "apidoc -i routes -o doc",
     "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build && npm run docs"
+    "heroku-postbuild": "npm run docs"
   },
   "author": "Energia IT Team",
   "license": "ISC",
   "dependencies": {
+    "apidoc": "^0.51.1",
     "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",

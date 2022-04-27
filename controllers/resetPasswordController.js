@@ -30,7 +30,7 @@ module.exports = {
     let user_agent = req.headers["user-agent"];
     console.log(user_agent);
     // check if the email exist in the database
-    user = await User.findOne({ email: email });
+    let user = await User.findOne({ email: email });
     if (!user) res.status(404).send("invalid Email");
     try {
       token = user.generateAuthToken();
@@ -42,7 +42,7 @@ module.exports = {
       );
       let encrypted_token = mykey.update(token, "utf8", "hex");
       encrypted_token += mykey.final("hex");
-      link = process.env.HOST + "/api/reset?id=" + encrypted_token;
+      link = process.env.FRONT_HOST + "/reset-password?id=" + encrypted_token;
       // send the email
       mailer(
         user.email,
