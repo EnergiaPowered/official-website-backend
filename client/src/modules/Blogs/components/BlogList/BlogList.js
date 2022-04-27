@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { getBlogs } from "../../services/blogs.services";
 import Loader from "shared/Loader";
-import blogBG from "assets/Blog-background.png";
 import "./BlogList.css";
 
-function BlogList({ setIsBlogOpened, setClickedBlog }) {
+function BlogList() {
     const [blogList, setBlogsList] = useState(null);
+    
+    useEffect(() => {
+        getBlogs().then((res) => {
+            setBlogsList(res.data)
+        });
+    }, []);
+    
+    const handleclick = ()=>{
+       //to be edited when singe blogs added
+        
+    }
 
     const getDate = (date) => {
         const months = [
@@ -26,52 +36,46 @@ function BlogList({ setIsBlogOpened, setClickedBlog }) {
     };
 
     const Blogs = () =>
+        
         blogList.map((blog) => {
             return (
+            
                 <article
                     className="blogcard col-12 col-md-6 col-lg-4"
                     key={blog._id}
                 >
-                    <img src={blogBG} alt="Blog Container" />
-                    <div className="blogcard__content">
+
+                    <div className="blogcard__content" onClick={handleclick()}>
                         <h3 className="blogcard__heading">{blog.title}</h3>
+                        <img
+                            src={blog.image_url}
+                            alt="blog"
+                            title={blog.title}
+                        />
                         <div className="blogcard__body">
-                            <h6
+                            <h5
                                 className="mb-0"
                                 style={{ color: "#010e30", fontWeight: "bold" }}
                             >
                                 {blog.category}
-                            </h6>
+                            </h5>
                             <small className="text-muted">
                                 <em>{getDate(new Date(blog.createdAt))}</em>
                             </small>
-                            <p
-                                dangerouslySetInnerHTML={{ __html: blog.body }}
-                            ></p>
+                            
+                
+                            
                         </div>
-                        <div
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="Click to see the full blog"
-                            onClick={() => {
-                                setIsBlogOpened(true);
-                                setClickedBlog(blog);
-                            }}
-                        >
-                            See more
-                        </div>
+                        
                     </div>
                 </article>
             );
         });
 
-    useEffect(() => {
-        getBlogs().then((res) => {
-            setBlogsList(res.data)
-        });
-    }, []);
+        
 
     return (
+        
         <div data-testid="bloglist" className="container blogs-container row">
             {blogList && blogList.length ? <Blogs /> : <Loader />}
         </div>
