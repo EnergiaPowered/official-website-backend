@@ -1,0 +1,175 @@
+[
+    {
+        "name": "Mahmoud Hafez",
+        "bio": "قصة قصيرة حزينة ☺",
+        "email": "quadm@gmail.com",
+        "univ": "Ainshams",
+        "faculty": "Engineering",
+        "department": "Data Science",
+        "committee": "Web Development",
+        "role": "Frontend Member",
+        "events": [
+          {
+            "title": "Going to hell",
+            "img":"  img ",
+            "description": "Simply going to hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going beneath hell",
+            "img":"  img ",
+            "description": "Simply going beneath hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "back from hell",
+            "img":"  img ",
+            "description": "Simply coming back from hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going back to hell",
+            "img":"  img ",
+            "description": "Simply going back to hell",
+            "redirectLink": "#"
+          }
+        ],
+        "tasks": [
+          {
+            "title": "Going to hell",
+            "description": "Simply going to hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going beneath hell",
+            "description": "Simply going beneath hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "back from hell",
+            "description": "Simply coming back from hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going back to hell",
+            "description": "Simply going back to hell",
+            "redirectLink": "#"
+          }
+        ]
+      },
+      {
+        "name": "Mohamed Hafez",
+        "bio": "قصة قصيرة حزينة ☺",
+        "email": "quadm@gmail.com",
+        "univ": "Ainshams",
+        "faculty": "Commerce",
+        "committee": "HR",
+        "role": "Head",
+        "events": [
+          {
+            "title": "Going to hell",
+            "img":"  img ",
+            "description": "Simply going to hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going beneath hell",
+            "img":"  img ",
+            "description": "Simply going beneath hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "back from hell",
+            "img":"  img ",
+            "description": "Simply coming back from hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going back to hell",
+            "img":"  img ",
+            "description": "Simply going back to hell",
+            "redirectLink": "#"
+          }
+        ],
+        "tasks": [
+          {
+            "title": "Going to hell",
+            "description": "Simply going to hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going beneath hell",
+            "description": "Simply going beneath hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "back from hell",
+            "description": "Simply coming back from hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going back to hell",
+            "description": "Simply going back to hell",
+            "redirectLink": "#"
+          }
+        ]
+      },
+      {
+        "name": "Ahmed Hafez",
+        "bio": "قصة قصيرة حزينة ☺",
+        "email": "quadm@gmail.com",
+        "univ": "Ainshams",
+        "faculty": "Commerece",
+        "department": "Accounting",
+        "committee": "DCR",
+        "role": "Member",
+        "events": [
+          {
+            "title": "Going to hell",
+            "img":"  img ",
+            "description": "Simply going to hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going beneath hell",
+            "img":"  img ",
+            "description": "Simply going beneath hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "back from hell",
+            "img":"  img ",
+            "description": "Simply coming back from hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going back to hell",
+            "img":"  img ",
+            "description": "Simply going back to hell",
+            "redirectLink": "#"
+          }
+        ],
+        "tasks": [
+          {
+            "title": "Going to hell",
+            "description": "Simply going to hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going beneath hell",
+            "description": "Simply going beneath hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "back from hell",
+            "description": "Simply coming back from hell",
+            "redirectLink": "#"
+          },
+          {
+            "title": "Going back to hell",
+            "description": "Simply going back to hell",
+            "redirectLink": "#"
+          }
+        ]
+      }
+]

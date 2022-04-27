@@ -42,13 +42,13 @@ module.exports = {
       );
       let encrypted_token = mykey.update(token, "utf8", "hex");
       encrypted_token += mykey.final("hex");
-      link = process.env.HOST + "/reset?id=" + encrypted_token;
+      link = process.env.HOST + "/api/reset?id=" + encrypted_token;
       // send the email
       mailer(
         user.email,
         link,
         user.firstname,
-        "Reset Password Request For EnergiaPowered",
+        "Reset Password Request For Energia Powered",
         "./assets/reset.html",
         user_agent
       );

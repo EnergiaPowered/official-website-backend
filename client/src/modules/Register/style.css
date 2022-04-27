@@ -30,7 +30,7 @@
 
 .register-form {
     margin: 5% 0;
-    padding: 2% 4%;
+    padding: 4%;
     width: 43%;
     border-radius: 30px;
     border: 3px solid white;
@@ -66,13 +66,15 @@
 }
 
 .register-submit-container a {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1rem;
     color: #fff !important;
     transition: all 0.3s;
 }
 
 .register-submit-container a:hover {
     text-decoration: none;
-    font-size: medium;
 }
 
 .register-submit {
@@ -89,11 +91,12 @@
 }
 
 .register-submit button:hover {
-    transform: scale(1.2);
+    transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
     .register-form {
-        width: 80%;
+        width: 90%;
+        padding: 5%;
     }
 }

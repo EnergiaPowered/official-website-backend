@@ -90,13 +90,13 @@ module.exports = {
     let encrypted_token = mykey.update(token, "utf8", "hex");
     encrypted_token += mykey.final("hex");
 
-    const link = process.env.HOST + "/verify?id=" + encrypted_token;
+    const link = process.env.HOST + "/api/verify?id=" + encrypted_token;
 
     mailer(
       user.email,
       link,
       user.firstname,
-      "Email Verfication from Energia Powered",
+      "Email Verification from Energia Powered",
       "./assets/verify.html"
     );
 

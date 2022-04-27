@@ -7,9 +7,16 @@ module.exports = {
     try {
       const crew = await Member.find(req.query).sort({ committee: 1 });
       if (!crew) {
-        res.status(404).json({ message: "No Crew found" });
+        return res.status(404).json({ message: "No Crew found" });
       }
-      res.status(200).json(crew);
+      let CREW = {};
+      crew.forEach(member => {
+        CREW[member.committee] = [];
+      })
+      crew.forEach(member => {
+        CREW[member.committee].push(member);
+      })
+      res.status(200).json(CREW);
     } catch (err) {
       res.status(500).send(err);
     }

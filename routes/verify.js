@@ -26,6 +26,7 @@ router.get("/verify", async (req, res) => {
     process.env.CIPHER_PASSWORD,
     process.env.INIT_VECTOR
   );
+
   try {
     let decrypted_token = mykey.update(token, "hex", "utf8");
     decrypted_token += mykey.final("utf8");
@@ -57,12 +58,12 @@ router.get("/verify", async (req, res) => {
           let encrypted_token = mykey.update(token, "utf8", "hex");
           encrypted_token += mykey.final("hex");
 
-          const link = process.env.HOST + "/verify?id=" + encrypted_token;
+          const link = process.env.HOST + "/api/verify?id=" + encrypted_token;
           mailer(
             user.email,
             link,
             user.firstname,
-            "Email Verfication from Energia Powered",
+            "Email Verification from Energia Powered",
             "./assets/verify.html"
           );
         } else {
@@ -70,8 +71,8 @@ router.get("/verify", async (req, res) => {
           await user.save();
           res
             .status(200)
-            .cookie("verfied", "true", { maxAge: 60000 })
-            .redirect(process.env.FRONT_HOST + "/");
+            .cookie("verified", "true", { maxAge: 60000 })
+            .redirect(process.env.FRONT_HOST + "/verified");
           // res.status(200).send("Email verified! Please log in.");
         }
       }
