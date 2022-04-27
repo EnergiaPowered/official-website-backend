@@ -12,8 +12,9 @@
     "dev-start": "concurrently \"npx nodemon index.js\" \"cd client && npm start\"",
     "start": "set NODE_ENV=production && node index.js",
     "build": "cd client && npm run build",
+    "docs": "apidoc -i routes -o doc",
     "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build "
+    "heroku-postbuild": "npm run install-client && npm run build && npm run docs"
   },
   "author": "Energia IT Team",
   "license": "ISC",
