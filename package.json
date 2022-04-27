@@ -14,7 +14,7 @@
     "build": "cd client && npm run build",
     "docs": "apidoc -i routes -o doc",
     "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build && npm run docs"
+    "heroku-postbuild": "npm run docs"
   },
   "author": "Energia IT Team",
   "license": "ISC",
@@ -51,3 +51,4 @@
     "nodemon": "^2.0.15"
   }
 }
+
