@@ -14,6 +14,8 @@ import authHeader from "./auth-header";
 import FormGen from "modules/Forms/components/FormGen";
 import FormApp from "modules/Forms/components/FormApp";
 import Workshops from "./../modules/Workshops/index";
+import ForgetPassword from "modules/ForgotPassword";
+import ResetPassword from "modules/ResetPassword";
 
 export default [
   {
@@ -115,6 +117,22 @@ export default [
   {
     path: "/form/application/:title",
     component: FormApp,
+    inNavbar: {
+      shown: false,
+      label: "",
+    },
+  },
+  {
+    path: "/forget-password",
+    component: ForgetPassword,
+    inNavbar: {
+      shown: false,
+      label: "",
+    },
+  },
+  {
+    path: "/reset-password",
+    component: ResetPassword,
     inNavbar: {
       shown: false,
       label: "",

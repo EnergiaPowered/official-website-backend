@@ -42,7 +42,7 @@ module.exports = {
       );
       let encrypted_token = mykey.update(token, "utf8", "hex");
       encrypted_token += mykey.final("hex");
-      link = process.env.HOST + "/reset?id=" + encrypted_token;
+      link = process.env.FRONT_HOST + "/reset-password?id=" + encrypted_token;
       // send the email
       mailer(
         user.email,
