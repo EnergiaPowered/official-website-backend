@@ -18,8 +18,8 @@ db();
 // parse the body of the request
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "client/build")));
 app.use("/api", express.static(__dirname + "/doc"));
+app.use(express.static(path.join(__dirname, "client/build")));
 
 //enable cors
 app.use(cors());
