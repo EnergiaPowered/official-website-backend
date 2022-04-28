@@ -141,7 +141,7 @@ router.get("/crew/:id", crewController.getMember);
 /**
  * @api {post} /crew Post/ crew
  * @apiName postMember
- * @apiGroup crew Router
+ * @apiGroup Crew Router
  * @apiVersion 1.0.0
  * @apiError (Error 400) valdiationError Something wrong with the body of the request
  * @apiError (Error 500) internalServerError Error occured during the process from the server
