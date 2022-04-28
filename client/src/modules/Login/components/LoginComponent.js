@@ -15,7 +15,8 @@ function Login({ props }) {
   const handleLogin = (data) => {
     setMessage("");
     setLoading(true);
-    loginServices.login(data)
+    loginServices
+      .login(data)
       .then(() => {
         form.resetFields();
         props.history.push("/");
@@ -33,7 +34,7 @@ function Login({ props }) {
       });
   };
 
-  if (loggedIn) return <Redirect to='/' />;
+  if (loggedIn) return <Redirect to="/" />;
 
   return (
     <div className="container login-container">
@@ -80,12 +81,20 @@ function Login({ props }) {
           </Form.Item>
           <div className="login-submit-container">
             <Form.Item className="login-submit">
-              <Button type="secondry" htmlType="submit" size="large" disabled={loading}>
+              <Button
+                type="secondary"
+                htmlType="submit"
+                size="large"
+                disabled={loading}
+              >
                 Log In
               </Button>
             </Form.Item>
-            <Link to="/signup">
+            <Link to="/signup" style={{ display: "block" }}>
               <small>Don't have an account?</small>
+            </Link>
+            <Link to="/forget-password" style={{ display: "block" }}>
+              <small>Forgot Password</small>
             </Link>
           </div>
         </Form>

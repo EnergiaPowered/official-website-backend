@@ -9,7 +9,14 @@ module.exports = {
       if (!crew) {
         return res.status(404).json({ message: "No Crew found" });
       }
-      res.status(200).json(crew);
+      let CREW = {};
+      crew.forEach(member => {
+        CREW[member.committee] = [];
+      })
+      crew.forEach(member => {
+        CREW[member.committee].push(member);
+      })
+      res.status(200).json(CREW);
     } catch (err) {
       res.status(500).send(err);
     }

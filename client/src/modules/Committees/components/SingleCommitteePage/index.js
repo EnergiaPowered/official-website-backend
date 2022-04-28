@@ -62,20 +62,6 @@ export default function SingleCommittee(props) {
                   </div>
                 </section>
 
-                <hr />
-
-                <section className="bg-section component-font">
-                  <h2 className="section-title">Our Vision</h2>
-                  <p data-testid="comm-vision">{committee.vision}</p>
-                </section>
-
-                <hr />
-
-                <section className="bg-section component-font">
-                  <h2 className="section-title">Our Mission</h2>
-                  <p data-testid="comm-mission">{committee.mission}</p>
-                </section>
-
                 {/* <hr /> */}
 
                 {/* <BestMember committee={committee.title} /> */}

@@ -25,13 +25,43 @@ function Application({ submit, loading }) {
     // { label: "Marketing", value: "marketing" }
   ]);
 
-  const handleChange = choice => {
-    choice in questions ?
-      setQuestions(questions[choice].map((question, index) => {
-        if ("text" in question) {
-          return (
-            <Form.Item noStyle>
-              <p dangerouslySetInnerHTML={{ __html: question.text }} style={{ color: "white", marginBottom: "1rem" }}></p>
+  const handleChange = (choice) => {
+    choice in questions
+      ? setQuestions(
+          questions[choice].map((question, index) => {
+            if ("text" in question) {
+              return (
+                <Form.Item noStyle>
+                  <p
+                    dangerouslySetInnerHTML={{ __html: question.text }}
+                    style={{ color: "white", marginBottom: "1rem" }}
+                  ></p>
+                  <Form.Item
+                    key={index}
+                    name={question.name}
+                    label={question.label}
+                    style={{ display: "block" }}
+                    rules={question.rules}
+                  >
+                    {question.type === "text" ? (
+                      <Input />
+                    ) : question.type === "textarea" ? (
+                      <TextArea rows={4} />
+                    ) : (
+                      <Select placeholder="Select an answer" allowClear>
+                        {question.options.map((option, index) => (
+                          <Option key={index} value={option.value}>
+                            {option.label}
+                          </Option>
+                        ))}
+                      </Select>
+                    )}
+                  </Form.Item>
+                </Form.Item>
+              );
+            }
+
+            return (
               <Form.Item
                 key={index}
                 name={question.name}
@@ -39,45 +69,25 @@ function Application({ submit, loading }) {
                 style={{ display: "block" }}
                 rules={question.rules}
               >
-                {
-                  question.type === "text" ?
-                    <Input /> :
-                    question.type === "textarea" ?
-                      <TextArea rows={4} /> :
-                      (
-                        <Select placeholder="Select an answer" allowClear>
-                          {question.options.map((option, index) => <Option key={index} value={option.value}>{option.label}</Option>)}
-                        </Select>
-                      )
-                }
+                {question.type === "text" ? (
+                  <Input />
+                ) : question.type === "textarea" ? (
+                  <TextArea rows={4} />
+                ) : (
+                  <Select placeholder="Select an answer" allowClear>
+                    {question.options.map((option, index) => (
+                      <Option key={index} value={option.value}>
+                        {option.label}
+                      </Option>
+                    ))}
+                  </Select>
+                )}
               </Form.Item>
-            </Form.Item>
-          );
-        }
-
-        return (
-          <Form.Item
-            key={index}
-            name={question.name}
-            label={question.label}
-            style={{ display: "block" }}
-            rules={question.rules}
-          >
-            {
-              question.type === "text" ?
-                <Input /> :
-                question.type === "textarea" ?
-                  <TextArea rows={4} /> :
-                  (
-                    <Select placeholder="Select an answer" allowClear>
-                      {question.options.map((option, index) => <Option key={index} value={option.value}>{option.label}</Option>)}
-                    </Select>
-                  )
-            }
-          </Form.Item>
+            );
+          })
         )
-      })) : setQuestions(null);
-  }
+      : setQuestions(null);
+  };
 
   return (
     <div className="row" style={{ marginTop: "1rem" }}>
@@ -114,7 +124,7 @@ function Application({ submit, loading }) {
             name={"email"}
             label="Email Address"
             style={{ display: "block" }}
-            normalize={value => value.trim()}
+            normalize={(value) => value.trim()}
             rules={[
               {
                 type: "email",
@@ -123,7 +133,7 @@ function Application({ submit, loading }) {
               {
                 required: true,
                 message: "Please enter your email address",
-              }
+              },
             ]}
           >
             <Input />
@@ -187,7 +197,7 @@ function Application({ submit, loading }) {
             rules={[
               {
                 required: true,
-                message: "Please fill this field"
+                message: "Please fill this field",
               },
             ]}
           >
@@ -237,8 +247,16 @@ function Application({ submit, loading }) {
               },
             ]}
           >
-            <Select placeholder="Select the committee you want join" allowClear onChange={handleChange}>
-              {committees.map((session, index) => <Option key={index} value={session.value}>{session.label}</Option>)}
+            <Select
+              placeholder="Select the committee you want join"
+              allowClear
+              onChange={handleChange}
+            >
+              {committees.map((session, index) => (
+                <Option key={index} value={session.value}>
+                  {session.label}
+                </Option>
+              ))}
             </Select>
           </Form.Item>
           <Form.Item
@@ -297,7 +315,7 @@ function Application({ submit, loading }) {
             rules={[
               {
                 required: true,
-                message: "Please fill this field"
+                message: "Please fill this field",
               },
             ]}
           >
@@ -324,7 +342,13 @@ function Application({ submit, loading }) {
             <TextArea rows={4} />
           </Form.Item>
           <Form.Item>
-            <Button type="secondry" htmlType="submit" size="large" block disabled={loading ? true : false} >
+            <Button
+              type="secondary"
+              htmlType="submit"
+              size="large"
+              block
+              disabled={loading ? true : false}
+            >
               Apply
             </Button>
           </Form.Item>
