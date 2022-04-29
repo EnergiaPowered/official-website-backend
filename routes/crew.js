@@ -47,7 +47,7 @@ const memberCheckSchema = checkSchema({
     rtrim: true,
     escape: true,
   },
-  imageID: {
+  image: {
     isString: true,
     exists: {
       options: {
