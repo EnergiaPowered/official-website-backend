@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Link } from "react-router-dom";
+import { getPartners } from "./services/partners.services";
 
 import "./style.css";
 
@@ -25,49 +27,52 @@ const responsive = {
 };
 
 export default () => {
+  const [partners, setPartners] = useState([]);
 
-  function importAllImages(r) {
-    return r.keys().map(r);
-  }
-
-  const [partners] = useState(importAllImages(require.context('../../images', false, /\.(png|jpe?g|svg)$/)));
+  useEffect(() => {
+    getPartners().then(res => {
+      const mainPartners = res.data.filter(partner => partner.isMain);
+      setPartners(mainPartners);
+    })
+  }, []);
 
   return (
     <section id="Partners" className="bg-section dark-bg component-font">
       <div className="container">
-        <h2 className="section-title">Past partners & sponsors </h2>
+        <h2 className="section-title" style={{marginBottom: "20px"}}>Past partners & sponsors </h2>
+        <p style={{marginBottom: "50px", fontSize: "1.6vw"}}>See all of our partners & sponsors from <Link to="/sponsors">here</Link></p>
 
         <Carousel responsive={responsive} infinite={true}>
-          {partners.slice(0, partners.length / 2).map((partner, idx) => {
+          {partners.slice(0, partners.length / 2).map((partner) => {
             return (
-              <article className="partner-carousel-item" key={idx}>
+              <article className="partner-carousel-item" key={partner._id}>
                 <section className="partner-logo">
                   <img
-                    src={partner}
+                    src={partner.image}
                     alt="partner-logo"
                     width={200}
                   />
                 </section>
 
-                <p className="partner-name"> {partner.split("/")[3].split(".")[0]} </p>
+                <p className="partner-name"> {partner.name} </p>
               </article>
             );
           })}
         </Carousel>
 
         <Carousel responsive={responsive} infinite={true}>
-          {partners.slice(partners.length / 2).map((partner, idx) => {
+          {partners.slice(partners.length / 2).map((partner) => {
             return (
-              <article className="partner-carousel-item" key={idx}>
+              <article className="partner-carousel-item" key={partner._id}>
                 <section className="partner-logo">
                   <img
-                    src={partner}
+                    src={partner.image}
                     alt="partner-logo"
                     width={200}
                   />
                 </section>
 
-                <p className="partner-name"> {partner.split("/")[3].split(".")[0]} </p>
+                <p className="partner-name"> {partner.name} </p>
               </article>
             );
           })}
