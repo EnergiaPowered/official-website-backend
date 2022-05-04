@@ -64,7 +64,7 @@ router.post("/login/admin", async (req, res) => {
   if (!user.verified)
     return res.status(400).send({ message: "Please verfiy your email." });
 
-  // checking if the user verfied his email
+  // checking if the user is amdin
   if (!user.isAdmin) return res.status(403).send({ message: "unauthorized" });
 
   // comparing the password with the database
