@@ -47,7 +47,7 @@ const memberCheckSchema = checkSchema({
     rtrim: true,
     escape: true,
   },
-  imageID: {
+  image: {
     isString: true,
     exists: {
       options: {
@@ -64,53 +64,107 @@ const memberCheckSchema = checkSchema({
    * @apiName GetAllCrew
    * @apiGroup Crew Router
    * @apiVersion 1.0.0
-   * @apiSuccess {Object[]} Crew A list of all member objects
+   * @apiSuccess {Object} Crew An object where each key is a committee and each value is a list of committee member objects
    * @apiError (Error 404) CrewNotFound Error occures if there is no crew in the database
    * @apiError (Error 500) internalServerError Error occured during the process from the server 
    * @apiSampleRequest http://127.0.0.1:4000/api/crew
    * @apiSuccessExample crew:
-   [
-    {
-        "isBest": false,
-        "_id": "60271a41673d3e3e347a0b6b",
-        "ID": 22,
-        "name": "Essam Mostafa",
-        "committee": "Arduino & Embedded Systems",
-        "position": "Head",
-        "imageID": "18lys9P31tVXIMI74ko-t2xEnn4y5aKkN",
-        "__v": 0
-    },
-    {
-        "isBest": false,
-        "_id": "60271a41673d3e3e347a0b6f",
-        "ID": 26,
-        "name": "Sara Adel",
-        "committee": "Arduino & Embedded Systems",
-        "position": "Vice Head",
-        "imageID": "1_PmfNfD-JqkccUE3niQsdE86WteIzuK-",
-        "__v": 0
-    },
-    {
-        "isBest": true,
-        "_id": "60271a41673d3e3e347a0b89",
-        "ID": 52,
-        "name": "Rofayda Bassem",
-        "committee": "Arduino & Embedded Systems",
-        "position": "Member",
-        "imageID": "1RHjB1Amf8jbajGWj2rP7-FElgih6UDV-",
-        "__v": 0
-    },
-    {
-        "isBest": false,
-        "_id": "60271a41673d3e3e347a0b8a",
-        "ID": 53,
-        "name": "Bassem Metwali",
-        "committee": "Arduino & Embedded Systems",
-        "position": "Member",
-        "imageID": "1NmJDQ3duN9TCEHec_xyJ590kfli9fvvU",
-        "__v": 0
-    },
-]
+   {
+    "Arduino & Embedded Systems": [
+        {
+            "isBest": true,
+            "_id": "60271a41673d3e3e347a0b8c",
+            "ID": 55,
+            "name": "Mohamed Haroon",
+            "committee": "Arduino & Embedded Systems",
+            "position": "Member",
+            "imageID": "1HTom-HUcVoAz95Op3QayAe7d3lxo_Jc7",
+            "__v": 0
+        },
+        {
+            "isBest": false,
+            "_id": "62110cd2c51126074817c7c3",
+            "ID": 56,
+            "name": "Saleh Zakaria",
+            "committee": "Arduino & Embedded Systems",
+            "position": "Member",
+            "imageID": "1iS8JsSD1rdftCbZGcKrMOeRsQLy8z3bj",
+            "__v": 0
+        }
+    ],
+    "C++": [
+        {
+            "isBest": false,
+            "_id": "60271a41673d3e3e347a0b6c",
+            "ID": 23,
+            "name": "Shaimaa Osama",
+            "committee": "C++",
+            "position": "Head",
+            "imageID": "1GeRbEsqVylxyeuZhxVU4EMtKLlI4ju1J",
+            "__v": 0
+        },
+        {
+            "isBest": true,
+            "_id": "60271a41673d3e3e347a0b8e",
+            "ID": 57,
+            "name": "Ahmed Wael",
+            "committee": "C++",
+            "position": "Member",
+            "imageID": "1fhFSpPS_f_oSeYZfneDtagDaL0YouKB2",
+            "__v": 0
+        },
+        {
+            "isBest": false,
+            "_id": "60271a41673d3e3e347a0b8f",
+            "ID": 58,
+            "name": "Hamza Harby",
+            "committee": "C++",
+            "position": "Member",
+            "imageID": "1AYpYQ7oKjHBglp_EGjwAEaWgLtQPRIIA",
+            "__v": 0
+        },
+        {
+            "isBest": false,
+            "_id": "60271a41673d3e3e347a0b90",
+            "ID": 59,
+            "name": "Mahmoud Tarek",
+            "committee": "C++",
+            "position": "Member",
+            "imageID": "1ooiFlGFOowzvdIAIjccZL-2ocKZ_xW9L",
+            "__v": 0
+        },
+        {
+            "isBest": true,
+            "_id": "60271a41673d3e3e347a0b91",
+            "ID": 60,
+            "name": "Mariam Ashraf",
+            "committee": "C++",
+            "position": "Member",
+            "imageID": "1qo6-ZybOP1ahBDBi67WTvCrLh2UgmQKh",
+            "__v": 0
+        },
+        {
+            "isBest": false,
+            "_id": "60271a41673d3e3e347a0b92",
+            "ID": 61,
+            "name": "Mohamed Yahia",
+            "committee": "C++",
+            "position": "Member",
+            "imageID": "1rgyr8kkEyO85dFG582Km0mFELDil0-nW",
+            "__v": 0
+        },
+        {
+            "isBest": true,
+            "_id": "60271a41673d3e3e347a0b93",
+            "ID": 62,
+            "name": "Mohamed Zahran",
+            "committee": "C++",
+            "position": "Member",
+            "imageID": "1UAT9mtqe_ncNRCd2dOMsRc9pobnCw6SR",
+            "__v": 0
+        }
+    ]
+  }
 */
 // Retrieve crew
 router.get("/crew", crewController.getAllCrew);
@@ -141,7 +195,7 @@ router.get("/crew/:id", crewController.getMember);
 /**
  * @api {post} /crew Post/ crew
  * @apiName postMember
- * @apiGroup crew Router
+ * @apiGroup Crew Router
  * @apiVersion 1.0.0
  * @apiError (Error 400) valdiationError Something wrong with the body of the request
  * @apiError (Error 500) internalServerError Error occured during the process from the server

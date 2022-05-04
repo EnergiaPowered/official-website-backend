@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import routes from "./globals/routes";
 
@@ -15,25 +15,26 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <PageProgress color={"skyblue"} height={5} />
-        <Switch>
-          {routes && 
-            routes.length > 0 &&
-            routes.map((route, index) => {
-              return (
-                <Route
-                  key={index}
-                  exact // we should either use exact or Switch component (using both doesn't look clean)
-                  path={route.path}
-                  component={route.component}
-                />
-              );
-            })
-          }
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
+        <PageProgress color={"#1d4db6"} height={5} />
+        <Suspense fallback={<div></div>}>
+          <Switch>
+            {routes &&
+              routes.length > 0 &&
+              routes.map((route, index) => {
+                return (
+                  <Route
+                    key={index}
+                    exact // we should either use exact or Switch component (using both doesn't look clean)
+                    path={route.path}
+                    component={route.component}
+                  />
+                );
+              })}
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </Suspense>
       </Router>
     </div>
   );

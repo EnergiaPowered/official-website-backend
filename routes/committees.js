@@ -28,26 +28,6 @@ const committeeCheckSchema = checkSchema({
     rtrim: true,
     escape: true,
   },
-  mission: {
-    isString: true,
-    exists: {
-      options: {
-        checkFalsy: true,
-      },
-    },
-    rtrim: true,
-    escape: true,
-  },
-  vision: {
-    isString: true,
-    exists: {
-      options: {
-        checkFalsy: true,
-      },
-    },
-    rtrim: true,
-    escape: true,
-  },
   jobDescription: {
     isArray: true,
     exists: {
@@ -77,8 +57,6 @@ router.get("/committees", committeesController.getAllCommittees);
  * @apiVersion 1.0.0
  * @apiBody {string} title title of the request body
  * @apiBody {string} icon_class icon_class of the request body
- * @apiBody {string} mission mission of the request body
- * @apiBody {string} vision vision of the request body
  * @apiBody {string[]} jobDescription jobDescription of the request body
  * @apiError (400) RequestEmptyError Request body was empty
  * @apiSampleRequest http://127.0.0.1:4000/api/committees
@@ -102,8 +80,6 @@ router.post(
  * @apiSampleRequest http://127.0.0.1:4000/api/committees/72
  * @apiBody {string} title title of the request body
  * @apiBody {string} icon_class icon_class of the request body
- * @apiBody {string} mission mission of the request body
- * @apiBody {string} vision vision of the request body
  * @apiBody {string[]} jobDescription jobDescription of the request body
  *
  *

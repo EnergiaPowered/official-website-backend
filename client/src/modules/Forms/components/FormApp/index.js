@@ -47,7 +47,7 @@ function FormApp(props) {
     setLoading(true);
     if (!finished) {
       axios
-        .put(FORM_RESPONSE_END_POINT, vals)
+        .put(FORM_RESPONSE_END_POINT, { content: vals })
         .then((res) => {
           setSubmitted(true);
           setLoading(false);

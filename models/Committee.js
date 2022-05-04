@@ -10,14 +10,6 @@ const committeeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    mission: {
-        type: String,
-        required: true
-    },
-    vision: {
-        type: String,
-        required: true
-    },
     jobDescription: {
         type: Array,
         required: true
