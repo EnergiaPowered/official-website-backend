@@ -24,8 +24,7 @@ it("renders the component that matches the props", () => {
     //   get the item matches the params id: "committee1"
     const data = res.data.find(item => item.title.toLowerCase() === "committee1")
     expect(getByTestId("comm-title")).toHaveTextContent(data.title);
-    expect(getByTestId("comm-vision")).toHaveTextContent(data.vision);
-    expect(getByTestId("comm-mission")).toHaveTextContent(data.mission);
+
   });
 
 });

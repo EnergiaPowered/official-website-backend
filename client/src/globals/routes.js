@@ -1,19 +1,27 @@
-import Home from "modules/Home";
-import SingleCommittee from "modules/Committees/components/SingleCommitteePage";
-import AboutPage from "modules/About/components/page";
-import BlogsPage from "./../modules/Blogs";
-import Events from "modules/Events";
-import Crew from "modules/Crew/Crew";
-import Contacts from "modules/Contact";
-import RegistrationPage from "modules/Register";
-import LoginPage from "modules/Login";
-import Verified from "modules/Verified";
-import RecruitmentForm from "modules/RecruitmentForm";
-import EventDetails from "modules/Events/components/EventDetails";
+import { lazy } from "react";
 import authHeader from "./auth-header";
-import FormApp from "modules/Forms/components/FormApp";
-import Workshops from "./../modules/Workshops/index";
-import Competition from "modules/Competition";
+
+const Home = lazy(() => import("modules/Home"));
+const SingleCommittee = lazy(() =>
+  import("modules/Committees/components/SingleCommitteePage")
+);
+const AboutPage = lazy(() => import("modules/About/components/page"));
+const BlogsPage = lazy(() => import("./../modules/Blogs"));
+const Events = lazy(() => import("modules/Events"));
+const Crew = lazy(() => import("modules/Crew/Crew"));
+const Contacts = lazy(() => import("modules/Contact"));
+const RegistrationPage = lazy(() => import("modules/Register"));
+const LoginPage = lazy(() => import("modules/Login"));
+const Verified = lazy(() => import("modules/Verified"));
+const RecruitmentForm = lazy(() => import("modules/RecruitmentForm"));
+const EventDetails = lazy(() =>
+  import("modules/Events/components/EventDetails")
+);
+const FormApp = lazy(() => import("modules/Forms/components/FormApp"));
+const Workshops = lazy(() => import("./../modules/Workshops"));
+const Gates = lazy(() => import("modules/Gates"));
+const ForgetPassword = lazy(() => import("modules/ForgetPassword"));
+const ResetPassword = lazy(() => import("modules/ResetPassword"));
 
 export default [
   {
@@ -65,8 +73,8 @@ export default [
     },
   },
   {
-    path: "/events/embedded-systems-competition",
-    component: Competition,
+    path: "/events/gates",
+    component: Gates,
     inNavbar: {
       shown: false,
       label: "",
@@ -115,6 +123,22 @@ export default [
   {
     path: "/form/application/:title",
     component: FormApp,
+    inNavbar: {
+      shown: false,
+      label: "",
+    },
+  },
+  {
+    path: "/forget-password",
+    component: ForgetPassword,
+    inNavbar: {
+      shown: false,
+      label: "",
+    },
+  },
+  {
+    path: "/reset-password",
+    component: ResetPassword,
     inNavbar: {
       shown: false,
       label: "",

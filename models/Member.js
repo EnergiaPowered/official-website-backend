@@ -18,7 +18,7 @@ const memberSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    imageID: {
+    image: {
         type: String,
         required: true
     },

@@ -13,7 +13,7 @@ export default () => {
  * @typedef {Function} setZoomed
  */
   const [zoomed, setZoomed] = useState(false);
-
+  const season = new Date().getFullYear() % 100;
 
  /**
  * Component which contain the Structure of Enrgia Powered 
@@ -31,7 +31,7 @@ export default () => {
           src={structureImg}
           data-teststate={zoomed}
           alt="Our team's structure"
-          title="Energia Powered'21 board"
+          title={`Energia Powered'${season} board`}
           onClick={() => setZoomed(true)}
           onRequestClose={() => setZoomed(false)}
         />
