@@ -15,6 +15,7 @@ module.exports = {
     try {
       if (req.body && req.body !== {}) {
         validationResult(req).throw();
+        req.body.image = req.body.image.replace(/&#x2F;/g, "/");
         let newCommittee = new Committee(req.body);
         newCommittee.save((err) => {
           if (err) {
