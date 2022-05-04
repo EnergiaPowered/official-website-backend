@@ -26,10 +26,6 @@ const formSchema = new Schema(
       type: String,
       default: "Sorry the deadline of this form is over",
     },
-    resultSheet: {
-      type: String,
-      required: true,
-    },
     fields: [
       {
         label: { type: String, required: true },
