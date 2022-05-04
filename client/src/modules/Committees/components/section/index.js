@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getCommittees } from "../../services/committees.services";
 import Loader from "shared/Loader";
 import Carousel from "react-multi-carousel";
