@@ -72,7 +72,7 @@ router.get("/verify", async (req, res) => {
           res
             .status(200)
             .cookie("verified", "true", { maxAge: 60000 })
-            .redirect(process.env.FRONT_HOST + "/");
+            .redirect(process.env.FRONT_HOST + "/verified");
           // res.status(200).send("Email verified! Please log in.");
         }
       }
