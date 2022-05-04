@@ -11,26 +11,25 @@
 
 .blogcard__content {
   background-color: white;
-  margin:auto;
+  margin: auto;
   top: 5.7%;
   left: 7%;
   width: 92%;
   height: 79%;
   overflow: hidden;
   padding: 3% 6%;
-  box-shadow: 0 2px 15px #3b35ad;
-  transition:transform 200ms ease-in;
-  border-radius: 12px;
   margin-bottom: 30px;
+  cursor: pointer;
+  transition: all 200ms ease-in;
 }
 
-.blogcard__content:hover  {
-  cursor: pointer;
-  transform: scale(1.04);
-  
+.blogcard__content:hover {
+  box-shadow: 4px 5px 7px 0px #ffffff7c;
+  transform: scale(1.02);
 }
-.blogcard__content img{
-  height:100%;
+
+.blogcard__content img {
+  height: 100%;
   max-height: 250px;
   padding: 5px;
   object-fit: cover;
@@ -50,6 +49,3 @@
   position: relative;
   overflow: hidden;
 }
-
-
-
