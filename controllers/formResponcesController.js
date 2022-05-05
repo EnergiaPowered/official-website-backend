@@ -3,7 +3,8 @@ const formResponce = db.collection("formResponces");
 module.exports = {
   saveFormResponce: async (req) => {
     try {
-      await formResponce.doc(`${req.body.name}`).set(req.body);
+      const { title, headers } = req.body;
+      await formResponce.doc(`${title}`).set({ name: title, headers: headers, content: [] });
     } catch (err) {
       res.status(500).send(err);
     }
