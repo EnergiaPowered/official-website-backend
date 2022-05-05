@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 // import Supervisor from "./components/Supervisor";
-import Partners from "./components/Partners";
+import Partners from "modules/Partners/components/section";
 import Header from "./components/Header";
 import Committees from "modules/Committees/components/section";
 // import BestMember from "../BestMember/bestMember";

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import LazyLoad from "react-lazyload";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
-import { getPartners } from "./services/partners.services";
+import { getPartners } from "../../services/partners.services";
 
 import "./style.css";
 
@@ -46,13 +47,15 @@ export default () => {
           {partners.slice(0, partners.length / 2).map((partner) => {
             return (
               <article className="partner-carousel-item" key={partner._id}>
-                <section className="partner-logo">
-                  <img
-                    src={partner.image}
-                    alt="partner-logo"
-                    width={200}
-                  />
-                </section>
+                <LazyLoad height={300} offset={[100, 200]}>
+                    <section className="partner-logo">
+                      <img
+                        src={partner.image}
+                        alt="partner-logo"
+                        width={200}
+                      />
+                    </section>
+                </LazyLoad>
 
                 <p className="partner-name"> {partner.name} </p>
               </article>
@@ -64,13 +67,15 @@ export default () => {
           {partners.slice(partners.length / 2).map((partner) => {
             return (
               <article className="partner-carousel-item" key={partner._id}>
-                <section className="partner-logo">
-                  <img
-                    src={partner.image}
-                    alt="partner-logo"
-                    width={200}
-                  />
-                </section>
+                <LazyLoad height={300} offset={[100, 200]}>
+                    <section className="partner-logo">
+                      <img
+                        src={partner.image}
+                        alt="partner-logo"
+                        width={200}
+                      />
+                    </section>
+                </LazyLoad>
 
                 <p className="partner-name"> {partner.name} </p>
               </article>
