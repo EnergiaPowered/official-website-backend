@@ -2,6 +2,7 @@ import { lazy } from "react";
 import authHeader from "./auth-header";
 
 const Home = lazy(() => import("modules/Home"));
+const PartnersPage = lazy(() => import("modules/Partners/components/PartnersPage"));
 const SingleCommittee = lazy(() =>
   import("modules/Committees/components/SingleCommitteePage")
 );
@@ -30,6 +31,14 @@ export default [
     inNavbar: {
       shown: true,
       label: "Home",
+    },
+  },
+  {
+    path: "/sponsors",
+    component: PartnersPage,
+    inNavbar: {
+      shown: false,
+      label: "",
     },
   },
   {

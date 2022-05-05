@@ -1,0 +1,55 @@
+#Partners header {
+  padding: 20% 7%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: left;
+}
+
+#Partners header h1 {
+  padding-top: 2.5%;
+  width: 60%;
+}
+
+#Partners header #page-icon {
+  margin-left: 18%;
+}
+
+#Partners header #page-icon * {
+  font-size: 10vw;
+}
+
+#Partners section {
+  padding: 9%;
+}
+
+#Partners .partner-card {
+  margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#Partners .img-container {
+  width: 60%;
+  margin-bottom: 1.6rem;
+}
+
+#Partners .img-container img {
+  max-width: 100%;
+}
+
+hr {
+  width: 70%;
+  text-align: center;
+  border: 1px solid #fff;
+}
+
+#Partners section h2 {
+  margin-bottom: 5%;
+  text-transform: uppercase;
+}
+
+#Partners section p {
+  text-align: justify;
+}
