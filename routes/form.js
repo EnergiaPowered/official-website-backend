@@ -23,7 +23,6 @@ const admin = require("../middleware/admin");
         "_id": "61ad489f7adeeb2dd472de07",
         "title": "workshop part",
         "description": "description",
-        "resultSheet" : "asdad",
         "startDate": "2021-11-30T23:17:46.068Z",
         "endDate": "2021-12-30T23:17:48.094Z",
         "fields": [
@@ -64,7 +63,6 @@ const admin = require("../middleware/admin");
         "postform": "message to show after the form ends",
         "_id": "61ad45dd7adeeb2dd472de01",
         "title": "form title",
-        "resultSheet" : "asdad",
         "description": "form description",
         "startDate": "2021-11-30T22:53:35.643Z",
         "endDate": "2021-12-30T22:53:38.320Z",
@@ -130,7 +128,6 @@ router.get("/form", formController.getForms);
         "postform": "message to show after the form ends",
         "_id": "61ad45dd7adeeb2dd472de01",
         "title": "form title",
-        "resultSheet" : "asdad",
         "description": "form description",
         "startDate": "2021-11-30T22:53:35.643Z",
         "endDate": "2021-12-30T22:53:38.320Z",
@@ -191,7 +188,6 @@ router.get("/form/:title", formController.getOneForm);
  * @apiBody {string} postEvent when the deadline of the form is over
  * @apiBody {Date} startDate start date of the form
  * @apiBody {Date} endDate end date of the form
- * @apiBody {string} resultSheet The excel sheet of the users who filled the form
  * @apiBody {Object[]} fields fields the user should fill
  * @apiSampleRequest http://127.0.0.1:4000/api/form
  * @apiSuccessExample sample:
