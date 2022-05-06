@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import Layout from "shared/Layout";
 import QuestionApp from "./QuestionApp/QuestionApp";
-import $ from "jquery";
+// import $ from "jquery";
 import configs from "globals/config";
 //import AdSense from 'react-adsense';
 import "./index.css";
@@ -47,11 +47,15 @@ function FormApp(props) {
     setLoading(true);
     if (!finished) {
       axios
+<<<<<<< HEAD
         .put(
           // "http://localhost:4004/api/formRes/" + props.match.params.title,
           FORM_RESPONSE_END_POINT,
           vals
         )
+=======
+        .put(FORM_RESPONSE_END_POINT, { content: vals })
+>>>>>>> d99d3db81df322e149c5e504f1a709f1d43c0f01
         .then((res) => {
           setSubmitted(true);
           setLoading(false);
@@ -62,6 +66,7 @@ function FormApp(props) {
           );
           setLoading(false);
         });
+<<<<<<< HEAD
       // $.ajax({
       //   url:
       //     /*FORM_RESPONSE_END_POINT*/ "http://localhost:4004/api/formRes/" +
@@ -80,6 +85,8 @@ function FormApp(props) {
       //     setLoading(false);
       //   },
       // });
+=======
+>>>>>>> d99d3db81df322e149c5e504f1a709f1d43c0f01
     }
   };
 
@@ -91,7 +98,7 @@ function FormApp(props) {
       {myForm && (
         <>
           <Helmet>
-            <title>{myForm.title}</title>
+            <title>Energia Powered | Forms</title>
           </Helmet>
           <Layout>
             <div className="recruitment-page row">

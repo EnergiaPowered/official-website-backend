@@ -1,6 +1,7 @@
 import React from "react";
 import default_image from "../images/default.png";
 import "../components/indexComponents.css";
+import LazyLoad from "react-lazyload";
 
 function CommitteeMembers({ members, heads, viceHead, committeeName }) {
   return (
@@ -16,15 +17,17 @@ function CommitteeMembers({ members, heads, viceHead, committeeName }) {
                 <div key={index} className="card_head col-12 col-md-6">
                   <div className="d-flex justify-content-center">
                     {
-                      // head.imageID ?
+                      <LazyLoad height={200} offset={100}>
+                        {/* // head.imageID ?
                       // <img alt="head" src={require(`assets/crew images/${committeeName}/${head.name}.png`)} className="img_card rounded-circle" />
                       // <img alt="head" src={`https://drive.google.com/uc?exort=view&id=${head.imageID}`} className="img_card rounded-circle" />
-                      // :
-                      <img
-                        alt="head"
-                        src={default_image}
-                        className="img_card rounded-circle"
-                      />
+                      // : */}
+                        <img
+                          alt="head"
+                          src={default_image}
+                          className="img_card rounded-circle"
+                        />
+                      </LazyLoad>
                     }
                   </div>
                   <div className="text_head">
@@ -39,20 +42,22 @@ function CommitteeMembers({ members, heads, viceHead, committeeName }) {
               {viceHead ? (
                 <div className="card_head col-12 col-md-6">
                   <div className="d-flex justify-content-center">
-                    {/* {viceHead.imageID ? (
+                    <LazyLoad height={200} offset={100}>
+                      {/* {viceHead.imageID ? (
+                        <img
+                          alt="head"
+                          src={require(`assets/crew images/${committeeName}/${viceHead.name}.png`)}
+                          className="img_card rounded-circle"
+                        />
+                      ) : ( */}
+                      {/* // <img alt="vice head" src={`https://drive.google.com/uc?exort=view&id=${viceHead.imageID}`} className="img_card rounded-circle" /> */}
                       <img
-                        alt="head"
-                        src={require(`assets/crew images/${committeeName}/${viceHead.name}.png`)}
+                        alt="vice head"
+                        src={default_image}
                         className="img_card rounded-circle"
                       />
-                    ) : ( */}
-                    {/* // <img alt="vice head" src={`https://drive.google.com/uc?exort=view&id=${viceHead.imageID}`} className="img_card rounded-circle" /> */}
-                    <img
-                      alt="vice head"
-                      src={default_image}
-                      className="img_card rounded-circle"
-                    />
-                    {/* )} */}
+                      {/* )} */}
+                    </LazyLoad>
                   </div>
                   <div className="text_head">
                     <h5>{viceHead.name}</h5>
@@ -73,20 +78,22 @@ function CommitteeMembers({ members, heads, viceHead, committeeName }) {
                   className="card_member col-12 col-sm-6 col-md-4 col-lg-3 pb-3"
                 >
                   <div className="img_member">
-                    {/* {member.imageID ? (
+                    <LazyLoad height={200} offset={100}>
+                      {/* {member.imageID ? (
+                        <img
+                          alt="member"
+                          src={require(`assets/crew images/${committeeName}/${member.name}.png`)}
+                          className="img_card rounded-circle"
+                        />
+                      ) : ( */}
+                      {/* // <img alt="member" src={`https://drive.google.com/uc?exort=view&id=${member.imageID}`} className="img_card rounded-circle" /> */}
                       <img
                         alt="member"
-                        src={require(`assets/crew images/${committeeName}/${member.name}.png`)}
+                        src={default_image}
                         className="img_card rounded-circle"
                       />
-                    ) : ( */}
-                    {/* // <img alt="member" src={`https://drive.google.com/uc?exort=view&id=${member.imageID}`} className="img_card rounded-circle" /> */}
-                    <img
-                      alt="member"
-                      src={default_image}
-                      className="img_card rounded-circle"
-                    />
-                    {/* )} */}
+                      {/* )} */}
+                    </LazyLoad>
                   </div>
                   <div className="text_member">
                     <h5 style={{ paddingTop: "5px" }}>
