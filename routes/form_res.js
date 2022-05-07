@@ -1,9 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const formResponceController = require("../controllers/formResponcesController");
-router.post("/formRes", formResponceController.saveFormResponce);
+
+// Import authorization middleWares
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
+
 router.get("/formRes", formResponceController.getAllFormResponce);
+
 router.get("/formRes/:form", formResponceController.getDocumentByForm);
-router.put("/formRes/:form", formResponceController.updateForm);
+
+router.post("/formRes", auth, admin, formResponceController.saveFormResponce);
+
+router.put("/formRes/:form", auth, admin, formResponceController.updateForm);
 
 module.exports = router;

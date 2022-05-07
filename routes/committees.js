@@ -65,7 +65,7 @@ router.get("/committees", committeesController.getAllCommittees);
 // insert new committee w/ validation and sanitization
 router.post(
   "/committees",
-  [committeeCheckSchema],
+  [committeeCheckSchema], auth, admin, 
   committeesController.postCommitte
 );
 
@@ -87,7 +87,7 @@ router.post(
 // edit a committee w/ validation and sanitization
 router.put(
   "/committees/:id",
-  [committeeCheckSchema],
+  [committeeCheckSchema], auth, admin, 
   committeesController.putCommitte
 );
 /**
@@ -102,7 +102,7 @@ router.put(
  * @apiParam {number} id id of the committee
  */
 // delete a committee
-router.delete("/committees/:id", committeesController.deleteOneCommitte);
+router.delete("/committees/:id", auth, admin, committeesController.deleteOneCommitte);
 /**
  * @api {delete} /committees DELETE/ committees
  * @apiName DeleteAllCommittees
@@ -112,6 +112,6 @@ router.delete("/committees/:id", committeesController.deleteOneCommitte);
  * @apiSampleRequest http://127.0.0.1:4000/api/committees
  */
 // delete all committees
-router.delete("/committees", committeesController.deleteAllCommittes);
+router.delete("/committees", auth, admin, committeesController.deleteAllCommittes);
 
 module.exports = router;

@@ -1,5 +1,6 @@
-const { User } = require("../models/User");
+
 const router = require("express").Router();
+const { auth } = require("firebase-admin");
 const resetPasswordController = require("../controllers/resetPasswordController");
 
 /**
@@ -13,7 +14,7 @@ const resetPasswordController = require("../controllers/resetPasswordController"
  * @apiBody {String} email The email of the user
  * @apiSampleRequest http://127.0.0.1:4000/api/forget_password
  */
-router.post("/forget_password", resetPasswordController.postForgetPassword);
+router.post("/forget_password", auth, resetPasswordController.postForgetPassword);
 
 /**
  * @api {post} /reset_password Post/ reset_password
@@ -26,6 +27,6 @@ router.post("/forget_password", resetPasswordController.postForgetPassword);
  * @apiBody {String} password The password of the user
  * @apiSampleRequest http://127.0.0.1:4000/api/reset
  */
-router.post("/reset_password", resetPasswordController.postResetPassword);
+router.post("/reset_password", auth, resetPasswordController.postResetPassword);
 
 module.exports = router;

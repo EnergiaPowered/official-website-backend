@@ -3,6 +3,7 @@ const blogCommentController = require("../controllers/blogCommentController");
 
 // Import authorization middleWares
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 
 /**
    * @api {get} /blogs/:id/comments GET/ blogs/:id/comments
