@@ -49,6 +49,7 @@ module.exports = {
       }
     } catch (err) {
       res.status(400).send(err.mapped);
+      console.log(err);
     }
   },
   putOneCrew: (req, res) => {
