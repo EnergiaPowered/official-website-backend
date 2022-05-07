@@ -8,6 +8,24 @@ module.exports = {
       res.status(500).send(err);
     }
   },
+  deleteOneForm: async (title) => {
+    try {
+      await formResponce.doc(`${title}`).delete();
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  },
+  deleteAllForms: async () => {
+    try {
+      const getresponces = await formResponce.get();
+      //We have to loop over the collection to delete documents one by one
+      getresponces.forEach((doc) => {
+        deleteOneForm(doc.name);
+      });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  },
   getAllFormResponce: async (req, res) => {
     try {
       const docs = [];
