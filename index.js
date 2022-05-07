@@ -34,6 +34,7 @@ app.use(morgan(":method :url :status "));
 app.use("/api", require("./routes/contactInfo"));
 app.use("/api", require("./routes/message"));
 app.use("/api", require("./routes/blogs"));
+app.use("/api", require("./routes/blogsComments"));
 app.use("/api", require("./routes/events"));
 app.use("/api", require("./routes/chat").router);
 app.use("/api", require("./routes/crew"));
@@ -46,6 +47,7 @@ app.use("/api", require("./routes/form"));
 app.use("/api", require("./routes/form_res"));
 app.use("/api", require("./routes/send_emails"));
 app.use("/api", require("./routes/sponsors"));
+app.use("/api", require("./routes/login_admin"));
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {

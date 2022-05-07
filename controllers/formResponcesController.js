@@ -3,7 +3,26 @@ const formResponce = db.collection("formResponces");
 module.exports = {
   saveFormResponce: async (req) => {
     try {
-      await formResponce.doc(`${req.body.name}`).set(req.body);
+      const { title, headers } = req.body;
+      await formResponce.doc(`${title}`).set({ name: title, headers: headers, content: [] });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  },
+  deleteOneForm: async (title) => {
+    try {
+      await formResponce.doc(`${title}`).delete();
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  },
+  deleteAllForms: async () => {
+    try {
+      const getresponces = await formResponce.get();
+      //We have to loop over the collection to delete documents one by one
+      getresponces.forEach((doc) => {
+        deleteOneForm(doc.name);
+      });
     } catch (err) {
       res.status(500).send(err);
     }

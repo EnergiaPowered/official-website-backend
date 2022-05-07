@@ -76,7 +76,7 @@ module.exports = {
       const blog = await Blog.findByIdAndRemove(req.params.id);
       if (!blog) {
         console.log("Error 404: Blog not found");
-        return res.status(404);
+        return res.sendStatus(404);
       }
       res.sendStatus(200);
     } catch (err) {

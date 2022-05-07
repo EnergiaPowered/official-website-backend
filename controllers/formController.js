@@ -79,6 +79,7 @@ module.exports = {
       if (!form) {
         return res.status(404).json({ message: "Not found" });
       }
+      formFireBase.deleteOneForm(title);
       res.sendStatus(200);
     } catch (err) {
       return res.status(500).send(err);
@@ -91,6 +92,7 @@ module.exports = {
         return res.status(404).json({ message: "Not found" });
       }
       forms = await Form.deleteMany({});
+      formFireBase.deleteAllForms();
       res.sendStatus(200);
     } catch (err) {
       return res.status(500).send(err);
