@@ -117,6 +117,7 @@ router.get("/blogs", blogController.getBlogs);
 /**
    * @api {get} /blogs/:id GET/ blogs/:id
    * @apiName GetSingleBlog
+   * @apiParam {string} id id of the blog
    * @apiGroup Blogs Router
    * @apiVersion 1.0.0
    * @apiSuccess {Object} Blog The blog object
