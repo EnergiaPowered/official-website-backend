@@ -24,3 +24,7 @@
   display: inline-block;
   /* to make the clickable area on the word not in the space */
 }
+
+.icon {
+  max-width: 100px;
+}

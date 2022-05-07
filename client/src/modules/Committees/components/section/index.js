@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getCommittees } from "../../services/committees.services";
 import Loader from "shared/Loader";
 import Carousel from "react-multi-carousel";
@@ -9,20 +9,20 @@ import "./style.css";
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
-    items: 3
+    items: 3,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3
+    items: 3,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1
-  }
+    items: 1,
+  },
 };
 
 export default function Committees() {
@@ -30,7 +30,7 @@ export default function Committees() {
 
   useEffect(() => {
     getCommittees().then((res) => setCommittees(res.data));
-  }, [])
+  }, []);
 
   return (
     <>
@@ -45,7 +45,8 @@ export default function Committees() {
                     to={`/committee/${el.title.toLowerCase()}`}
                     style={{ color: "white", textDecoration: "none" }}
                   >
-                    <FontAwesomeIcon icon={el.icon_class} className="icon" />
+                    {/* <FontAwesomeIcon icon={el.icon_class} className="icon" /> */}
+                    <img src={el.image} alt="committee icon" className="icon" />
                   </Link>
                 </div>
                 <Link
@@ -58,7 +59,9 @@ export default function Committees() {
             ))}
           </Carousel>
         </div>
-      ) : <Loader />}
+      ) : (
+        <Loader />
+      )}
     </>
   );
 }
