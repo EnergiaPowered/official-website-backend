@@ -163,7 +163,7 @@ router.get("/blogs/:id", blogController.getSingleBlog);
 // insert new blog w/ validation and sanitization
 router.post(
   "/blogs",
-  [/*auth, admin, */ blogCheckSchema],
+  [auth, admin, blogCheckSchema],
   blogController.postBlog
 );
 
@@ -191,7 +191,7 @@ router.post(
 // edit a blog w/ validation and sanitization
 router.put(
   "/blogs/:id",
-  [/*auth, admin,*/ blogCheckSchema],
+  [auth, admin, blogCheckSchema],
   blogController.putBlog
 );
 

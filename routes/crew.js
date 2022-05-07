@@ -211,7 +211,7 @@ router.get("/crew/:id", crewController.getMember);
  *ok
  */
 // insert new member w/ validation and sanitization
-router.post("/crew/member", [memberCheckSchema], crewController.postMember);
+router.post("/crew/member", [memberCheckSchema], auth, admin, crewController.postMember);
 
 /**
  * @api {put} /crew/:id Put/ crew:id
@@ -233,7 +233,7 @@ router.post("/crew/member", [memberCheckSchema], crewController.postMember);
  *ok
  */
 // edit a member w/ validation and sanitization
-router.put("/crew/:id", [memberCheckSchema], crewController.putOneCrew);
+router.put("/crew/:id", [memberCheckSchema], auth, admin, crewController.putOneCrew);
 
 /**
  * @api {delete} /crew/:id DELETE/ crew/:id
@@ -247,7 +247,7 @@ router.put("/crew/:id", [memberCheckSchema], crewController.putOneCrew);
  *ok
  */
 // delete a member
-router.delete("/crew/:id", crewController.deleteOne);
+router.delete("/crew/:id", auth, admin, crewController.deleteOne);
 
 /**
  * @api {delete} /crew DELETE/ crew
@@ -260,6 +260,6 @@ router.delete("/crew/:id", crewController.deleteOne);
  *ok
  */
 // delete all crew
-router.delete("/crew", crewController.deleteAll);
+router.delete("/crew", auth, admin, crewController.deleteAll);
 
 module.exports = router;
