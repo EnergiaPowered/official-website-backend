@@ -1,0 +1,30 @@
+.blog-container{
+    display: block;
+    margin: 200px auto;
+}
+.details{
+    height: auto;
+}
+.details img{
+    display: block;  
+    max-height: 350px;
+    width: 100%;
+    margin: auto;
+    object-fit: cover;
+    border-radius: 7px;
+    
+}
+.blog-details{
+    margin-top: 10px;
+}
+.blog-author{
+    color: rgb(184, 183, 183);
+}
+.blog-body{
+    margin-top:30px;
+}
+@media(max-width:768px){
+    .blog-container{
+        margin: 100px auto;
+    }
+}
