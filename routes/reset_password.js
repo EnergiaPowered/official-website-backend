@@ -1,5 +1,6 @@
-const { User } = require("../models/User");
+
 const router = require("express").Router();
+const { auth } = require("firebase-admin");
 const resetPasswordController = require("../controllers/resetPasswordController");
 
 /**
