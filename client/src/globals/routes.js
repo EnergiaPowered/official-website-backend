@@ -2,7 +2,9 @@ import { lazy } from "react";
 import authHeader from "./auth-header";
 
 const Home = lazy(() => import("modules/Home"));
-const PartnersPage = lazy(() => import("modules/Partners/components/PartnersPage"));
+const PartnersPage = lazy(() =>
+  import("modules/Partners/components/PartnersPage")
+);
 const SingleCommittee = lazy(() =>
   import("modules/Committees/components/SingleCommitteePage")
 );
@@ -23,6 +25,7 @@ const Workshops = lazy(() => import("./../modules/Workshops"));
 const Gates = lazy(() => import("modules/Gates"));
 const ForgetPassword = lazy(() => import("modules/ForgetPassword"));
 const ResetPassword = lazy(() => import("modules/ResetPassword"));
+const Profile = lazy(() => import("modules/Profile"));
 
 export default [
   {
@@ -148,6 +151,14 @@ export default [
   {
     path: "/reset-password",
     component: ResetPassword,
+    inNavbar: {
+      shown: false,
+      label: "",
+    },
+  },
+  {
+    path: "/profile/:id",
+    component: Profile,
     inNavbar: {
       shown: false,
       label: "",

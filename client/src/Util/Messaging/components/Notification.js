@@ -15,7 +15,7 @@ const Notification = (props) => {
       data = await getPermessionToken(setTokenFound);
       if (data) {
         console.log("token is", data);
-        axios.post(`${config.HOST}/notification/token`);
+        axios.post(`${config.HOST}/notification/token`, { token: data });
       }
       return data;
     };
