@@ -6,19 +6,21 @@
     height: auto;
 }
 .details img{
-    display: block;  
+    float:right;
     max-height: 350px;
-    width: 100%;
-    margin: auto;
+    width: 40%;
+    margin: 10px auto;
     object-fit: cover;
     border-radius: 7px;
+    margin-left: 20px;
     
 }
 .blog-details{
-    margin-top: 10px;
+    padding-right: 40px;
 }
 .blog-author{
     color: rgb(184, 183, 183);
+    
 }
 .blog-body{
     margin-top:30px;
@@ -26,5 +28,13 @@
 @media(max-width:768px){
     .blog-container{
         margin: 100px auto;
+    }
+    .details img{
+        float:none;
+        width: 80%;
+        display: block;
+        margin: 0 auto;
+        
+        
     }
 }

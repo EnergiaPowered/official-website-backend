@@ -1,0 +1,35 @@
+
+.addcomment form{
+    float: right;
+    width: 100%;
+    border: 1px solid rgba(16, 46, 46, 1);
+    background-color: rgb(22 21 87);
+    border-radius: 5px;
+    padding: 20px;
+    max-width: 400px;
+ }
+
+ .form-group input,.form-group input:focus{
+    background-color: black;
+    border: 1px solid rgba(16, 46, 46, 1);
+    border-radius: 12px;
+}
+.form-group button{
+   
+    margin: 5px 0;
+    padding: 6px;
+    text-align: center;
+    background-color: #faad14;
+    color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    width: 50%;
+    
+}
+.form-group button:hover{
+  
+    background-color: white;
+    color: #faad14;
+    
+}

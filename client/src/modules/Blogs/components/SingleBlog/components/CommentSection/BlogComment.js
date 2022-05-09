@@ -1,47 +1,55 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import "./BlogComment.css";
-import axios from "axios";
-import configs from "globals/config";
 import Loader from "shared/Loader";
+import "./../../index.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  deleteComment,
+  getBlogComments,
+} from "../../services/comment.services";
 
 function BlogComment(props) {
   const [comments, setcomments] = useState(null);
 
   useEffect(() => {
-    const getBlogs = () =>
-      axios.get(`${configs.HOST}blogs/` + props.id + `/comments`);
+    let isMounted = true;
+    getBlogComments(props.id).then((res) => {
+      if (isMounted === true) setcomments(res.data);
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
-    getBlogs().then((res) => setcomments(res.data));
-  }, [props.id]);
-
-  const getDate = (date) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+  const handleRemove = (id) => {
+    deleteComment(props.id, id);
+    setcomments(comments.filter((comment) => comment._id !== id));
   };
 
-  const Commentlist = () =>
-    comments.map((comment) => {
-      return (
-        <div className="col-sm-5 col-md-6 col-12 comment text-justify">
-          <h4>{comment.name}</h4>
-          <span>- {getDate(new Date(comment.createdAt))}</span>
-          <p>{comment.content}</p>
-        </div>
-      );
-    });
+  const Commentlist = () => {
+    if (!comments.length) return null;
+
+    return comments.map((comment) => (
+      <div className="comment" key={comment._id}>
+        <h4>{comment.name}</h4>
+        <span>
+          &nbsp;&nbsp;
+          {moment(new Date(comment.createdAt)).format("DD/MM/YYYY, hh:mm A")}
+        </span>
+        <p>{comment.content}</p>
+        {comment.email === props.email ? (
+          <FontAwesomeIcon
+            icon="trash"
+            className="remove-icon"
+            onClick={() => {
+              handleRemove(comment._id);
+            }}
+          />
+        ) : null}
+      </div>
+    ));
+  };
 
   return (
     <div className="comment-container">

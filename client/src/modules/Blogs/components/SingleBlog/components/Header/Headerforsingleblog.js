@@ -1,35 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./Headerforsingleblog.css";
-import axios from "axios";
-import configs from "globals/config";
+import moment from "moment";
 import Loader from "shared/Loader";
+import { getBlog } from "../../services/comment.services";
 
 function HeaderForSingleBlogs(props) {
   const [blog, setBlog] = useState("");
 
   useEffect(() => {
-    const getBlogs = () => axios.get(`${configs.HOST}blogs/` + props.id);
-
-    getBlogs().then((res) => setBlog(res.data));
-  }, [props.id]);
-
-  const getDate = (date) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-  };
+    let isMounted = true;
+    getBlog(props.id).then((res) => {
+      if (isMounted === true) {
+        setBlog(res.data);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const Blogs = () => {
     return (
@@ -38,7 +26,8 @@ function HeaderForSingleBlogs(props) {
         <div className="blog-details">
           <h1 className="blog-cat">{blog.category}</h1>
           <h6 className="blog-author">
-            posted by {blog.author} at {getDate(new Date(blog.createdAt))}
+            posted by {blog.author} at{" "}
+            {moment(new Date(blog.createdAt)).format("DD MMM YYYY")}
           </h6>
           <p className="blog-body">{blog.body}</p>
         </div>

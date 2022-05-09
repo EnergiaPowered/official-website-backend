@@ -2,3 +2,33 @@
     width: 90%;
     margin: 0 auto;
 }
+
+/****Comment section****/
+
+.comment-section{
+    display: flex;
+}
+.comment-section .comment-container{
+    width: 50%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.comment-section .addcomment{
+    padding: 10px 30px;
+    width: 50%;
+}
+@media(max-width:768px){
+    .comment-section{
+        display: grid;
+    }
+    .comment-section .comment-container{
+        width: 100%;
+        order:1;
+    }
+    
+    .comment-section .addcomment{
+        width: 100%;
+        order:0;
+    }
+}
