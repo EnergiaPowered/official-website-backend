@@ -29,7 +29,6 @@ module.exports = {
     try {
       const userID = req.user._id;
       const user = await User.findById(userID);
-      console.log(user);
       const result = validate(req.body);
       if (result.error) {
         return res
@@ -60,25 +59,39 @@ module.exports = {
           .status(400)
           .json({ message: result.error.details[0].message });
       }
+      const userID = req.user._id;
+      const user = await User.findById(userID);
       const blogID = req.params.id;
       const commentID = req.params.cid;
-      Blog.findOneAndUpdate(
-        { _id: blogID, "comments._id": commentID },
-        { $set: { "comments.$.content": result.value.content } },
-        { multi: true },
-        (err, blog) => {
-          if (err) {
-            console.log(err);
-            return res.status(500).send(err);
-          }
+      console.log(user.email);
+      Blog.findById(blogID, (err, blog) => {
+        if (!err) {
           if (!blog) {
-            return res
-              .status(404)
-              .send({ message: "blog or comment not found" });
+            return res.status(404).send("Blog was not found");
+          } else {
+            const comment = blog.comments.id(commentID);
+            if (!comment) {
+              return res.status(404).send("comment was not found");
+            }
+            if (comment.email === user.email) {
+              comment.content = result.value.content;
+            } else {
+              return res.status(401).send({ message: "Not Auth" });
+            }
+
+            blog.markModified("comments");
+            blog.save((err) => {
+              if (!saveErr) {
+                res.sendStatus(200);
+              } else {
+                res.status(500).send(saveErr.message);
+              }
+            });
           }
-          res.sendStatus(200);
+        } else {
+          res.status(500).send(err.message);
         }
-      );
+      });
     } catch (err) {
       res.status(500).json({ err });
       console.log(err);
@@ -86,6 +99,8 @@ module.exports = {
   },
   deleteOneComment: async (req, res) => {
     try {
+      const userID = req.user._id;
+      const user = await User.findById(userID);
       const blogID = req.params.id;
       const commentID = req.params.cid;
       const blog = await Blog.findById(blogID);
@@ -94,9 +109,13 @@ module.exports = {
       if (!comment) {
         return res.status(404).send({ message: "comment not found" });
       }
-      comment.remove();
-      await blog.save();
-      res.status(200).json({ message: "comment deleted successfully" });
+      if (comment.email === user.email) {
+        comment.remove();
+        await blog.save();
+        res.status(200).json({ message: "comment deleted successfully" });
+      } else {
+        return res.status(401).send({ message: "Not Auth" });
+      }
     } catch (err) {
       res.status(500).json({ err });
       console.log(err);
