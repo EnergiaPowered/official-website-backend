@@ -1,12 +1,11 @@
 // Importing Model
 const Blog = require("../models/Blog");
+const { User } = require("../models/User");
 const Joi = require("joi");
 
 // validatee the data
 function validate(body) {
   const schema = Joi.object({
-    name: Joi.string().min(2).max(50).required(),
-    email: Joi.string().min(5).max(255).required().email(),
     content: Joi.string().trim().required(),
   });
   return schema.validate(body);
@@ -28,18 +27,24 @@ module.exports = {
   },
   postBlogComment: async (req, res) => {
     try {
+      const userID = req.user._id;
+      const user = await User.findById(userID);
+      console.log(user);
       const result = validate(req.body);
       if (result.error) {
         return res
           .status(400)
           .json({ message: result.error.details[0].message });
       }
+      const commentData = {
+        name: `${user.firstname} ${user.lastname}`,
+        email: user.email,
+        content: result.value.content,
+      };
       const blogID = req.params.id;
-      const comment = result.value;
-      console.log(result);
       const blog = await Blog.findById(blogID);
       if (!blog) return res.status(404).send({ message: "blog not found" });
-      blog.comments.push(comment);
+      blog.comments.push(commentData);
       await blog.save();
       res.status(201).json({ message: "comment added successfully" });
     } catch (err) {
