@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getBlogs } from "../../services/blogs.services";
+import moment from "moment";
 import Loader from "shared/Loader";
 import "./BlogList.css";
 import { Link } from "react-router-dom";
@@ -11,24 +12,6 @@ function BlogList() {
       setBlogsList(res.data);
     });
   }, []);
-
-  const getDate = (date) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-  };
 
   const Blogs = () =>
     blogList.map((blog) => {
@@ -49,7 +32,9 @@ function BlogList() {
                   {blog.category}
                 </h5>
                 <small className="text-muted">
-                  <em>{getDate(new Date(blog.createdAt))}</em>
+                  <em>
+                    {moment(new Date(blog.createdAt)).format("DD MMM YYYY")}
+                  </em>
                 </small>
               </div>
             </div>

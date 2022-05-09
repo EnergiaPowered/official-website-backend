@@ -1,8 +1,6 @@
-.comment-container{
-    margin: 0 auto;
-  padding: 0;
-}
+
 .comment{
+    position: relative;
     border: 2px solid rgba(16, 46, 46, 1);
     border-radius: 5px;
     padding:15px 30px 0 40px;
@@ -15,4 +13,14 @@
 
 .comment p,.comment span{
     color: rgb(184, 183, 183);
+}
+.comment .remove-icon{
+  
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}
+.comment .remove-icon:hover{
+    cursor: pointer;
+    color: red;
 }
