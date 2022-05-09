@@ -8,7 +8,7 @@ function AddComment(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postComment(props.id, props.name, props.email, Newcomment).then(() => {
+    postComment(props.id, Newcomment).then(() => {
       window.location.reload();
     });
   };

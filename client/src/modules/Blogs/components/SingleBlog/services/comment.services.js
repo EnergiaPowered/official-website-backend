@@ -10,10 +10,10 @@ export const getBlog = (id) => axios.get(`${configs.HOST}blogs/${id}`);
 export const getBlogComments = (id) =>
   axios.get(`${configs.HOST}blogs/${id}/comments`);
 
-export const postComment = (id, name, email, comment) => {
+export const postComment = (id, comment) => {
   return axios.post(
     `${configs.HOST}blogs/${id}/comment`,
-    { name: name, email: email, content: comment },
+    { content: comment },
     { headers: authHeader() }
   );
 };
