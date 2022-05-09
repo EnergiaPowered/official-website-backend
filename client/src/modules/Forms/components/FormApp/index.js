@@ -47,15 +47,7 @@ function FormApp(props) {
     setLoading(true);
     if (!finished) {
       axios
-<<<<<<< HEAD
-        .put(
-          // "http://localhost:4004/api/formRes/" + props.match.params.title,
-          FORM_RESPONSE_END_POINT,
-          vals
-        )
-=======
         .put(FORM_RESPONSE_END_POINT, { content: vals })
->>>>>>> d99d3db81df322e149c5e504f1a709f1d43c0f01
         .then((res) => {
           setSubmitted(true);
           setLoading(false);
@@ -66,27 +58,6 @@ function FormApp(props) {
           );
           setLoading(false);
         });
-<<<<<<< HEAD
-      // $.ajax({
-      //   url:
-      //     /*FORM_RESPONSE_END_POINT*/ "http://localhost:4004/api/formRes/" +
-      //     props.match.params.title,
-      //   method: "PUT",
-      //   dataType: "json",
-      //   data: vals,
-      //   success: () => {
-      //     setSubmitted(true);
-      //     setLoading(false);
-      //   },
-      //   error: () => {
-      //     alert(
-      //       "Your application didn't get saved successfully. Please try again."
-      //     );
-      //     setLoading(false);
-      //   },
-      // });
-=======
->>>>>>> d99d3db81df322e149c5e504f1a709f1d43c0f01
     }
   };
 
