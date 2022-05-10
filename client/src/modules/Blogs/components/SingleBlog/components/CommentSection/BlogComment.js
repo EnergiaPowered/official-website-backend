@@ -1,36 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import moment from "moment";
 import "./BlogComment.css";
 import Loader from "shared/Loader";
 import "./../../index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  deleteComment,
-  getBlogComments,
-} from "../../services/comment.services";
+import { deleteComment } from "../../services/comment.services";
 
-function BlogComment(props) {
-  const [comments, setcomments] = useState(null);
+function BlogComment({ id, email, blogComments, setBlogComments }) {
+  // useEffect(() => {
+  //   getBlogComments(id).then((res) => {
+  //     setBlogComments(res.data);
+  //   });
+  // }, [id, setBlogComments]);
 
-  useEffect(() => {
-    let isMounted = true;
-    getBlogComments(props.id).then((res) => {
-      if (isMounted === true) setcomments(res.data);
+  const handleRemove = (idToRemove) => {
+    deleteComment(id, idToRemove).then((res) => {
+      if (res.status === 200) {
+        setBlogComments(
+          blogComments.filter((comment) => comment._id !== idToRemove)
+        );
+      }
     });
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const handleRemove = (id) => {
-    deleteComment(props.id, id);
-    setcomments(comments.filter((comment) => comment._id !== id));
   };
 
-  const Commentlist = () => {
-    if (!comments.length) return null;
-
-    return comments.map((comment) => (
+  const CommentList = () => {
+    return blogComments.map((comment) => (
       <div className="comment" key={comment._id}>
         <h4>{comment.name}</h4>
         <span>
@@ -38,7 +32,7 @@ function BlogComment(props) {
           {moment(new Date(comment.createdAt)).format("DD/MM/YYYY, hh:mm A")}
         </span>
         <p>{comment.content}</p>
-        {comment.email === props.email ? (
+        {comment.email === email ? (
           <FontAwesomeIcon
             icon="trash"
             className="remove-icon"
@@ -53,7 +47,7 @@ function BlogComment(props) {
 
   return (
     <div className="comment-container">
-      {comments ? <Commentlist /> : <Loader />}
+      {blogComments?.length ? <CommentList /> : <Loader />}
     </div>
   );
 }

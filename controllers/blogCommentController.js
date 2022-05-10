@@ -19,7 +19,9 @@ module.exports = {
       if (!blog) {
         return res.status(404).send("blog not found");
       }
-      const comments = blog.comments;
+      const comments = blog.comments.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
       res.status(200).send(comments);
     } catch (err) {
       res.status(500).json({ err });
@@ -45,7 +47,9 @@ module.exports = {
       if (!blog) return res.status(404).send({ message: "blog not found" });
       blog.comments.push(commentData);
       await blog.save();
-      res.status(201).json({ message: "comment added successfully" });
+      res
+        .status(201)
+        .json({ message: "comment added successfully", comment: commentData });
     } catch (err) {
       res.status(500).json({ err });
       console.log(err);

@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Headerforsingleblog.css";
 import moment from "moment";
 import Loader from "shared/Loader";
-import { getBlog } from "../../services/comment.services";
 
-function HeaderForSingleBlogs(props) {
-  const [blog, setBlog] = useState("");
-
-  useEffect(() => {
-    let isMounted = true;
-    getBlog(props.id).then((res) => {
-      if (isMounted === true) {
-        setBlog(res.data);
-      }
-    });
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+function HeaderForSingleBlogs({ blog }) {
+  // useEffect(() => {
+  //   getBlog(id).then((res) => {
+  //     setBlog(res.data);
+  //   });
+  // }, [id, setBlog]);
 
   const Blogs = () => {
     return (
-      <section className="details">
-        <img src={blog.image_url} title={blog.title} alt={blog.title} />
-        <div className="blog-details">
-          <h1 className="blog-cat">{blog.category}</h1>
+      <section className="details row">
+        <h1 className="blog-title col-12">{blog.title}</h1>
+        <div className="blog-details col-12 col-md-7">
+          <h3 className="blog-cat">{blog.category}</h3>
           <h6 className="blog-author">
             posted by {blog.author} at{" "}
             {moment(new Date(blog.createdAt)).format("DD MMM YYYY")}
           </h6>
           <p className="blog-body">{blog.body}</p>
         </div>
+        <img
+          src={blog.image_url}
+          className="col-12 col-md-5"
+          title={blog.title}
+          alt={blog.title}
+        />
       </section>
     );
   };

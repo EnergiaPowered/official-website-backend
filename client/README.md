@@ -25,7 +25,7 @@ Make sure to have [Node.js](https://nodejs.org/en/download/) installed on your m
 
 ## Usage
 
-1. Add your `HOST` for the backend REST-API in `/src/globals/config.js`.
+1. Add your `API_BASE_URL` for the backend REST-API in `/src/globals/config.js`.
 
 1. Run `$ npm start` to start serving the app, then go to `http://localhost:3000` to view the UI and start using the backend.
 

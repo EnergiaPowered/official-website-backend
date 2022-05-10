@@ -7,36 +7,47 @@ import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import AddComment from "./components/AddComment/AddComment";
 import "./index.css";
-import { getUserdata } from "./services/comment.services";
+import {
+  getBlog,
+  getBlogComments,
+  getUserData,
+} from "./services/comment.services";
 
 import authHeader from "globals/auth-header";
 import Loader from "shared/Loader";
 function SingleBlog() {
-  const [Userdata, setUserdata] = useState(null);
+  const [UserData, setUserData] = useState(null);
   const [Loading, setLoading] = useState(false);
+  const [blog, setBlog] = useState(null);
+  const [blogComments, setBlogComments] = useState([]);
+
   const loggedIn = Object.keys(authHeader()).length ? true : false;
 
   let { id } = useParams();
 
   useEffect(() => {
-    let isMounted = true;
     if (loggedIn) {
       setLoading(true);
 
-      getUserdata().then((res) => {
-        if (isMounted === true) {
-          setUserdata(res.data);
+      getUserData()
+        .then((res) => {
+          setUserData(res.data);
+          return getBlog(id);
+        })
+        .then((res) => {
+          setBlog(res.data);
+          return getBlogComments(id);
+        })
+        .then((res) => {
+          setBlogComments(res.data);
           setLoading(false);
-        }
-      });
+        });
     }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  }, [loggedIn, id]);
 
-  const Commentpage = () => {
-    if (!Userdata && loggedIn) return null;
+  const CommentPage = () => {
+    if (!UserData && loggedIn) return null;
+    if (Loading) return <Loader />;
     return (
       <>
         <Helmet>
@@ -44,18 +55,25 @@ function SingleBlog() {
         </Helmet>
         <Layout>
           <div className="page-container">
-            <HeaderForSingleBlogs id={id} />
+            <HeaderForSingleBlogs id={id} blog={blog} setBlog={setBlog} />
             <div className="comment-section">
-              <BlogComment id={id} email={loggedIn ? Userdata.email : null} />
+              <BlogComment
+                id={id}
+                email={loggedIn ? UserData.email : null}
+                blogComments={blogComments}
+                setBlogComments={setBlogComments}
+              />
               {loggedIn ? (
                 <AddComment
                   id={id}
                   name={
                     loggedIn
-                      ? Userdata.firstname + " " + Userdata.lastname
+                      ? UserData.firstname + " " + UserData.lastname
                       : null
                   }
-                  email={loggedIn ? Userdata.email : null}
+                  email={loggedIn ? UserData.email : null}
+                  blogComments={blogComments}
+                  setBlogComments={setBlogComments}
                 />
               ) : null}
             </div>
@@ -67,7 +85,7 @@ function SingleBlog() {
 
   return (
     <div className="page-component">
-      {Loading ? <Loader /> : <Commentpage />}
+      {Loading ? <Loader /> : <CommentPage />}
     </div>
   );
 }
