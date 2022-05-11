@@ -24,7 +24,7 @@ const eventsSchema = Joi.object({
 
   eventLocation: Joi.string().required(),
 
-  eventImageID: Joi.string().allow(""),
+  eventImage: Joi.string().allow(""),
 });
 
 module.exports = {
