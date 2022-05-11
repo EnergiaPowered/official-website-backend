@@ -4,7 +4,12 @@
 }
 
 .streaming-antennas {
+    width: 100%;
     position: relative;
+}
+
+.streaming-antennas img {
+    max-width: 100%;
 }
 
 .streaming-title {
@@ -13,6 +18,7 @@
     transform: translateX(-50%);
     z-index: 1;
     width: 100%;
+    text-align: center;
 }
 
 .streaming-sections {
