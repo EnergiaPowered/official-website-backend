@@ -1,7 +1,8 @@
 import React from "react";
-import "./Headerforsingleblog.css";
+import parse from "html-react-parser";
 import moment from "moment";
 import Loader from "shared/Loader";
+import "./Headerforsingleblog.css";
 
 function HeaderForSingleBlogs({ blog }) {
   const Blogs = () => {
@@ -14,7 +15,7 @@ function HeaderForSingleBlogs({ blog }) {
             posted by {blog.author} at{" "}
             {moment(new Date(blog.createdAt)).format("DD MMM YYYY")}
           </h6>
-          <p className="blog-body">{blog.body}</p>
+          <p className="blog-body">{parse(blog.body)}</p>
         </div>
         <img
           src={blog.image_url}
