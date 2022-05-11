@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import jwt_docode from "jwt-decode";
+import parse from "html-react-parser";
 import { io } from "socket.io-client";
 import { Helmet } from "react-helmet";
 import { Redirect } from "react-router";
@@ -41,12 +42,16 @@ const SingleEvent = (props) => {
   useEffect(() => {
     const token = authHeader();
     if (token === {}) return;
+
     setUserId(jwt_docode(token["x-auth-token"])._id);
+
     const s = io(configs.HOST, {
       extraHeaders: token,
       transport: ["websocket"],
     });
+
     setSocket(s);
+
     getUser().then((res) => {
       setUsername(`${res.data.firstname} ${res.data.lastname}`);
       setIsAdmin(res.data.isAdmin);
@@ -55,7 +60,6 @@ const SingleEvent = (props) => {
     return () => {
       s.disconnect();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -79,6 +83,7 @@ const SingleEvent = (props) => {
 
   useEffect(() => {
     if (socket == null || event == null) return;
+
     const messageHandler = (message) => {
       setComments([...comments, message]);
       setTimeout(() => {
@@ -86,9 +91,11 @@ const SingleEvent = (props) => {
           streamingComments.current.scrollHeight;
       }, 100);
     };
+
     const startStreamingHandler = () => {
       setStartStream(true);
     };
+
     const stopStreamingHandler = () => {
       setStartStream(false);
     };
@@ -106,48 +113,38 @@ const SingleEvent = (props) => {
 
   useEffect(() => {
     if (socket == null || event == null) return;
+
     socket.emit("joinRoom", event._id);
   }, [socket, event]);
 
-  if (event == null) return null;
-
-  if (authHeader() === {}) {
+  if (Object.keys(authHeader()).length === 0) {
     alert("You must log in to open this event");
     return <Redirect to="/login" />;
   }
 
+  if (event == null) return null;
+
   const CommentsSection = () =>
-    comments.map((comment, index) => {
-      if (userId === comment.userId) {
-        return (
-          <div key={index}>
-            <div className="comment-icon me">
-              {comment.firstname.charAt(0).toUpperCase()}
-              {comment.lastname.charAt(0).toUpperCase()}
-            </div>
-            <div className="comment-info me">
-              <h6>Me</h6>
-              <p>{comment.comment}</p>
-            </div>
-          </div>
-        );
-      } else {
-        return (
-          <div key={index}>
-            <div className="comment-icon">
-              {comment.firstname.charAt(0).toUpperCase()}
-              {comment.lastname.charAt(0).toUpperCase()}
-            </div>
-            <div className="comment-info">
-              <h6>
-                {comment.firstname} {comment.lastname}
-              </h6>
-              <p>{comment.comment}</p>
-            </div>
-          </div>
-        );
-      }
-    });
+    comments.map((comment, index) => (
+      <div key={index}>
+        <div
+          className={`comment-icon ${userId === comment.userId ? "me" : null}`}
+        >
+          {comment.firstname.charAt(0).toUpperCase()}
+          {comment.lastname.charAt(0).toUpperCase()}
+        </div>
+        <div
+          className={`comment-info ${userId === comment.userId ? "me" : null}`}
+        >
+          <h6>
+            {userId === comment.userId
+              ? "Me"
+              : `${comment.firstname} ${comment.lastname}`}
+          </h6>
+          <p>{comment.comment}</p>
+        </div>
+      </div>
+    ));
 
   const handleChange = (e) => {
     setComment(e.target.value);
@@ -185,20 +182,31 @@ const SingleEvent = (props) => {
                   <JitsiMeeting
                     roomName={`${event.name} - ${event._id}`}
                     configOverwrite={{
+                      subject: event.name,
+                      disableTitleView: true,
                       startWithAudioMuted: true,
+                      startWithVideoMuted: true,
                       disableModeratorIndicator: true,
-                      startScreenSharing: true,
+                      disableRemoteMute: true,
+                      startScreenSharing: isAdmin ? true : false,
                       enableEmailInStats: false,
+                      disableScreensharingVirtualBackground: false,
                       hiddenPremeetingButtons: isAdmin
                         ? ["invite"]
-                        : ["camera", "invite"],
+                        : ["camera", "invite", "select-background"],
+
                       toolbarButtons: [
                         "microphone",
                         "fullscreen",
                         "hangup",
-                        "raisehand",
-                        "settings",
+                        "tileview",
+                        "shortcuts",
+                        !isAdmin ? "raisehand" : null,
                         isAdmin ? "camera" : null,
+                        isAdmin ? "settings" : null,
+                        isAdmin ? "desktop" : null,
+                        isAdmin ? "mute-everyone" : null,
+                        isAdmin ? "mute-video-everyone" : null,
                       ],
                     }}
                     userInfo={{
@@ -207,7 +215,9 @@ const SingleEvent = (props) => {
                     interfaceConfigOverwrite={{
                       DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
                     }}
-                    getIFrameRef={(node) => (node.style.height = "30vw")}
+                    getIFrameRef={(node) => {
+                      node.style.height = "100%";
+                    }}
                   />
                 )}
               </div>
@@ -233,9 +243,7 @@ const SingleEvent = (props) => {
                   </div>
                 )}
                 <h3>About</h3>
-                <div
-                  dangerouslySetInnerHTML={{ __html: event.eventDescription }}
-                ></div>
+                <div>{parse(event.eventDescription)}</div>
               </div>
             </div>
             <div className="streaming-section2">

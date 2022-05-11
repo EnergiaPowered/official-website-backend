@@ -233,6 +233,14 @@
         margin: 20% auto 0;
     }
 
+    .streaming-video {
+        height: 70vh;
+    }
+
+    .streaming-button {
+        margin: 0 auto;
+    }
+
     .comment-icon,
     .comment-info *,
     .streaming-description *,
@@ -241,7 +249,7 @@
     }
 
     .streaming-comments {
-        height: 40vw;
+        height: 60vw;
     }
 
     .streaming-comments>div>div {
