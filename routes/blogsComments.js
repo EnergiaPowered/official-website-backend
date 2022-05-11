@@ -3,6 +3,7 @@ const blogCommentController = require("../controllers/blogCommentController");
 
 // Import authorization middleWares
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 
 /**
    * @api {get} /blogs/:id/comments GET/ blogs/:id/comments
@@ -74,6 +75,8 @@ router.post("/blogs/:id/comment", auth, blogCommentController.postBlogComment);
  * @apiGroup BlogsComments Router
  * @apiVersion 1.0.0
  * @apiSuccess {String} ok
+ * @apiParam {String} id id of the blog
+ * @apiParam {String} cid id of the comment
  * @apiHeader (Header) {String} x-auth-token the token of the user loged in
  * @apiError (Error 400) BadRequest Something wrong with the body of the request
  * @apiError (Error 404) BlogOrCommentNotFound error occur when there is no blog w/ given id or comment w/ given id
@@ -81,7 +84,6 @@ router.post("/blogs/:id/comment", auth, blogCommentController.postBlogComment);
  * @apiBody {String} name The name of the user who write the comment
  * @apiBody {String} email The email of the user who write the comment
  * @apiBody {String} content The content of the comment
- * @apiParam {Strings} Two IDs id of the blog and id of comment
  * @apiSampleRequest http://127.0.0.1:4000/api/blogs/5/comment/1
  * @apiSuccessExample sample:
  *ok
@@ -103,8 +105,9 @@ router.put(
  * @apiError (Error 500) internalServerError Error occured during the process from the server
  * @apiError (Error 404) BlogNotFound error occur when there is no blog w given id 
  * @apiError (Error 404) CommentNotFound error occur when there is no comment w given id 
- * @apiParam {Strings} Two IDs id of the blog and id of comment
-* @apiSampleRequest http://127.0.0.1:4000/api/blogs/5/comment/1
+ * @apiParam {String} id id of the blog
+ * @apiParam {String} cid id of the comment*
+ *  @apiSampleRequest http://127.0.0.1:4000/api/blogs/5/comment/1
  * @apiSuccessExample sample:
  * {
     "message": "comment deleted successfully"

@@ -1,0 +1,28 @@
+.comment {
+    position: relative;
+    border: 2px solid #ffffff25;
+    border-radius: 5px;
+    padding: 15px 30px 0 40px;
+    margin-bottom: 20px;
+}
+
+.comment h5,
+.comment span {
+    display: inline;
+}
+
+.comment p,
+.comment span {
+    color: rgb(184, 183, 183);
+}
+
+.comment .remove-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.comment .remove-icon:hover {
+    cursor: pointer;
+    color: red;
+}

@@ -127,6 +127,6 @@ router.get("/message", messageController.getAllMessages);
  *ok
  */
 
-router.post("/message", messageCheckSchema, messageController.postMessage);
+router.post("/message", auth, messageCheckSchema, messageController.postMessage);
 
 module.exports = router;

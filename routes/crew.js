@@ -175,6 +175,7 @@ router.get("/crew", crewController.getAllCrew);
    * @apiGroup Crew Router
    * @apiVersion 1.0.0
    * @apiSuccess {Object} Member Member object
+   * @apiParam  {string} id id of the crew
    * @apiError (Error 404) MemberNotFound Error occurs if there is no crew in the database
    * @apiError (Error 500) internalServerError Error occurred during the process from the server 
    * @apiSampleRequest http://127.0.0.1:4000/api/crew/22
@@ -210,7 +211,7 @@ router.get("/crew/:id", crewController.getMember);
  *ok
  */
 // insert new member w/ validation and sanitization
-router.post("/crew/member", [memberCheckSchema], crewController.postMember);
+router.post("/crew/member", [memberCheckSchema], auth, admin, crewController.postMember);
 
 /**
  * @api {put} /crew/:id Put/ crew:id
@@ -226,13 +227,13 @@ router.post("/crew/member", [memberCheckSchema], crewController.postMember);
  * @apiBody {String} position The position of the member
  * @apiBody {Boolean} isBest The member is a best member or not
  * @apiBody {String} iamgeID The imagge id of the image of the member
- * @apiParam {Number} ID id of the member
+ * @apiParam  {string} id id of the crew
  * @apiSampleRequest http://127.0.0.1:4000/api/crew
  * @apiSuccessExample sample:
  *ok
  */
 // edit a member w/ validation and sanitization
-router.put("/crew/:id", [memberCheckSchema], crewController.putOneCrew);
+router.put("/crew/:id", [memberCheckSchema], auth, admin, crewController.putOneCrew);
 
 /**
  * @api {delete} /crew/:id DELETE/ crew/:id
@@ -246,7 +247,7 @@ router.put("/crew/:id", [memberCheckSchema], crewController.putOneCrew);
  *ok
  */
 // delete a member
-router.delete("/crew/:id", crewController.deleteOne);
+router.delete("/crew/:id", auth, admin, crewController.deleteOne);
 
 /**
  * @api {delete} /crew DELETE/ crew
@@ -259,6 +260,6 @@ router.delete("/crew/:id", crewController.deleteOne);
  *ok
  */
 // delete all crew
-router.delete("/crew", crewController.deleteAll);
+router.delete("/crew", auth, admin, crewController.deleteAll);
 
 module.exports = router;

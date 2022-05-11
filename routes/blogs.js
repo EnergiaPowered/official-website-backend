@@ -117,6 +117,7 @@ router.get("/blogs", blogController.getBlogs);
 /**
    * @api {get} /blogs/:id GET/ blogs/:id
    * @apiName GetSingleBlog
+   * @apiParam {string} id id of the blog
    * @apiGroup Blogs Router
    * @apiVersion 1.0.0
    * @apiSuccess {Object} Blog The blog object
@@ -162,7 +163,7 @@ router.get("/blogs/:id", blogController.getSingleBlog);
 // insert new blog w/ validation and sanitization
 router.post(
   "/blogs",
-  [/*auth, admin, */ blogCheckSchema],
+  [auth, admin, blogCheckSchema],
   blogController.postBlog
 );
 
@@ -190,7 +191,7 @@ router.post(
 // edit a blog w/ validation and sanitization
 router.put(
   "/blogs/:id",
-  [/*auth, admin,*/ blogCheckSchema],
+  [auth, admin, blogCheckSchema],
   blogController.putBlog
 );
 

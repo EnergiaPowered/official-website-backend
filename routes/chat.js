@@ -5,6 +5,7 @@ const chatController = require("../controllers/chatController");
 const auth = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
+const Event = require("../models/Event");
 
 router.get("/events/:id/chat", auth, chatController.getOneEvent);
 
@@ -16,7 +17,7 @@ function formatMessage(userId, firstname, lastname, comment) {
 }
 
 exports.io = function (io) {
-  let streamId = {};
+  let startedStreams = {};
   // Run when client connects
   io.on("connection", async (socket) => {
     // handling authorization
@@ -59,24 +60,24 @@ exports.io = function (io) {
           "message",
           formatMessage(
             "",
-            "Streaming",
-            "Event",
+            firstname,
+            lastname,
             `${firstname} has joined the chat`
           )
         );
 
-      streamId[RoomId] &&
-        io.to(RoomId).emit("start-streaming", streamId[RoomId]);
+      startedStreams[RoomId] && io.to(RoomId).emit("start-streaming");
     });
 
-    socket.on("start-streaming", (streamID) => {
-      streamId[RoomId] = streamID;
-      console.log(streamId);
-      socket.broadcast.to(RoomId).emit("start-streaming", streamID);
+    socket.on("start-streaming", () => {
+      startedStreams[RoomId] = true;
+      console.log(startedStreams);
+      socket.broadcast.to(RoomId).emit("start-streaming");
     });
 
     socket.on("stop-streaming", () => {
-      delete streamId[RoomId];
+      console.log("stop streaming");
+      delete startedStreams[RoomId];
       socket.broadcast.to(RoomId).emit("stop-streaming");
     });
 
@@ -92,7 +93,7 @@ exports.io = function (io) {
 
       axios
         .post(
-          `${process.env.HOST}/chat`,
+          `${process.env.HOST}/api/chat`,
           {
             EventId: RoomId,
             message: msg,
@@ -116,8 +117,8 @@ exports.io = function (io) {
             "message",
             formatMessage(
               "",
-              "Streaming",
-              "Event",
+              firstname,
+              lastname,
               `${firstname} has left the chat`
             )
           );
