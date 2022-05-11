@@ -109,7 +109,7 @@ const SingleEvent = (props) => {
     socket.emit("joinRoom", event._id);
   }, [socket, event]);
 
-  if (event == null) return <Redirect to="/events" />;
+  if (event == null) return null;
 
   if (authHeader() === {}) {
     alert("You must log in to open this event");
