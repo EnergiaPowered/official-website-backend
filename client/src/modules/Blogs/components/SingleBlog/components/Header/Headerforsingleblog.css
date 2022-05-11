@@ -35,12 +35,12 @@
 
 
 @media(max-width:768px) {
-
     .details img {
         order: 2;
     }
 
     .blog-details {
         order: 3;
+        min-height: fit-content;
     }
 }

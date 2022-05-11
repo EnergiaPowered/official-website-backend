@@ -23,7 +23,7 @@ function AddComment({ id, blogComments, setBlogComments }) {
   };
 
   return (
-    <div className="addcomment">
+    <div className="addcomment col-12 col-md-5">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Leave a comment</label>
@@ -34,9 +34,7 @@ function AddComment({ id, blogComments, setBlogComments }) {
             required
           />
         </div>
-        <div className="form-group">
-          <button className="btn">Post Comment</button>
-        </div>
+        <button className="btn">Post Comment</button>
       </form>
     </div>
   );

@@ -7,12 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteComment } from "../../services/comment.services";
 
 function BlogComment({ id, email, blogComments, setBlogComments }) {
-  // useEffect(() => {
-  //   getBlogComments(id).then((res) => {
-  //     setBlogComments(res.data);
-  //   });
-  // }, [id, setBlogComments]);
-
   const handleRemove = (idToRemove) => {
     deleteComment(id, idToRemove).then((res) => {
       if (res.status === 200) {
@@ -26,7 +20,7 @@ function BlogComment({ id, email, blogComments, setBlogComments }) {
   const CommentList = () => {
     return blogComments.map((comment) => (
       <div className="comment" key={comment._id}>
-        <h4>{comment.name}</h4>
+        <h5>{comment.name}</h5>
         <span>
           &nbsp;&nbsp;
           {moment(new Date(comment.createdAt)).format("DD/MM/YYYY, hh:mm A")}
@@ -46,7 +40,7 @@ function BlogComment({ id, email, blogComments, setBlogComments }) {
   };
 
   return (
-    <div className="comment-container">
+    <div className="comment-container col-12 col-md-7">
       {blogComments?.length ? <CommentList /> : <Loader />}
     </div>
   );

@@ -4,12 +4,6 @@ import moment from "moment";
 import Loader from "shared/Loader";
 
 function HeaderForSingleBlogs({ blog }) {
-  // useEffect(() => {
-  //   getBlog(id).then((res) => {
-  //     setBlog(res.data);
-  //   });
-  // }, [id, setBlog]);
-
   const Blogs = () => {
     return (
       <section className="details row">

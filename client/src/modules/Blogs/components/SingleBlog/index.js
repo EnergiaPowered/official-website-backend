@@ -48,6 +48,7 @@ function SingleBlog() {
   const CommentPage = () => {
     if (!UserData && loggedIn) return null;
     if (Loading) return <Loader />;
+
     return (
       <>
         <Helmet>
@@ -55,8 +56,8 @@ function SingleBlog() {
         </Helmet>
         <Layout>
           <div className="page-container">
-            <HeaderForSingleBlogs id={id} blog={blog} setBlog={setBlog} />
-            <div className="comment-section">
+            <HeaderForSingleBlogs id={id} blog={blog} />
+            <div className="comment-section row">
               <BlogComment
                 id={id}
                 email={loggedIn ? UserData.email : null}
