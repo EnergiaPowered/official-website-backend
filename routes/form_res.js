@@ -6,12 +6,12 @@ const formResponceController = require("../controllers/formResponcesController")
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
-router.get("/formRes", formResponceController.getAllFormResponce);
+router.get("/formRes", auth, admin, formResponceController.getAllFormResponce);
 
-router.get("/formRes/:form", formResponceController.getDocumentByForm);
+router.get("/formRes/:form", auth, admin, formResponceController.getDocumentByForm);
 
 router.post("/formRes", auth, admin, formResponceController.saveFormResponce);
 
-router.put("/formRes/:form", auth, admin, formResponceController.updateForm);
+router.put("/formRes/:form", formResponceController.updateForm);
 
 module.exports = router;

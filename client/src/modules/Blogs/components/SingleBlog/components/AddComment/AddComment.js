@@ -17,7 +17,7 @@ function AddComment({ id, blogComments, setBlogComments }) {
         ];
         console.log(newComments);
         setBlogComments(newComments);
-        setNewComment(null);
+        setNewComment("");
       }
     });
   };
