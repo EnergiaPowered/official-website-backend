@@ -1,10 +1,8 @@
 import React from "react";
 import moment from "moment";
-import "./BlogComment.css";
-import Loader from "shared/Loader";
-import "./../../index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteComment } from "../../services/comment.services";
+import "./BlogComment.css";
 
 function BlogComment({ id, email, blogComments, setBlogComments }) {
   const handleRemove = (idToRemove) => {
@@ -41,7 +39,7 @@ function BlogComment({ id, email, blogComments, setBlogComments }) {
 
   return (
     <div className="comment-container col-12 col-md-7">
-      {blogComments?.length ? <CommentList /> : <Loader />}
+      <CommentList />
     </div>
   );
 }

@@ -26,67 +26,58 @@ function SingleBlog() {
   let { id } = useParams();
 
   useEffect(() => {
-    if (loggedIn) {
-      setLoading(true);
+    setLoading(true);
 
-      getUserData()
-        .then((res) => {
-          setUserData(res.data);
-          return getBlog(id);
-        })
-        .then((res) => {
-          setBlog(res.data);
-          return getBlogComments(id);
-        })
-        .then((res) => {
-          setBlogComments(res.data);
-          setLoading(false);
-        });
+    if (loggedIn) {
+      getUserData().then((res) => {
+        setUserData(res.data);
+      });
     }
+
+    getBlog(id)
+      .then((res) => {
+        setBlog(res.data);
+        return getBlogComments(id);
+      })
+      .then((res) => {
+        setBlogComments(res.data);
+        setLoading(false);
+      });
   }, [loggedIn, id]);
 
-  const CommentPage = () => {
-    if (!UserData && loggedIn) return null;
-    if (Loading) return <Loader />;
-
-    return (
-      <>
-        <Helmet>
-          <title>Energia Powered | Blogs</title>
-        </Helmet>
-        <Layout>
-          <div className="page-container">
-            <HeaderForSingleBlogs id={id} blog={blog} />
-            <div className="comment-section row">
-              <BlogComment
-                id={id}
-                email={loggedIn ? UserData.email : null}
-                blogComments={blogComments}
-                setBlogComments={setBlogComments}
-              />
-              {loggedIn ? (
-                <AddComment
-                  id={id}
-                  name={
-                    loggedIn
-                      ? UserData.firstname + " " + UserData.lastname
-                      : null
-                  }
-                  email={loggedIn ? UserData.email : null}
-                  blogComments={blogComments}
-                  setBlogComments={setBlogComments}
-                />
-              ) : null}
-            </div>
-          </div>
-        </Layout>
-      </>
-    );
-  };
+  if (Loading) return <Loader />;
 
   return (
     <div className="page-component">
-      {Loading ? <Loader /> : <CommentPage />}
+      <Helmet>
+        <title>Energia Powered | Blogs</title>
+      </Helmet>
+      <Layout>
+        <div className="page-container">
+          <HeaderForSingleBlogs id={id} blog={blog} />
+          <div className="comment-section row">
+            <BlogComment
+              id={id}
+              email={loggedIn ? UserData?.email : null}
+              blogComments={blogComments}
+              setBlogComments={setBlogComments}
+            />
+            {loggedIn ? (
+              <AddComment
+                id={id}
+                name={
+                  loggedIn
+                    ? UserData?.firstname + " " + UserData?.lastname
+                    : null
+                }
+                email={loggedIn ? UserData?.email : null}
+                blogComments={blogComments}
+                setBlogComments={setBlogComments}
+              />
+            ) : null}
+          </div>
+        </div>
+      </Layout>
     </div>
   );
 }
