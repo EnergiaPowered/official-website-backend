@@ -21,8 +21,8 @@ div.scrollmenu {
   overflow-x: scroll;
   white-space: nowrap;
   margin: 6% 5%;
-  -webkit-box-shadow: 0px 8px 18px 11px #ffffff33;
-  box-shadow: 0px 8px 18px 11px #ffffff33;
+  -webkit-box-shadow: 0px 4px 10px 0 #ffffff33;
+  box-shadow: 0px 4px 10px 0 #ffffff33;
 }
 
 div.scrollmenu::-webkit-scrollbar {

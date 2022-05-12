@@ -5,29 +5,18 @@ import Layout from "../../shared/Layout/index";
 import CommitteeMembers from "./components/CommitteeMembers";
 import { getCrew } from "./services/crew.services";
 import "./index.css";
+import { getCommittees } from "modules/Committees/services/committees.services";
 
 function Crew() {
-  const [switchPage] = useState([
-    "High Board",
-    "Arduino & Embedded Systems",
-    "C++",
-    "DCR",
-    "Design",
-    "Digital Electronics",
-    "Fundraising",
-    "Human Resources",
-    "Logistics",
-    "Management",
-    "Marketing",
-    "Media",
-    "Mobile App Development",
-    "Public Relations",
-    "Web Development",
-  ]);
+  const [switchPage, setSwitchPage] = useState([]);
   const [handelPage, setHandelPage] = useState(null);
 
   useEffect(() => {
-    viewCrew("High Board");
+    getCommittees().then((res) => {
+      const committees = res.data.map((committee) => committee.title);
+      setSwitchPage(["High Board", ...committees]);
+      viewCrew("High Board");
+    });
   }, []);
 
   const viewCrew = (committee) => {
@@ -43,9 +32,7 @@ function Crew() {
       .replace(/\+/g, "%2b")}`;
     getCrew(params).then((res) => {
       if (committee !== "Structure") {
-        let members = res.data.filter(
-          (member) => member.committee === committee
-        );
+        let members = res.data[committee];
         let heads;
         let viceHead = null;
         if (committee === "High Board") {
