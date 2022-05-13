@@ -27,6 +27,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "fcm-node": "^1.6.1",
+    "firebase": "^9.8.1",
     "firebase-admin": "^10.0.2",
     "handlebars": "^4.7.7",
     "joi": "^17.3.0",

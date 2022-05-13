@@ -48,6 +48,7 @@ app.use("/api", require("./routes/form_res"));
 app.use("/api", require("./routes/send_emails"));
 app.use("/api", require("./routes/sponsors"));
 app.use("/api", require("./routes/login_admin"));
+app.use("/api", require("./routes/notificationTokens"));
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
