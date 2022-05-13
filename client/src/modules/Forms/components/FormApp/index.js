@@ -9,8 +9,8 @@ import "./index.css";
 import axios from "axios";
 
 function FormApp(props) {
-  const FORM_END_POINT = `${configs.HOST}form/${props.match.params.title}`;
-  const FORM_RESPONSE_END_POINT = `${configs.HOST}formRes/${props.match.params.title}`;
+  const FORM_END_POINT = `${configs.API_BASE_URL}form/${props.match.params.title}`;
+  const FORM_RESPONSE_END_POINT = `${configs.API_BASE_URL}formRes/${props.match.params.title}`;
   const [myForm, setmyForm] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -22,7 +22,7 @@ const admin = require("../middleware/admin");
 	eventMobileDescription: "Dummy Date",
     eventDetails: "Dummy Date",
     eventLocation: "Dummy Date",
-    eventImageID: "Dummy Text",
+    eventImage: "Dummy Text",
     _id: "90",
   },
   {
@@ -35,7 +35,7 @@ const admin = require("../middleware/admin");
     eventMobileDescription: "Dummy Date",
     eventDetails: "Dummy Date",
     eventLocation: "Dummy Date",
-    eventImageID: "Dummy Text",
+    eventImage: "Dummy Text",
     _id: "91",
   },
 ];
@@ -61,7 +61,7 @@ router.get("/events", eventController.getAllEvents);
     eventMobileDescription: "Dummy Date",
     eventDetails: "Dummy Date",
     eventLocation: "Dummy Date",
-    eventImageID: "Dummy Text",
+    eventImage: "Dummy Text",
     _id: "91"
 }
    * @apiSampleRequest http://127.0.0.1:4000/api/events/90
@@ -82,7 +82,7 @@ router.get("/events/:id", eventController.getOneEvent);
  * @apiBody {string} eventDescription description of the event
  * @apiBody {string} eventDetails details of the event
  * @apiBody {string} eventLocation location of the event
- * @apiBody {string} eventImageID image id of the event
+ * @apiBody {string} eventImage image id of the event
  * @apiSampleRequest http://127.0.0.1:4000/api/events
  */
 router.post("/events", [auth, admin], eventController.postEvent);

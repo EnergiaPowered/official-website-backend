@@ -1,0 +1,32 @@
+.addcomment form {
+    border: 1px solid rgba(16, 46, 46, 1);
+    background-color: #161557;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.form-group input,
+.form-group input:focus {
+    background-color: black;
+    border: 1px solid rgba(16, 46, 46, 1);
+    border-radius: 12px;
+}
+
+.addcomment form button {
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 0.4rem 3rem;
+    text-align: center;
+    background-color: #faad14;
+    color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.addcomment form button:focus,
+.addcomment form button:hover {
+    background-color: #161557;
+    color: #faad14;
+    border: 1px solid #faad14;
+}

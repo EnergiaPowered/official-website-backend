@@ -1,51 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import moment from "moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { deleteComment } from "../../services/comment.services";
 import "./BlogComment.css";
-import axios from "axios";
-import configs from "globals/config";
-import Loader from "shared/Loader";
 
-function BlogComment(props) {
-  const [comments, setcomments] = useState(null);
-
-  useEffect(() => {
-    const getBlogs = () =>
-      axios.get(`${configs.HOST}blogs/` + props.id + `/comments`);
-
-    getBlogs().then((res) => setcomments(res.data));
-  }, [props.id]);
-
-  const getDate = (date) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+function BlogComment({ id, email, blogComments, setBlogComments }) {
+  const handleRemove = (idToRemove) => {
+    deleteComment(id, idToRemove).then((res) => {
+      if (res.status === 200) {
+        setBlogComments(
+          blogComments.filter((comment) => comment._id !== idToRemove)
+        );
+      }
+    });
   };
 
-  const Commentlist = () =>
-    comments.map((comment) => {
-      return (
-        <div className="col-sm-5 col-md-6 col-12 comment text-justify">
-          <h4>{comment.name}</h4>
-          <span>- {getDate(new Date(comment.createdAt))}</span>
-          <p>{comment.content}</p>
-        </div>
-      );
-    });
+  const CommentList = () => {
+    return blogComments.map((comment) => (
+      <div className="comment" key={comment._id}>
+        <h5>{comment.name}</h5>
+        <span>
+          &nbsp;&nbsp;
+          {moment(new Date(comment.createdAt)).format("DD/MM/YYYY, hh:mm A")}
+        </span>
+        <p>{comment.content}</p>
+        {comment.email === email ? (
+          <FontAwesomeIcon
+            icon="trash"
+            className="remove-icon"
+            onClick={() => {
+              handleRemove(comment._id);
+            }}
+          />
+        ) : null}
+      </div>
+    ));
+  };
 
   return (
-    <div className="comment-container">
-      {comments ? <Commentlist /> : <Loader />}
+    <div className="comment-container col-12 col-md-7">
+      <CommentList />
     </div>
   );
 }

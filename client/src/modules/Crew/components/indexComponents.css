@@ -16,6 +16,8 @@ img.img_card {
     width: 300px;
     height: 300px;
     object-fit: cover;
+    object-position: top;
+    visibility: hidden;
 }
 
 .img_member img {

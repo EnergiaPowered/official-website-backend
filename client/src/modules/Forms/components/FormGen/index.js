@@ -10,7 +10,7 @@ import "./index.css";
 const FormGen = () => {
   const { TextArea } = Input;
   const [submitted, setSubmited] = useState(false);
-  const host = configs.HOST; /*"http://localhost:4000"*/ // localhost:4000 is my demo server matdo2e4 ":D
+  const host = configs.API_BASE_URL; /*"http://localhost:4000"*/ // localhost:4000 is my demo server matdo2e4 ":D
   const FORM_END_POINT = `${host}form`;
   const getObjects = (someObj, partOfKey) => {
     let neededObjects = [];

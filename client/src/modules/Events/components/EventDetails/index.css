@@ -4,7 +4,12 @@
 }
 
 .streaming-antennas {
+    width: 100%;
     position: relative;
+}
+
+.streaming-antennas img {
+    max-width: 100%;
 }
 
 .streaming-title {
@@ -13,6 +18,7 @@
     transform: translateX(-50%);
     z-index: 1;
     width: 100%;
+    text-align: center;
 }
 
 .streaming-sections {
@@ -227,6 +233,14 @@
         margin: 20% auto 0;
     }
 
+    .streaming-video {
+        height: 70vh;
+    }
+
+    .streaming-button {
+        margin: 0 auto;
+    }
+
     .comment-icon,
     .comment-info *,
     .streaming-description *,
@@ -235,7 +249,7 @@
     }
 
     .streaming-comments {
-        height: 40vw;
+        height: 60vw;
     }
 
     .streaming-comments>div>div {

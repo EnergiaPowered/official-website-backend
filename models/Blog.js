@@ -38,13 +38,7 @@ const blogSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: [
-        "Human Resources",
-        "Web Development",
-        "Mobile App Development",
-        "Embedded Systems",
-        "C++",
-      ],
+      required: true,
     },
     image_url: {
       type: String,

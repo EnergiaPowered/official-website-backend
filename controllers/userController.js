@@ -37,10 +37,10 @@ function validate_update(user) {
 
 module.exports = {
   getTheSignedInUser: async (req, res) => {
-    const user = await User.findById(req.user._id).select(
+    const user = await User.findOne({_id:req.user._id}).select(
       "-password -__v -_id"
     );
-    if (!res.body) {
+    if (!user) {
       return res.status(404).json({ message: "Can't find user" });
     }
     res.send(user);

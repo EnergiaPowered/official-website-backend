@@ -1,47 +1,28 @@
-import React, { useState, useEffect } from "react";
-import "./Headerforsingleblog.css";
-import axios from "axios";
-import configs from "globals/config";
+import React from "react";
+import parse from "html-react-parser";
+import moment from "moment";
 import Loader from "shared/Loader";
+import "./Headerforsingleblog.css";
 
-function HeaderForSingleBlogs(props) {
-  const [blog, setBlog] = useState("");
-
-  useEffect(() => {
-    const getBlogs = () => axios.get(`${configs.HOST}blogs/` + props.id);
-
-    getBlogs().then((res) => setBlog(res.data));
-  }, [props.id]);
-
-  const getDate = (date) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-  };
-
+function HeaderForSingleBlogs({ blog }) {
   const Blogs = () => {
     return (
-      <section className="details">
-        <img src={blog.image_url} title={blog.title} alt={blog.title} />
-        <div className="blog-details">
-          <h1 className="blog-cat">{blog.category}</h1>
+      <section className="details row">
+        <h1 className="blog-title col-12">{blog.title}</h1>
+        <div className="blog-details col-12 col-md-7">
+          <h3 className="blog-cat">{blog.category}</h3>
           <h6 className="blog-author">
-            posted by {blog.author} at {getDate(new Date(blog.createdAt))}
+            posted by {blog.author} at{" "}
+            {moment(new Date(blog.createdAt)).format("DD MMM YYYY")}
           </h6>
-          <p className="blog-body">{blog.body}</p>
+          <p className="blog-body">{parse(blog.body)}</p>
         </div>
+        <img
+          src={blog.image_url}
+          className="col-12 col-md-5"
+          title={blog.title}
+          alt={blog.title}
+        />
       </section>
     );
   };

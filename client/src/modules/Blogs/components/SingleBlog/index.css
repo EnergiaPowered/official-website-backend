@@ -1,4 +1,23 @@
-.page-container{
+.page-container {
     width: 90%;
     margin: 0 auto;
+}
+
+.comment-section {
+    margin-bottom: 5rem;
+}
+
+.comment-section .addcomment {
+    margin-bottom: 3rem;
+}
+
+@media(max-width:768px) {
+
+    .comment-section .comment-container {
+        order: 1;
+    }
+
+    .comment-section .addcomment {
+        order: 0;
+    }
 }
