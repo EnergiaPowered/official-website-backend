@@ -26,6 +26,7 @@ const Gates = lazy(() => import("modules/Gates"));
 const ForgetPassword = lazy(() => import("modules/ForgetPassword"));
 const ResetPassword = lazy(() => import("modules/ResetPassword"));
 const SingleBlog = lazy(() => import("modules/Blogs/components/SingleBlog"));
+const Profile = lazy(() => import("modules/Profile"));
 
 export default [
   {
@@ -159,6 +160,14 @@ export default [
   {
     path: "/blogs/:id",
     component: SingleBlog,
+    inNavbar: {
+      shown: false,
+      label: "",
+    },
+  },
+  {
+    path: "/profile/:id",
+    component: Profile,
     inNavbar: {
       shown: false,
       label: "",

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
+import Messaging from "Util/Messaging/index.js";
 
 /**
  * @file shared/Layout/index.js
@@ -16,11 +17,12 @@ import Footer from "../Footer";
 function Layout({ children }) {
   return (
     <>
+      <Messaging />
       <Navbar />
       {children}
       <Footer />
     </>
   );
-};
+}
 
 export default Layout;
