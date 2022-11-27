@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
-const socket = require("socket.io");
+//const socket = require("socket.io");
 const morgan = require("morgan");
 const app = express();
 
@@ -36,7 +36,7 @@ app.use("/api", require("./routes/message"));
 app.use("/api", require("./routes/blogs"));
 app.use("/api", require("./routes/blogsComments"));
 app.use("/api", require("./routes/events"));
-app.use("/api", require("./routes/chat").router);
+//app.use("/api", require("./routes/chat").router);
 app.use("/api", require("./routes/crew"));
 app.use("/api", require("./routes/committees"));
 app.use("/api", require("./routes/users"));
@@ -64,13 +64,13 @@ let Server = app.listen(port, (err) => {
   console.log(`Frontend Host: ${process.env.FRONT_HOST}`);
 });
 
-let IO = socket(Server, {
-  cors: {
-    origins: [process.env.FRONT_HOST],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["x-auth-token"],
-  },
-});
+// let IO = socket(Server, {
+//   cors: {
+//     origins: [process.env.FRONT_HOST],
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ["x-auth-token"],
+//   },
+// });
 
-const { io } = require("./routes/chat");
-io(IO);
+// const { io } = require("./routes/chat");
+// io(IO);
