@@ -5,7 +5,11 @@ nav.navbar {
   background-color: transparent;
   transition: all 0.3s;
 }
-
+.ainshams-logo-img {
+  background-color: #fff;
+  border-radius: 50%;
+  width: 90px;
+}
 nav.navbar .navbar-brand {
   width: 15%;
   transition: width 0.2s;
