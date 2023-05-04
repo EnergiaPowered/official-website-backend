@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import logo from "assets/logo.png";
+import ainShamsLogo from "assets/ain-shams.png";
 
 import routes from "globals/routes";
 
@@ -82,6 +83,15 @@ export default function Navbar() {
             title="logo of the team"
           />
         </Link>
+        <Link className={`navbar-brand ${scroll ? "img-scrolled" : ""}`} to="/">
+          <img
+            className="ainshams-logo-img"
+            src={ainShamsLogo}
+            alt="Energia's Logo"
+            title="logo of the team"
+          />
+        </Link>
+
         <button
           className="navbar-toggler"
           data-testid="toggler"
